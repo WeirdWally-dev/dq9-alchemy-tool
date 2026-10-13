@@ -1,5 +1,6 @@
 // Pannable, zoomable canvas that draws a recipe tree. Drag to move, pinch or wheel to zoom,
-// tap a bubble to open it.
+// tap a bubble to open it. Touch is handled directly (one finger pans, two fingers zoom around the
+// point between them), and on Android the tree is drawn with the GPU.
 #pragma once
 
 #include "core/tree.h"
@@ -8,6 +9,11 @@
 #include <QHash>
 #include <QPixmap>
 #include <QPoint>
+#include <QPointF>
+#include <QRectF>
+
+class QTouchEvent;
+class QVariantAnimation;
 
 #include <functional>
 
@@ -45,12 +51,26 @@ private:
     void addEdge(const dq9::Node &parent, const dq9::Node &child);
     void addBubble(int index, const dq9::NodePtr &node);
     void applySprite(QGraphicsPixmapItem *item, const QPixmap &px);
-    void zoomBy(double factor);
+    void zoomBy(double factor);   // animated, around the middle of the view
+    // Scale by factor so the scene point that was at fromView ends up at toView.
+    void zoomAround(const QPointF &fromView, const QPointF &toView, double factor);
+    void scrollByPixels(const QPointF &delta);
+    bool handleTouch(QTouchEvent *event);
+    void tapAt(const QPoint &pos);
+    double currentScale() const;
 
     SpriteFn m_spriteFn;
     QGraphicsScene *m_scene;
     QList<dq9::NodePtr> m_nodes;
     QHash<QString, QList<QGraphicsPixmapItem *>> m_spriteItems;   // skey -> icons waiting for / showing it
+    QRectF m_treeRect;           // the tree itself; the scene rect adds room to pan past its edges
     QPoint m_pressPos;
-    bool m_pinching = false;
+    // touch state
+    int m_touchCount = 0;
+    QPointF m_lastCenter;
+    double m_lastSpan = 0;
+    QPointF m_touchStart;
+    bool m_touchMoved = false;
+    QPointF m_scrollRemainder;
+    QVariantAnimation *m_zoomAnim = nullptr;
 };

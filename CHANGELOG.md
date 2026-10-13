@@ -2,6 +2,13 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
+## 1.3.3 - 2026-10-13
+
+- **Smooth zooming and panning on phones.** The recipe tree is now drawn with the GPU on Android, so pinch-zoom keeps up with your fingers and there's no more tearing.
+- Pinch zooms around the spot between your fingers and that spot stays under them; two fingers can pan while zooming. One-finger drags follow your finger exactly.
+- The **+** and **−** buttons zoom smoothly instead of jumping.
+- A tap opens a bubble only if your finger didn't move, so panning no longer opens things by accident.
+
 ## 1.3.2 - 2026-10-13
 
 - **Fixed: the app never finished loading** (nothing in the lists, on Android and everywhere else). The pause between web requests was miscalculated, so the second request of a session waited forever.

@@ -4,7 +4,6 @@
 #include "core/text.h"
 
 #include <QFontMetrics>
-#include <QGestureEvent>
 #include <QGraphicsPathItem>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
@@ -13,9 +12,14 @@
 #include <QGraphicsTextItem>
 #include <QMouseEvent>
 #include <QPainterPath>
-#include <QPinchGesture>
 #include <QScrollBar>
+#include <QTouchEvent>
+#include <QVariantAnimation>
 #include <QWheelEvent>
+#ifdef DQ9_GL_VIEWPORT
+#include <QOpenGLWidget>
+#include <QSurfaceFormat>
+#endif
 
 using namespace dq9;
 
@@ -37,13 +41,34 @@ QFont pixelFont(int px, bool bold)
 TreeView::TreeView(SpriteFn spriteFn, QWidget *parent)
     : QGraphicsView(parent), m_spriteFn(std::move(spriteFn)), m_scene(new QGraphicsScene(this))
 {
+#ifdef DQ9_GL_VIEWPORT
+    // Draw with the GPU: repainting the whole tree on the CPU at a phone's resolution can't keep up
+    // with a pinch, and the GL surface is synced to the display (no tearing).
+    auto *gl = new QOpenGLWidget;
+    QSurfaceFormat fmt = gl->format();
+    fmt.setSamples(4);   // antialiased edges
+    gl->setFormat(fmt);
+    setViewport(gl);
+#endif
     setScene(m_scene);
     setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
     setBackgroundBrush(QColor(theme::BG));
-    setDragMode(QGraphicsView::ScrollHandDrag);
+    setDragMode(QGraphicsView::ScrollHandDrag);   // mouse; touch is handled in handleTouch()
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    setViewportUpdateMode(QGraphicsView::FullViewportUpdate);   // a zoom changes everything anyway
+    setOptimizationFlags(QGraphicsView::DontSavePainterState | QGraphicsView::DontAdjustForAntialiasing);
     setFrameShape(QFrame::NoFrame);
-    viewport()->grabGesture(Qt::PinchGesture);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
+    m_zoomAnim = new QVariantAnimation(this);
+    m_zoomAnim->setDuration(180);
+    m_zoomAnim->setEasingCurve(QEasingCurve::OutCubic);
+    connect(m_zoomAnim, &QVariantAnimation::valueChanged, this, [this](const QVariant &v) {
+        const double target = v.toDouble();
+        const QPointF mid(viewport()->width() / 2.0, viewport()->height() / 2.0);
+        zoomAround(mid, mid, target / currentScale());
+    });
     message(QStringLiteral("Loading data..."));
 }
 
@@ -55,7 +80,8 @@ void TreeView::message(const QString &text)
     auto *t = m_scene->addText(text, pixelFont(15, false));
     t->setDefaultTextColor(QColor(theme::TEXT));
     t->setTextWidth(std::max(220, viewport()->width() - 60));
-    setSceneRect(t->sceneBoundingRect().adjusted(-20, -20, 20, 20));
+    m_treeRect = t->sceneBoundingRect().adjusted(-20, -20, 20, 20);
+    setSceneRect(m_treeRect);
     resetTransform();
     centerOn(t);
 }
@@ -71,14 +97,18 @@ void TreeView::showTree(const NodePtr &root)
             addEdge(*n, *c);
     for (int i = 0; i < m_nodes.size(); ++i)
         addBubble(i, m_nodes[i]);
-    setSceneRect(-30, -30, width + 60, height + 60);
+    m_treeRect = QRectF(-30, -30, width + 60, height + 60);
+    // Room to pan the tree's edges to the middle of the screen, at any zoom.
+    const double pad = 2000;
+    setSceneRect(m_treeRect.adjusted(-pad, -pad, pad, pad));
     fit();
 }
 
 void TreeView::fit()
 {
+    m_zoomAnim->stop();
     resetTransform();
-    fitInView(sceneRect(), Qt::KeepAspectRatio);
+    fitInView(m_treeRect, Qt::KeepAspectRatio);
     if (transform().m11() > 1)   // zoom out to fit a big tree, but never zoom in past 100%
         resetTransform();
     // On a narrow phone a big tree fits as a speck, so start the chosen item readable instead.
@@ -94,14 +124,43 @@ void TreeView::fit()
 void TreeView::zoomIn() { zoomBy(1.25); }
 void TreeView::zoomOut() { zoomBy(1 / 1.25); }
 
+double TreeView::currentScale() const
+{
+    return transform().m11();
+}
+
 void TreeView::zoomBy(double factor)
 {
-    const double now = transform().m11();
+    // Chain onto a running animation so quick repeated taps keep zooming.
+    const double from = currentScale();
+    const double base = m_zoomAnim->state() == QAbstractAnimation::Running ? m_zoomAnim->endValue().toDouble() : from;
+    m_zoomAnim->stop();
+    m_zoomAnim->setStartValue(from);
+    m_zoomAnim->setEndValue(std::clamp(base * factor, MIN_SCALE, MAX_SCALE));
+    m_zoomAnim->start();
+}
+
+void TreeView::scrollByPixels(const QPointF &delta)
+{
+    // Scroll bars are whole pixels; carry the fractions so slow drags don't drift or stall.
+    m_scrollRemainder += delta;
+    const int dx = int(std::lround(m_scrollRemainder.x()));
+    const int dy = int(std::lround(m_scrollRemainder.y()));
+    m_scrollRemainder -= QPointF(dx, dy);
+    horizontalScrollBar()->setValue(horizontalScrollBar()->value() + dx);
+    verticalScrollBar()->setValue(verticalScrollBar()->value() + dy);
+}
+
+void TreeView::zoomAround(const QPointF &fromView, const QPointF &toView, double factor)
+{
+    const double now = currentScale();
     const double target = std::clamp(now * factor, MIN_SCALE, MAX_SCALE);
+    const QPointF scenePt = viewportTransform().inverted().map(fromView);
     const auto anchor = transformationAnchor();
-    setTransformationAnchor(QGraphicsView::AnchorViewCenter);
+    setTransformationAnchor(QGraphicsView::NoAnchor);
     scale(target / now, target / now);
     setTransformationAnchor(anchor);
+    scrollByPixels(viewportTransform().map(scenePt) - toView);
 }
 
 void TreeView::addEdge(const Node &parent, const Node &child)
@@ -203,32 +262,73 @@ void TreeView::setSprite(const QString &name, const QPixmap &px)
 
 bool TreeView::viewportEvent(QEvent *event)
 {
-    if (event->type() == QEvent::Gesture) {
-        auto *ge = static_cast<QGestureEvent *>(event);
-        if (auto *pinch = static_cast<QPinchGesture *>(ge->gesture(Qt::PinchGesture))) {
-            if (pinch->state() == Qt::GestureStarted) {
-                m_pinching = true;
-                setDragMode(QGraphicsView::NoDrag);
-            }
-            if (pinch->changeFlags() & QPinchGesture::ScaleFactorChanged) {
-                const double now = transform().m11();
-                const double target = std::clamp(now * pinch->scaleFactor(), MIN_SCALE, MAX_SCALE);
-                const QPointF centre = mapToScene(viewport()->mapFromGlobal(pinch->centerPoint().toPoint()));
-                const auto anchor = transformationAnchor();
-                setTransformationAnchor(QGraphicsView::NoAnchor);
-                scale(target / now, target / now);
-                centerOn(centre);
-                setTransformationAnchor(anchor);
-            }
-            if (pinch->state() == Qt::GestureFinished || pinch->state() == Qt::GestureCanceled) {
-                m_pinching = false;
-                setDragMode(QGraphicsView::ScrollHandDrag);
-            }
-            ge->accept(pinch);
-            return true;
-        }
+    switch (event->type()) {
+    case QEvent::TouchBegin:
+    case QEvent::TouchUpdate:
+    case QEvent::TouchEnd:
+    case QEvent::TouchCancel:
+        return handleTouch(static_cast<QTouchEvent *>(event));
+    default:
+        return QGraphicsView::viewportEvent(event);
     }
-    return QGraphicsView::viewportEvent(event);
+}
+
+bool TreeView::handleTouch(QTouchEvent *event)
+{
+    QList<QPointF> pts;
+    for (const auto &p : event->points())
+        if (p.state() != QEventPoint::Released)
+            pts << p.position();
+
+    if (event->type() == QEvent::TouchBegin) {
+        m_zoomAnim->stop();
+        m_touchStart = pts.value(0);
+        m_touchMoved = false;
+        m_scrollRemainder = {};
+    }
+    if (event->type() == QEvent::TouchEnd || event->type() == QEvent::TouchCancel) {
+        if (event->type() == QEvent::TouchEnd && !m_touchMoved && !event->points().isEmpty())
+            tapAt(event->points().first().position().toPoint());
+        m_touchCount = 0;
+        event->accept();
+        return true;
+    }
+
+    if (pts.size() != m_touchCount) {   // a finger went down or up: start over, no jump
+        // The event that adds a finger can carry a stale position for the finger already down,
+        // so the baseline is taken from the next event instead.
+        m_touchCount = int(pts.size());
+        m_lastSpan = 0;
+        if (m_touchCount >= 2)
+            m_touchMoved = true;   // a pinch is never a tap
+        else if (m_touchCount == 1)
+            m_lastCenter = pts[0];
+        event->accept();
+        return true;
+    }
+
+    if (m_touchCount >= 2) {
+        const QPointF center = (pts[0] + pts[1]) / 2;
+        const double span = QLineF(pts[0], pts[1]).length();
+        if (m_lastSpan > 10 && span > 10) {
+            // Zoom and follow the fingers in one step. A single event never zooms more than 2x,
+            // so one glitchy touch report can't throw the view across the tree.
+            const double factor = std::clamp(span / m_lastSpan, 0.5, 2.0);
+            zoomAround(m_lastCenter, center, factor);
+        }
+        m_lastCenter = center;
+        m_lastSpan = span;
+    } else if (m_touchCount == 1) {
+        if (!m_touchMoved && (pts[0] - m_touchStart).manhattanLength() > 12) {
+            m_touchMoved = true;   // past the tap threshold: catch up on the movement so far
+            m_lastCenter = m_touchStart;
+        }
+        if (m_touchMoved)
+            scrollByPixels(m_lastCenter - pts[0]);
+        m_lastCenter = pts[0];
+    }
+    event->accept();
+    return true;
 }
 
 void TreeView::mousePressEvent(QMouseEvent *event)
@@ -240,9 +340,16 @@ void TreeView::mousePressEvent(QMouseEvent *event)
 void TreeView::mouseReleaseEvent(QMouseEvent *event)
 {
     QGraphicsView::mouseReleaseEvent(event);
+    if (event->source() != Qt::MouseEventNotSynthesized)
+        return;   // touch is handled in handleTouch()
     const QPoint pos = event->position().toPoint();
-    if (m_pinching || (pos - m_pressPos).manhattanLength() > 14)
-        return;   // that was a drag, not a tap
+    if ((pos - m_pressPos).manhattanLength() > 14)
+        return;   // that was a drag, not a click
+    tapAt(pos);
+}
+
+void TreeView::tapAt(const QPoint &pos)
+{
     // Topmost bubble or badge under the finger (badges sit above bubbles).
     for (QGraphicsItem *it : items(pos)) {
         for (QGraphicsItem *p = it; p; p = p->parentItem()) {
@@ -264,7 +371,6 @@ void TreeView::mouseReleaseEvent(QMouseEvent *event)
 void TreeView::wheelEvent(QWheelEvent *event)
 {
     const double factor = event->angleDelta().y() > 0 ? 1.15 : 1 / 1.15;
-    const double now = transform().m11();
-    const double target = std::clamp(now * factor, MIN_SCALE, MAX_SCALE);
-    scale(target / now, target / now);
+    const QPointF at = event->position();
+    zoomAround(at, at, factor);   // the point under the mouse stays put
 }

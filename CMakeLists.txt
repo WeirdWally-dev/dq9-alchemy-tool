@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 # The app's version. Release builds take it from the release tag (CI passes -DDQ9_VERSION=1.4.0 for
 # tag v1.4.0), so this default only matters for builds that aren't releases.
-set(DQ9_VERSION "1.3.2" CACHE STRING "App version (major.minor.patch)")
+set(DQ9_VERSION "1.3.3" CACHE STRING "App version (major.minor.patch)")
 project(DQ9AlchemyHelper VERSION ${DQ9_VERSION} LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -90,6 +90,13 @@ set_target_properties(dq9alchemy PROPERTIES
     WIN32_EXECUTABLE ON
     MACOSX_BUNDLE ON
 )
+
+# On Android the tree is drawn with OpenGL (smooth pinch-zoom, no tearing).
+if(ANDROID)
+    find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+    target_link_libraries(dq9alchemy PRIVATE Qt6::OpenGLWidgets)
+    target_compile_definitions(dq9alchemy PRIVATE DQ9_GL_VIEWPORT)
+endif()
 
 if(ANDROID)
     math(EXPR DQ9_VERSION_CODE "${PROJECT_VERSION_MAJOR} * 10000 + ${PROJECT_VERSION_MINOR} * 100 + ${PROJECT_VERSION_PATCH}")

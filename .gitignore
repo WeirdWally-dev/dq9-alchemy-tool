@@ -24,3 +24,9 @@ Thumbs.db
 
 # Debug dumps
 debug/
+
+# C++ / Qt builds
+build*/
+CMakeLists.txt.user*
+*.apk
+*.jks

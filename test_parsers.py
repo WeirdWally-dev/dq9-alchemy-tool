@@ -503,6 +503,40 @@ def test_material_list():
     assert st.load_list_choices() == {s2.key: False}
 
 
+def test_bookmarks():
+    import tempfile, pathlib, threading
+    R = d.Recipe
+    turtle = d.Enemy(1, "Shell slime", "u", "", "", [d.Drop("Tortoiseshell", "Item", 1, 8)])
+    reg = d.Registry([turtle], [R("Gold platter", "Shields", [("Silver platter", 1)]),
+                                R("Tortoise shell", "Torso", [("Tortoiseshell", 2)])])
+    marks = []
+    gp, ts, shell = reg.resolve("Gold platter"), reg.items["tortoiseshell~equip"], reg.resolve("Tortoiseshell")
+    assert d.toggle_bookmark(marks, gp) and d.toggle_bookmark(marks, ts)
+    assert d.is_bookmarked(marks, gp) and d.is_bookmarked(marks, ts)
+    assert not d.is_bookmarked(marks, shell) and not d.is_bookmarked(marks, None)   # near-same name stays apart
+    assert [i.name for _, i in d.bookmark_items(reg, marks)] == ["Gold platter", "Tortoise shell"]
+    d.move_bookmark(marks, ts, -1)
+    assert [m["name"] for m in marks] == ["Tortoise shell", "Gold platter"]
+    d.move_bookmark(marks, ts, -1)                                   # already first: no change
+    assert [m["name"] for m in marks] == ["Tortoise shell", "Gold platter"]
+    assert not d.toggle_bookmark(marks, gp) and [m["name"] for m in marks] == ["Tortoise shell"]
+    # a stale key is found again by name and repaired; an item no source has any more shows as None
+    marks = [{"key": "oldkey", "name": "Gold platter"}, {"key": "gone", "name": "Mystery blade"}]
+    found = d.bookmark_items(reg, marks)
+    assert found[0][1] is gp and found[1][1] is None
+    assert d.refresh_bookmark_keys(reg, marks) and marks[0]["key"] == gp.key and d.is_bookmarked(marks, gp)
+    assert not d.refresh_bookmark_keys(reg, marks)
+    # saved between runs; a damaged file is ignored
+    st = d.Store.__new__(d.Store)
+    st.dir = pathlib.Path(tempfile.mkdtemp())
+    st._loc_lock = threading.Lock()
+    assert st.load_bookmarks() == []
+    st.save_bookmarks(marks)
+    assert st.load_bookmarks() == marks
+    (st.dir / "bookmarks.json").write_text('{"not": "a list"}', encoding="utf-8")
+    assert st.load_bookmarks() == []
+
+
 def test_shops():
     import json, threading, tempfile, pathlib
     st = d.Store.__new__(d.Store)
@@ -714,6 +748,7 @@ def main():
     test_weapons()
     test_unsourced_items()
     test_material_list()
+    test_bookmarks()
     print("all parser tests passed")
 
 

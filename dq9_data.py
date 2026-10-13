@@ -1112,6 +1112,20 @@ class Store:
         self._write("enemies.json", [asdict(e) for e in enemies])
         return enemies
 
+    # bookmarks: [{"key": registry key, "name": item name}, ...] in the order they were added ------
+    def load_bookmarks(self) -> List[Dict[str, str]]:
+        raw = self._read("bookmarks.json", [])
+        if not isinstance(raw, list):
+            return []
+        return [{"key": str(b.get("key", "")), "name": str(b.get("name", ""))}
+                for b in raw if isinstance(b, dict) and (b.get("key") or b.get("name"))]
+
+    def save_bookmarks(self, marks: List[Dict[str, str]]) -> None:
+        try:
+            self._write("bookmarks.json", marks)
+        except OSError:
+            pass
+
     # material-list choices: item key -> break it down (True) or list it whole (False) ----------
     def load_list_choices(self) -> Dict[str, bool]:
         raw = self._read("list_choices.json", {})
@@ -1560,6 +1574,55 @@ class Registry:
     def droppers_of(self, name: str) -> List[Tuple[Enemy, Drop]]:
         info = self.resolve(name)
         return info.droppers if info else []
+
+
+# --------------------------------------------------------------------------- bookmarks
+BOOKMARKS_CAT = "\u2605 Bookmarks"
+
+
+def bookmark_items(reg: Registry, marks: List[Dict[str, str]]) -> List[Tuple[Dict[str, str], Optional[ItemInfo]]]:
+    """Each bookmark with the item it points at now: by registry key, else by name (keys can change
+    when a data source is refreshed or imported). None if the item is no longer in any source."""
+    out = []
+    for m in marks:
+        info = reg.items.get(m.get("key", "")) or (reg.resolve(m["name"]) if m.get("name") else None)
+        out.append((m, info))
+    return out
+
+
+def refresh_bookmark_keys(reg: Registry, marks: List[Dict[str, str]]) -> bool:
+    """Point bookmarks at the items' current keys (in place). Matching is by key from then on, so
+    near-identical names (Tortoiseshell / Tortoise shell) stay separate. True if anything changed."""
+    changed = False
+    for m, info in bookmark_items(reg, marks):
+        if info and (m.get("key") != info.key or m.get("name") != info.name):
+            m["key"], m["name"] = info.key, info.name
+            changed = True
+    return changed
+
+
+def toggle_bookmark(marks: List[Dict[str, str]], info: ItemInfo) -> bool:
+    """Add or remove `info` (in place). Returns True if it is bookmarked afterwards."""
+    for i, m in enumerate(marks):
+        if m.get("key") == info.key:
+            del marks[i]
+            return False
+    marks.append({"key": info.key, "name": info.name})
+    return True
+
+
+def is_bookmarked(marks: List[Dict[str, str]], info: Optional[ItemInfo]) -> bool:
+    return bool(info) and any(m.get("key") == info.key for m in marks)
+
+
+def move_bookmark(marks: List[Dict[str, str]], info: ItemInfo, step: int) -> None:
+    """Move a bookmark up (step -1) or down (+1) the list, in place."""
+    for i, m in enumerate(marks):
+        if m.get("key") == info.key:
+            j = i + step
+            if 0 <= j < len(marks):
+                marks[i], marks[j] = marks[j], marks[i]
+            return
 
 
 # --------------------------------------------------------------------------- rendering

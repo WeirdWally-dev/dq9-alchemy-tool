@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App icon: a round alchemy pot on a dark tile, with a blue bubble rising from it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="#17181C"
+        android:pathData="M24,8h60a16,16 0,0 1,16 16v60a16,16 0,0 1,-16 16h-60a16,16 0,0 1,-16 -16v-60a16,16 0,0 1,16 -16z" />
+    <path android:fillColor="#E0B030"
+        android:pathData="M30,52h48a4,4 0,0 1,4 4v2a28,24 0,0 1,-56 0v-2a4,4 0,0 1,4 -4z" />
+    <path android:fillColor="#5C4A14"
+        android:pathData="M28,48h52a3,3 0,0 1,0 6h-52a3,3 0,0 1,0 -6z" />
+    <path android:fillColor="#3B6EA8"
+        android:pathData="M54,22m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0" />
+    <path android:fillColor="#8FBCF2"
+        android:pathData="M42,38m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+    <path android:fillColor="#4FC1B5"
+        android:pathData="M66,40m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+</vector>

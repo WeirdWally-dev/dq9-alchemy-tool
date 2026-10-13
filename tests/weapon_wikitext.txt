@@ -1,0 +1,223 @@
+{{DQ9}}
+{| border="1" cellpadding="1" class="wikitable sortable"
+!style="background:#9d0000; color: gold;"| Category
+!style="background:#9d0000; color: gold;"| Image
+!style="background:#9d0000; color: gold;"| Name
+!style="background:#9d0000; color: gold;"| Attack
+!style="background:#9d0000; color: gold;"| Equip
+!style="background:#9d0000; color: gold;"| Buy / Sell
+!style="background:#9d0000; color: gold;"| Recipes
+!style="background:#9d0000; color: gold;"| Area
+!style="background:#9d0000; color: gold;"| Drop
+!style="background:#9d0000; color: gold;"| Notes
+|-
+| {{Axe}}
+| [[Image:IronAxe.png|100px]]
+| [[Iron axe]]
+| 30
+| GL, RA
+| 1800, 900
+| N/A
+| [[Porth Llaffan]]
+|
+|
+|-
+| {{Axe}}
+| [[Image:Steel axe 9 artwork.png|100px]]
+| [[Steel axe]]
+| 47
+| GL, RA
+| N/A, 2100
+| Iron axe x 1, [[Iron ore]] x 1, [[Lava lump]] x 1
+| N/A
+|
+|
+|-
+| {{Axe}}
+| [[File:Kaiser axe IX artwork.png|100px]]
+| [[Kaiser axe]]
+| 110
+| GL, RA
+| N/A, 15000
+| [[King axe x 1, [[Slime crown]] x 1, [[Monarchic mark]] x 1
+| N/A
+|
+|
+|-
+| {{Axe}}
+| [[File:Pro's axe 9 art.png|100px]]
+| [[Pro's axe]]
+| 87
+| GL, RA
+| N/A, 9900
+| N/A
+| Quest #79 reward
+| [[Trauminator]] (R)
+| 20% bonus damage to [[Nature family|plants]].
+|-
+| {{Axe}}
+| [[File:Galaxy axe IX artwork.png|100px]]
+| [[Galaxy axe]]
+| 178
+| GL, RA
+| N/A, 36000
+| 20% chance to alchemize when crafting a Maxi axe.
+|
+|
+| Removes target's [[Tension]].
+|-
+| {{Boomerang}}
+| [[File:Boomerang ix artwork.png|100px]]
+| {{Boomerang W}}
+| 9
+| WA, RA
+| 420, 210
+| N/A
+| [[Stornway]], [[Coffinwell]]
+|
+|
+|-
+| Boomerang
+| [[File:Reinforced boomerang IX artwork.png|100px]]
+| [[Reinforced boomerang]]
+| 15
+| WA, RA
+| N/A, 500
+| {{Boomerang W}} x 1, [[Iron nail]]s x3
+| N/A
+|
+|
+|-
+| Bow
+| [[File:Nopic.png|center|100px]]
+| [[Longbow]]
+| 40
+| RA, AR, SA
+| N/A, 1175
+| Short bow x 1, Laundry pole x 1
+| N/A
+|
+|
+|-
+| Claws
+| [[File:Sacred claws artwork.png|100px]]
+| [[Sacred claws]]
+| 40
+| MA
+| N/A, 2000
+| N/A
+| N/A
+| [[Scarewolf]] (R), Claws (N)
+|
+|-
+| Knife
+| [[File:Falcon Knife Earrings.png|100px]]
+| [[Falcon knife earrings]]
+| 25
+| TH
+| 7000,
+| Falcon knife x 1, Agility ring x 1
+| N/A
+|
+|
+|-
+| Knife
+| [[File:DQIX Dread Dagger Artwork.png|100px]]
+| [[Dread dagger]]
+| 66
+| WA, TH
+| N/A, 3000
+| Batterfly knife x 1, Disturbin turban x 1, [[Butterfly wing]] x
+| N/A
+|
+|
+|-
+| Knife
+| [[File:DQIX Sword Breaker Artwork.png|100px]]
+| [[Sword breaker]]
+| 52
+| WA, TH
+| 15500, 7750|
+| N/A
+| [[Upover]]
+|
+|
+|-
+| Staff
+| [[File:Pillar of strength IX artwork.png|100px]]
+| [[Pillar of strength]]
+| 50
+| 3400, 1700
+| MA, PA
+| N/A
+| [[Gleeba]]
+|
+|
+|-
+| Hammer
+| [[File:Starsmasher IX artwork.png|100px]]
+| [[Starsmasher]]
+| 140
+| WA, AR
+| N/A, 40000
+| Earthsplitter x 1, Agate of evolution x 3, Yellow orb x 3 (Alchemiracle)
+|
+|
+|
+|-
+| Hammer
+| [[File:Moonmasher IX artwork.png|100px]]
+| [[Moonmasher]]
+| 120
+| WA, AR
+| N/A, 30000
+|
+|
+|
+|
+|-
+| Sword
+| [[File:Copper sword IX artwork.png|100px]]
+| [[Copper sword]]
+| 12
+| WA, TH
+| 150g, 15g, [[Angel Falls]], [[Stornway]]
+| N/A
+|
+|
+|
+|-
+| Sword
+| [[File:Warrior's sword IX artwork.png|100px]]
+| [[Warrior's sword]]
+| 32
+| WA
+| Quest 363 reward, 3700g
+| N/A
+| N/A
+|
+|
+|-
+| Sword
+| [[File:Miracle sword IX artwork.png|100px]]
+| [[Miracle sword]]
+| 83
+| WA, PL
+| 32 Mini Medals, 9250
+| N/A
+| N/A
+|
+|
+|-
+| Wand
+| [[File:Sceptre of Gitt IX artwork.png|100px]]
+| [[Scepter of Gitt]]
+| 50
+| PR, MG, SA
+| N/A, N/A
+| N/A
+| N/A
+| King Godwyn (1)
+| Casts Bounce when used in battle.
+|}
+{{DQIX}}

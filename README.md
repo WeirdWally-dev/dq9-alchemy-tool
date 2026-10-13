@@ -1,126 +1,111 @@
-# DQ9 Alchemy Helper
+# DQ9 Alchemy Helper for Android (C++ / Qt 6)
 
-A desktop app for **Dragon Quest IX: Sentinels of the Starry Skies** that tells you how to get any piece of equipment or item: craft it in the Krak Pot, farm it from monsters, or buy it in a shop.
+This branch (`android-cpp`) is a C++ rewrite of the DQ9 Alchemy Helper so it runs natively on Android phones and tablets. The original Python/PyQt5 Windows app lives on `main` and is unchanged.
 
-Pick an equipment type, pick an item, and the app draws a tree showing everything that goes into it. Each recipe is broken down into its ingredients, and each ingredient shows the monsters that drop it (with drop odds and locations) and the shops that sell it.
+It tells you how to get any piece of equipment or item in **Dragon Quest IX: Sentinels of the Starry Skies**: craft it in the Krak Pot, farm it from monsters, or buy it in a shop.
 
 ## Features
 
-- **Equipment browser.** Choose a category (swords, axes, spears, head, torso, accessories, ingredients and more) and filter the item list by name.
-- **Recipe tree.** A visual bubble map of the full recipe, unfolding nested recipes for crafted ingredients. Quantities sit on the connecting lines.
-- **Monster drops.** Which monsters drop an item, at what rate, and where to find them. Monsters are sorted by best drop rate first, and the "Monsters shown" box controls how many appear. A small **+** badge reveals the rest.
-- **Shops.** Every town and shop that sells an item (362 items, 567 listings across 15 shop pages), plus the weapon shops named on the wiki's weapon list.
-- **Weapon list.** Every weapon on the Dragon Quest Wiki's weapon list, with its picture, attack, vocations, buy and sell price and notes. Quest rewards, chests, bonus-alchemy chances and boss drops show as teal **Found** bubbles. Cells the wiki marks N/A are left out rather than shown as a location.
-- **Material list.** Switch **View** to *Material list* to flatten the tree into one shopping list: every raw ingredient added up across the whole recipe chain (if Sword 1 needs Sword 2 and 5 Slimedrops, and Sword 2 needs 4 Slimedrops, the list says 9 Slimedrops), plus what you'll craft along the way, in the order to craft it. Each craftable item has a tick box: ticked breaks it down into its ingredients, unticked lists the item itself and ignores its recipe (handy when you already own one). Choices are remembered per item. Set how many to make, pick between recipes, and copy the list as text.
-- **Bookmarks.** Star the items you keep coming back to with **☆ Bookmark** (or Ctrl+D), then pick **★ Bookmarks** at the top of the Equipment type list (or press Ctrl+B) to see them all in one place. Bookmarked items show a ★ in every list. Right-click an item to add or remove it, or to reorder your bookmarks. They're saved between runs.
-- **Craft or farm toggle.** When an item can be both crafted and dropped, show just one route to keep the tree readable.
-- **Chests, grottos and quests.** When nothing else gives a source for an item, the app reads its dqnine.wikidot.com page ("Where to find", "Reward for") and shows those as **Found** bubbles, so items like the Silver platter no longer show "no known source".
-- **Item details.** Double-click any bubble for its description, sell price, stats and special effects.
-- **Dark mode** throughout.
-- **Polite and cached.** Online data is fetched once, respecting each site's `robots.txt`, and cached in `~/.dq9_helper/`.
+Everything from the desktop app (version 1.2.0), laid out for a phone:
 
-## Download (Windows)
+- **Browse** equipment by type (swords, axes, head, torso, accessories, ingredients and more) and filter by name.
+- **Recipe tree.** The full recipe as a bubble map, with nested recipes unfolded, monster drops (best rate first) and shops. Drag to move, pinch to zoom, **Fit** to see it all. Tap any bubble for its details; a yellow **+** badge means more monsters drop it.
+- **Material list.** The whole recipe chain flattened into one shopping list with totals, plus what you craft along the way, in order. Tick or untick craftable items to break them down or not. Copy the list to the clipboard.
+- **Bookmarks.** Tap ☆ on an item to star it; pick **★ Bookmarks** at the top of the type list to see them all.
+- **Weapon list, shops, quests and chests**, from the Dragon Quest Wiki, dqnine.wikidot.com and the bundled shop list.
+- **Prefer alchemy or drops** when an item can be both crafted and dropped.
+- **Dark theme**, Android back gesture goes back a screen.
+- **Polite and cached.** Online data is fetched once, respecting each site's `robots.txt`, and kept in the app's private storage.
 
-Grab `DQ9-Alchemy-Helper.exe` from the [latest release](https://github.com/WeirdWally-dev/dq9-alchemy-tool/releases/latest) and double-click it. No Python needed.
+The one desktop feature not carried over is importing the `.xlsx` recipe spreadsheet; its 445 recipes still ship with the app.
 
-Windows SmartScreen may warn about an unrecognised app the first time, because the exe isn't code-signed. Click **More info → Run anyway**. Your cached data lives in `%USERPROFILE%\.dq9_helper\`, so it carries over when you update.
+## Install on your phone
 
-## Running from source
+1. Open the repo's **Actions** tab, pick the latest green **Build Android app** run on `android-cpp`, and download **DQ9-Alchemy-Helper-apk** from its Artifacts (or grab the APK from a release tagged `android-v...`).
+2. Copy `DQ9-Alchemy-Helper.apk` to your phone and open it. Android will ask you to allow installing from that source the first time.
 
-Requirements: Python 3.9 or newer (developed on 3.13) and the packages in `requirements.txt`.
+Needs Android 9 or newer on a 64-bit (arm64) device, which covers nearly every phone from the last several years.
 
-```bash
-git clone https://github.com/WeirdWally-dev/dq9-alchemy-tool.git
-cd dq9-alchemy-tool
-python -m pip install -r requirements.txt
-```
+The first launch needs an internet connection to download the enemy and weapon lists (one request each). After that it works offline for anything you've already looked at.
 
-## Usage
+## Building it yourself
+
+You need Qt 6.8 (with the Android arm64 kit and the matching desktop kit), Android SDK + NDK r26b, JDK 17 and CMake 3.21+.
 
 ```bash
-python dq9_alchemy_helper.py
+# desktop build + tests (handy for development; the window is phone-shaped)
+cmake -S . -B build -G Ninja -DCMAKE_PREFIX_PATH=/path/to/Qt/6.8.3/gcc_64
+cmake --build build
+./build/dq9_tests
+./build/DQ9AlchemyHelper
+
+# Android APK
+/path/to/Qt/6.8.3/android_arm64_v8a/bin/qt-cmake -S . -B build-android -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DQT_HOST_PATH=/path/to/Qt/6.8.3/gcc_64 \
+    -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT -DANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/26.1.10909125
+cmake --build build-android --target apk
 ```
 
-The first launch downloads the enemy list and the weapon list (one request each). Monster locations and item details are looked up the first time you view them, then cached.
+Or open `CMakeLists.txt` in Qt Creator, pick the Android kit and press Run with your phone plugged in.
 
-> **VS Code users:** if you get `ModuleNotFoundError: No module named 'PyQt5'` but `pip` says it's installed, VS Code is using a different Python interpreter than your terminal. Pick the right one with **Python: Select Interpreter** in the Command Palette.
+HTTPS on Android needs OpenSSL inside the APK; CMake fetches KDAB's prebuilt `android_openssl` libraries for that automatically.
 
-### Controls
+## Signing and releases
 
-| Control | What it does |
+GitHub Actions builds the APK on every push to `android-cpp`. To have each new version install over the old one, add a signing key as repository secrets (**Settings → Secrets and variables → Actions**):
+
+| Secret | What |
 |---|---|
-| Equipment type | Chooses the category of items to list |
-| Filter box | Narrows the item list by name |
-| Monsters shown | How many dropping monsters to show per item (highest drop rate first) |
-| ☆ Bookmark (Ctrl+D) | Adds the selected item to your bookmarks, or removes it |
-| ★ Bookmarks (Ctrl+B) | Lists your bookmarked items; right-click one to remove or reorder it |
-| View | Recipe tree, or the totalled material list |
-| Show | Prefer the alchemy recipe or the monster drop when an item has both (also the material list's default for whether to break an item down) |
-| Fit to window | Rescales the tree to fit the view |
-| Import spreadsheet... | Re-reads a recipe spreadsheet (`.xlsx`) |
-| Import woodus page... | Imports a recipes page you saved from your browser (see below) |
-| Refresh data | Clears cached data and fetches it again |
+| `ANDROID_KEYSTORE_BASE64` | your `.jks` keystore, base64-encoded (`base64 -w0 release.jks`) |
+| `ANDROID_KEYSTORE_PASSWORD` | its password |
+| `ANDROID_KEY_ALIAS` | the key's alias |
+
+Make a key once with `keytool -genkeypair -keystore release.jks -alias dq9 -keyalg RSA -keysize 2048 -validity 10000` and keep it safe. Without these secrets the build signs with a throwaway key, so you'd need to uninstall before installing the next build.
+
+To publish a release: bump `VERSION` in `CMakeLists.txt`, add a matching `## x.y.z` section at the top of `CHANGELOG.md`, then tag and push:
+
+```bash
+git tag android-v1.2.0
+git push origin android-cpp android-v1.2.0
+```
+
+## Project structure
+
+```
+src/core/          Data layer, no GUI (unit-tested)
+  text, html       Name matching, regex helpers; a small DOM over the gumbo HTML5 parser
+  parsers          Enemy list, monster pages, woodus recipes, item pages, icons, spreadsheet columns
+  wikitext         The wiki's weapon list (read from its wikitext source)
+  robots, http     robots.txt rules (same as Python's robotparser) and polite, rate-limited HTTP
+  store            Download cache (app storage on Android, ~/.dq9_helper on desktop)
+  registry         Cross-references every source; bookmarks
+  render           HTML for the info pages
+  tree             The recipe tree and the material list
+src/app/           Qt Widgets UI: browse / item / info screens, tree canvas, background workers
+tests/             Test suite (port of the Python test_parsers.py)
+data/              Bundled recipes (445) and shop listings (362 items)
+android/           Android manifest and launcher icon
+third_party/gumbo  Google's gumbo HTML5 parser (Apache-2.0)
+```
 
 ## Data sources
 
 | Data | Source | How it gets in |
 |---|---|---|
-| Alchemy recipes (445) | Community recipe spreadsheet | Bundled as `sheet_recipes.json` |
+| Alchemy recipes (445) | Community recipe spreadsheet | Bundled (`data/sheet_recipes.json`) |
 | Monsters, drops, drop rates, locations | [Dragon Quest Wiki](https://dragon-quest.org/wiki/List_of_enemies_in_Dragon_Quest_IX) | Fetched on demand and cached |
-| Weapons: pictures, stats, prices, where to get them | [Dragon Quest Wiki](https://dragon-quest.org/wiki/List_of_weapons_in_Dragon_Quest_IX) | Fetched once (page source via the wiki API) and cached |
-| Shop listings | [dqnine.wikidot.com/shops](http://dqnine.wikidot.com/shops) | Bundled as `shops_bundled.json` |
-| Item details | dqnine.wikidot.com item pages | Fetched on demand and cached |
-| Extra recipes (optional) | [Woodus Dragon's Den](https://www.woodus.com/den/games/dq9ds/alchemy_recipes.php) | Manual import |
+| Weapons: pictures, stats, prices, where to get them | [Dragon Quest Wiki](https://dragon-quest.org/wiki/List_of_weapons_in_Dragon_Quest_IX) | Fetched once and cached |
+| Shop listings | [dqnine.wikidot.com/shops](http://dqnine.wikidot.com/shops) | Bundled (`data/shops_bundled.json`) |
+| Item details, chests, quests | dqnine.wikidot.com item pages | Fetched on demand and cached |
+| Extra recipes (optional) | [Woodus Dragon's Den](https://www.woodus.com/den/games/dq9ds/alchemy_recipes.php) | Manual import of a saved page |
 
-Woodus's `robots.txt` asks automated tools not to fetch its recipe page, so the app never downloads it. To use it anyway, open the page in your browser, save it with **Ctrl+S** as "Webpage, HTML only", and load it with **Import woodus page...**.
+Woodus's `robots.txt` asks automated tools not to fetch its recipe page, so the app never downloads it. To use it anyway, save the page from a browser and load it with **⋮ → Import woodus page...**.
 
-The weapon list is hand-edited, so the parser tolerates its quirks (N/A cells, prices with or without "g", quest notes in the price column, cut-off recipe cells, one row with two columns swapped). Its recipes are only used when no other source has one. The Longbow row shows a placeholder picture, so the app uses the wiki's *Long bow IX artwork* file instead (see `SPRITE_FIXES` in `dq9_data.py` to correct others).
-
-Item names are matched exactly, because the game has distinct items with near-identical names (for example the *Tortoiseshell* ingredient and the *Tortoise shell* armour).
-
-## Project structure
-
-```
-dq9_alchemy_helper.py   PyQt5 GUI: main window, tree view, detail dialogs
-dq9_data.py             Data layer: scraping, parsing, caching, cross-referencing
-dq9_tree.py             Builds the recipe/drop/shop tree the GUI draws
-version.py              The app's version number
-sheet_recipes.json      Bundled alchemy recipes
-shops_bundled.json      Bundled shop listings
-test_parsers.py         Test suite (no network or PyQt5 needed)
-CHANGELOG.md            Release notes for each version
-scripts/                Release helper
-.github/workflows/      Builds the Windows exe and publishes releases
-```
-
-## Running the tests
-
-```bash
-python test_parsers.py
-```
-
-## Making a release
-
-Releases are built automatically by GitHub Actions. To ship a new version:
-
-1. Bump `__version__` in `version.py` (for example `1.1.0`).
-2. Add a `## 1.1.0 - <date>` section at the top of `CHANGELOG.md` listing what changed. This becomes the release notes.
-3. Commit, then tag and push:
-
-   ```bash
-   git commit -am "Release 1.1.0"
-   git tag v1.1.0
-   git push origin main v1.1.0
-   ```
-
-The workflow runs the tests, checks that the tag, `version.py` and `CHANGELOG.md` agree, builds the exe with PyInstaller on Windows, and publishes it on the Releases page. Progress shows under the repo's **Actions** tab.
-
-For a test build without publishing, open **Actions → Build Windows app → Run workflow**. The exe appears as a downloadable artifact on that run.
-
-Version numbers follow `MAJOR.MINOR.PATCH`: bump PATCH for fixes, MINOR for new features, MAJOR for big changes.
+Item names are matched exactly (ignoring case, spacing and accents), because the game has distinct items with near-identical names, like the *Tortoiseshell* ingredient and the *Tortoise shell* armour.
 
 ## License
 
-GPL-3.0. See [LICENSE](LICENSE). The app uses PyQt5, which is licensed under the GPL.
+GPL-3.0. See [LICENSE](LICENSE). Uses Qt (LGPL-3.0/GPL) and gumbo-parser (Apache-2.0).
 
 Dragon Quest is a trademark of Square Enix. This is an unofficial fan tool, not affiliated with or endorsed by Square Enix. Game data belongs to its original sources and the community sites listed above.

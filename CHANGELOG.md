@@ -2,6 +2,13 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
+## 1.1.0 - 2026-10-13
+
+- **Weapon list.** Every weapon on the Dragon Quest Wiki's weapon list now shows its picture, attack, vocations, buy and sell price and notes. Quest rewards, chests, bonus-alchemy chances and boss drops appear as teal **Found** bubbles; cells the wiki marks N/A are left out. Longbow gets its real picture (the list page shows a placeholder).
+- **Material list.** Switch **View** to *Material list* for a single shopping list: every ingredient added up across the whole recipe chain, plus what you'll craft along the way, in order. Tick a craftable item to break it down into its ingredients, or untick it to list the item itself. Choices are remembered. Set how many to make, pick between recipes, and copy the list as text.
+- **Fewer "no known source" items.** Items that only come from chests, grottos, dungeons or quests (like the Silver platter) now show where to find them, taken from their dqnine.wikidot.com page.
+- Names that differ only by a plural or an accent now match (Iron nails / Iron nail, Über / Uber).
+
 ## 1.0.0 - 2026-10-13
 
 First release, as a standalone Windows app.

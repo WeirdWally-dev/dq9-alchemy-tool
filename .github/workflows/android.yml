@@ -1,14 +1,14 @@
 name: Build Android app
 
-# Every push to the android-cpp branch runs the tests and builds an APK (download it from the
-# run's Artifacts). A version tag on this branch (v1.3.0, or android-v1.3.0) also publishes the
-# APK on that GitHub Release, creating it if you haven't already made it on the website.
+# Every push to main runs the tests and builds an APK (download it from the run's Artifacts).
+# If a GitHub Release named v<VERSION from CMakeLists.txt> exists, the APK is attached to it, so
+# making the release on the website is enough. Pushing a version tag (v1.4.0) also publishes it.
 on:
   push:
-    branches: ["android-cpp"]
+    branches: ["main", "android-cpp"]
     tags: ["v*", "android-v*"]
   pull_request:
-    branches: ["android-cpp"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -135,20 +135,26 @@ jobs:
           path: DQ9-Alchemy-Helper.apk
 
       - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/')
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          version="${GITHUB_REF_NAME#android-}"
-          version="${version#v}"
-          grep -q "VERSION ${version} " CMakeLists.txt || { echo "Tag ${GITHUB_REF_NAME} doesn't match the VERSION in CMakeLists.txt"; exit 1; }
-          awk -v v="$version" '/^## /{if(found)exit; found=($2==v)} found && !/^## /' CHANGELOG.md > notes.md
-          [ -s notes.md ] || { echo "CHANGELOG.md has no '## ${version}' section"; exit 1; }
-          # If the release was already made on GitHub's website, attach the APK to it instead.
-          if gh release view "${GITHUB_REF_NAME}" > /dev/null 2>&1; then
-            gh release upload "${GITHUB_REF_NAME}" DQ9-Alchemy-Helper.apk --clobber
-            gh release edit "${GITHUB_REF_NAME}" --notes-file notes.md
+          code_version=$(sed -nE 's/^project\(DQ9AlchemyHelper VERSION ([0-9.]+) .*/\1/p' CMakeLists.txt)
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            tag="$GITHUB_REF_NAME"
+            version="${tag#android-}"; version="${version#v}"
+            [ "$version" = "$code_version" ] || { echo "Tag $tag doesn't match VERSION $code_version in CMakeLists.txt"; exit 1; }
           else
-            gh release create "${GITHUB_REF_NAME}" DQ9-Alchemy-Helper.apk \
-              --title "DQ9 Alchemy Helper for Android ${version}" --notes-file notes.md
+            # A branch push: only attach to a release that already exists for this version.
+            tag="v$code_version"; version="$code_version"
+            gh release view "$tag" > /dev/null 2>&1 || { echo "No release $tag yet; the APK is in this run's Artifacts."; exit 0; }
           fi
+          awk -v v="$version" '/^## /{if(found)exit; found=($2==v)} found && !/^## /' CHANGELOG.md > notes.md
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release upload "$tag" DQ9-Alchemy-Helper.apk --clobber
+            [ -s notes.md ] && gh release edit "$tag" --notes-file notes.md
+          else
+            [ -s notes.md ] || { echo "CHANGELOG.md has no '## $version' section"; exit 1; }
+            gh release create "$tag" DQ9-Alchemy-Helper.apk --title "DQ9 Alchemy Helper $version" --notes-file notes.md
+          fi
+          echo "Attached DQ9-Alchemy-Helper.apk to release $tag"

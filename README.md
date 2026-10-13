@@ -1,6 +1,6 @@
 # DQ9 Alchemy Helper for Android (C++ / Qt 6)
 
-This branch (`android-cpp`) is a C++ rewrite of the DQ9 Alchemy Helper so it runs natively on Android phones and tablets. The original Python/PyQt5 Windows app lives on `main` and is unchanged.
+A C++ rewrite of the DQ9 Alchemy Helper so it runs natively on Android phones and tablets. The original Python/PyQt5 Windows app is in the repo's history up to tag `v1.2.0`.
 
 It tells you how to get any piece of equipment or item in **Dragon Quest IX: Sentinels of the Starry Skies**: craft it in the Krak Pot, farm it from monsters, or buy it in a shop.
 
@@ -21,7 +21,7 @@ The one desktop feature not carried over is importing the `.xlsx` recipe spreads
 
 ## Install on your phone
 
-1. Open the repo's **Actions** tab, pick the latest green **Build Android app** run on `android-cpp`, and download **DQ9-Alchemy-Helper-apk** from its Artifacts (or grab the APK from the latest release).
+1. Download `DQ9-Alchemy-Helper.apk` from the [latest release](https://github.com/WeirdWally-dev/dq9-alchemy-tool/releases/latest) (or from the Artifacts of the latest green **Build Android app** run in the **Actions** tab).
 2. Copy `DQ9-Alchemy-Helper.apk` to your phone and open it. Android will ask you to allow installing from that source the first time.
 
 Needs Android 9 or newer on a 64-bit (arm64) device, which covers nearly every phone from the last several years.
@@ -53,7 +53,7 @@ HTTPS on Android needs OpenSSL inside the APK; CMake fetches KDAB's prebuilt `an
 
 ## Signing and releases
 
-GitHub Actions builds the APK on every push to `android-cpp`. To have each new version install over the old one, add a signing key as repository secrets (**Settings → Secrets and variables → Actions**):
+GitHub Actions builds the APK on every push to `main`. To have each new version install over the old one, add a signing key as repository secrets (**Settings → Secrets and variables → Actions**):
 
 | Secret | What |
 |---|---|
@@ -63,11 +63,11 @@ GitHub Actions builds the APK on every push to `android-cpp`. To have each new v
 
 Make a key once with `keytool -genkeypair -keystore release.jks -alias dq9 -keyalg RSA -keysize 2048 -validity 10000` and keep it safe. Without these secrets the build signs with a throwaway key, so you'd need to uninstall before installing the next build.
 
-To publish a release: bump `VERSION` in `CMakeLists.txt` and add a matching `## x.y.z` section at the top of `CHANGELOG.md`. Then either make the release on GitHub's website with a new tag like `v1.4.0` targeting `android-cpp`, or tag and push:
+To publish a release: bump `VERSION` in `CMakeLists.txt` and add a matching `## x.y.z` section at the top of `CHANGELOG.md`. Then either make the release on GitHub's website with a new tag like `v1.4.0` targeting `main` (the build attaches the APK to it), or tag and push:
 
 ```bash
 git tag v1.4.0
-git push origin android-cpp v1.4.0
+git push origin main v1.4.0
 ```
 
 The workflow builds the APK and attaches it to that release (creating the release if it doesn't exist yet).

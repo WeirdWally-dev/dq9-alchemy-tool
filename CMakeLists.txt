@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 
-# Bump VERSION for each release and tag the commit v<same number> on this branch.
-project(DQ9AlchemyHelper VERSION 1.3.1 LANGUAGES C CXX)
+# The app's version. Release builds take it from the release tag (CI passes -DDQ9_VERSION=1.4.0 for
+# tag v1.4.0), so this default only matters for builds that aren't releases.
+set(DQ9_VERSION "1.3.2" CACHE STRING "App version (major.minor.patch)")
+project(DQ9AlchemyHelper VERSION ${DQ9_VERSION} LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

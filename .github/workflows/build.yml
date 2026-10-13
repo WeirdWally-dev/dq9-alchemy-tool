@@ -29,6 +29,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Work out the version
+        shell: bash
+        run: |
+          # A release tag (v1.4.0) decides the version; otherwise the default in CMakeLists.txt.
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF_NAME#v}"
+          else v=$(sed -nE 's/^set\(DQ9_VERSION "([0-9.]+)".*/\1/p' CMakeLists.txt); fi
+          echo "DQ9_VERSION=$v" >> "$GITHUB_ENV"
+          echo "Version: $v"
+
       - name: Install build tools
         run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev
 
@@ -42,7 +51,7 @@ jobs:
 
       - name: Build
         run: |
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release "-DDQ9_VERSION=$DQ9_VERSION"
           cmake --build build
 
       - name: Run tests
@@ -70,6 +79,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Work out the version
+        shell: bash
+        run: |
+          # A release tag (v1.4.0) decides the version; otherwise the default in CMakeLists.txt.
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF_NAME#v}"
+          else v=$(sed -nE 's/^set\(DQ9_VERSION "([0-9.]+)".*/\1/p' CMakeLists.txt); fi
+          echo "DQ9_VERSION=$v" >> "$GITHUB_ENV"
+          echo "Version: $v"
+
       - uses: ilammy/msvc-dev-cmd@v1
 
       - uses: jurplel/install-qt-action@v4
@@ -83,7 +101,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release "-DDQ9_VERSION=$DQ9_VERSION"
           cmake --build build
 
       - name: Run tests
@@ -116,9 +134,8 @@ jobs:
         shell: bash
         run: |
           choco install innosetup -y --no-progress > /dev/null
-          version=$(sed -nE 's/^project\(DQ9AlchemyHelper VERSION ([0-9.]+) .*/\1/p' CMakeLists.txt)
           mkdir -p dist
-          "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -Q "-DAppVersion=$version" "-DSourceDir=$(cygpath -w "$PWD/deploy")" packaging/windows/dq9.iss
+          "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -Q "-DAppVersion=$DQ9_VERSION" "-DSourceDir=$(cygpath -w "$PWD/deploy")" packaging/windows/dq9.iss
           (cd deploy && 7z a -tzip ../dist/DQ9-Alchemy-Helper-Windows-portable.zip . > /dev/null)
           ls dist
 
@@ -137,6 +154,15 @@ jobs:
         abi: [arm64_v8a, x86_64]   # arm64 for phones; x86_64 only for the emulator test
     steps:
       - uses: actions/checkout@v4
+
+      - name: Work out the version
+        shell: bash
+        run: |
+          # A release tag (v1.4.0) decides the version; otherwise the default in CMakeLists.txt.
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF_NAME#v}"
+          else v=$(sed -nE 's/^set\(DQ9_VERSION "([0-9.]+)".*/\1/p' CMakeLists.txt); fi
+          echo "DQ9_VERSION=$v" >> "$GITHUB_ENV"
+          echo "Version: $v"
 
       - name: Install build tools
         run: sudo apt-get update && sudo apt-get install -y ninja-build
@@ -178,7 +204,8 @@ jobs:
             -DQT_HOST_PATH="$RUNNER_WORKSPACE/Qt/${QT_VERSION}/gcc_64" \
             -DANDROID_SDK_ROOT="$ANDROID_SDK_ROOT" \
             -DANDROID_NDK_ROOT="$ANDROID_NDK_ROOT" \
-            -DDQ9_BUILD_TESTS=OFF
+            -DDQ9_BUILD_TESTS=OFF \
+            "-DDQ9_VERSION=$DQ9_VERSION"
           cmake --build build-android --target apk
 
       # Sign with your own key when the repo has one (Settings > Secrets > Actions:
@@ -226,6 +253,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Work out the version
+        shell: bash
+        run: |
+          # A release tag (v1.4.0) decides the version; otherwise the default in CMakeLists.txt.
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF_NAME#v}"
+          else v=$(sed -nE 's/^set\(DQ9_VERSION "([0-9.]+)".*/\1/p' CMakeLists.txt); fi
+          echo "DQ9_VERSION=$v" >> "$GITHUB_ENV"
+          echo "Version: $v"
+
       - uses: actions/download-artifact@v4
         with:
           name: android-x86_64
@@ -262,6 +298,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Work out the version
+        shell: bash
+        run: |
+          # A release tag (v1.4.0) decides the version; otherwise the default in CMakeLists.txt.
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF_NAME#v}"
+          else v=$(sed -nE 's/^set\(DQ9_VERSION "([0-9.]+)".*/\1/p' CMakeLists.txt); fi
+          echo "DQ9_VERSION=$v" >> "$GITHUB_ENV"
+          echo "Version: $v"
+
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
@@ -274,21 +319,18 @@ jobs:
           files=(artifacts/windows/DQ9-Alchemy-Helper-Setup.exe
                  artifacts/windows/DQ9-Alchemy-Helper-Windows-portable.zip
                  artifacts/android-arm64_v8a/DQ9-Alchemy-Helper.apk)
-          code_version=$(sed -nE 's/^project\(DQ9AlchemyHelper VERSION ([0-9.]+) .*/\1/p' CMakeLists.txt)
-          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
-            tag="$GITHUB_REF_NAME"; version="${tag#v}"
-            [ "$version" = "$code_version" ] || { echo "Tag $tag doesn't match VERSION $code_version in CMakeLists.txt"; exit 1; }
-          else
+          version="$DQ9_VERSION"; tag="v$version"
+          if [[ "$GITHUB_REF" != refs/tags/* ]]; then
             # A branch push: only attach to a release that already exists for this version.
-            tag="v$code_version"; version="$code_version"
             gh release view "$tag" > /dev/null 2>&1 || { echo "No release $tag yet; the files are in this run's Artifacts."; exit 0; }
           fi
+          # Release notes: the CHANGELOG.md section for this version, or the newest section.
           awk -v v="$version" '/^## /{if(found)exit; found=($2==v)} found && !/^## /' CHANGELOG.md > notes.md
+          [ -s notes.md ] || awk '/^## /{n++; next} n==1' CHANGELOG.md > notes.md
           if gh release view "$tag" > /dev/null 2>&1; then
             gh release upload "$tag" "${files[@]}" --clobber
             if [ -s notes.md ]; then gh release edit "$tag" --notes-file notes.md; fi
           else
-            [ -s notes.md ] || { echo "CHANGELOG.md has no '## $version' section"; exit 1; }
             gh release create "$tag" "${files[@]}" --title "DQ9 Alchemy Helper $version" --notes-file notes.md
           fi
           echo "Attached to release $tag: ${files[*]}"

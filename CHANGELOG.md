@@ -2,7 +2,7 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
-## 1.3.1 - 2026-10-13
+## 1.3.2 - 2026-10-13
 
 - **Fixed: the app never finished loading** (nothing in the lists, on Android and everywhere else). The pause between web requests was miscalculated, so the second request of a session waited forever.
 - **Phone menus rebuilt.** The ⋮ menus and the dropdowns (equipment type, alchemy/drops) now open as a full screen of large buttons instead of Qt's small pop-ups, which didn't work properly with touch. Back closes them.

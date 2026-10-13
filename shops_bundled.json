@@ -1,0 +1,1600 @@
+{
+"shops": {
+"Medicinal herb": [
+"Angel Falls (Item Shop)",
+"Zere (Item Shop)",
+"Alltrades Abbey (Item Shop)",
+"Stornway (Item Shop)",
+"Coffinwell (Item Shop)",
+"Porth Llaffan (Item Shop)",
+"Slurry Quay (Item Shop)",
+"Dourbridge (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Swinedimples Academy (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Feather fan": [
+"Angel Falls (Item Shop)",
+"Stornway (Weapon Shops)"
+],
+"Leather armour": [
+"Angel Falls (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Antidotal herb": [
+"Angel Falls (Item Shop)",
+"Alltrades Abbey (Item Shop)",
+"Stornway (Item Shop)",
+"Coffinwell (Item Shop)",
+"Porth Llaffan (Item Shop)",
+"Slurry Quay (Item Shop)",
+"Dourbridge (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Swinedimples Academy (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Pot Lid": [
+"Angel Falls (Item Shop)"
+],
+"Cotton gloves": [
+"Angel Falls (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Chimaera wing": [
+"Angel Falls (Item Shop)",
+"Zere (Item Shop)",
+"Alltrades Abbey (Item Shop)",
+"Stornway (Item Shop)",
+"Coffinwell (Item Shop)",
+"Porth Llaffan (Item Shop)",
+"Slurry Quay (Item Shop)",
+"Dourbridge (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Swinedimples Academy (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Leather shield": [
+"Angel Falls (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Boxer shorts": [
+"Angel Falls (Item Shop)"
+],
+"Copper sword": [
+"Angel Falls (Item Shop)",
+"Stornway (Weapon Shops)"
+],
+"Bandana": [
+"Angel Falls (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Cotton trousers": [
+"Angel Falls (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Soldier's sword": [
+"Angel Falls (Item Shop)",
+"Stornway (Weapon Shops)"
+],
+"Plain clothes": [
+"Angel Falls (Item Shop)"
+],
+"Sandals": [
+"Angel Falls (Item Shop)"
+],
+"Leather whip": [
+"Angel Falls (Item Shop)",
+"Stornway (Weapon Shops)"
+],
+"Wayfarer's clothes": [
+"Angel Falls (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Leather shoes": [
+"Angel Falls (Item Shop)",
+"Stornway (Armour Shops)",
+"Swinedimples Academy (Item Shop)"
+],
+"Leather hat": [
+"Zere (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Linen gloves": [
+"Zere (Item Shop)"
+],
+"Moonwort bulb": [
+"Zere (Item Shop)",
+"Coffinwell (Item Shop)",
+"Porth Llaffan (Item Shop)",
+"Slurry Quay (Item Shop)",
+"Dourbridge (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Swinedimples Academy (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Hardwood headwear": [
+"Zere (Item Shop)",
+"Coffinwell (Armour Shop)"
+],
+"Leather kilt": [
+"Zere (Item Shop)",
+"Coffinwell (Armour Shop)"
+],
+"Leather dress": [
+"Zere (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Blue knickers": [
+"Zere (Item Shop)"
+],
+"Holy water": [
+"Zere (Item Shop)",
+"Stornway (Item Shop)",
+"Coffinwell (Item Shop)",
+"Porth Llaffan (Item Shop)",
+"Slurry Quay (Item Shop)",
+"Dourbridge (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Swinedimples Academy (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Leather cape": [
+"Zere (Item Shop)"
+],
+"Leather boots": [
+"Zere (Item Shop)",
+"Coffinwell (Armour Shop)"
+],
+"Scale shield": [
+"Zere (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Silk robe": [
+"Zere (Item Shop)",
+"Stornway (Armour Shops)"
+],
+"Clogs": [
+"Zere (Item Shop)",
+"Coffinwell (Armour Shop)"
+],
+"Bronze shield": [
+"Zere (Item Shop)",
+"Coffinwell (Armour Shop)"
+],
+"Leather gauntlets": [
+"Zere (Item Shop)",
+"Stornway (Armour Shops)",
+"Coffinwell (Armour Shop)"
+],
+"Bunny tail": [
+"Zere (Item Shop)",
+"Porth Llaffan (Item Shop)"
+],
+"Staff of sentencing": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"Iron helmet": [
+"Alltrades Abbey (Item Shop)",
+"Porth Llaffan (Weapon/Armour Shop)",
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Battle whip": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"Iron armour": [
+"Alltrades Abbey (Item Shop)",
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Oaken pole": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"White t-shirt": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Armour Shop)"
+],
+"Iron broadsword": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"Razor claws": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"Robe of serenity": [
+"Alltrades Abbey (Item Shop)",
+"Slurry Quay (Item Shop)"
+],
+"Long spear": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"War fan": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"Iron kneecaps": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Armour Shop)"
+],
+"Poison moth knife": [
+"Alltrades Abbey (Item Shop)",
+"Coffinwell (Weapon Shop)"
+],
+"Iron shield": [
+"Alltrades Abbey (Item Shop)",
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Springtime skirt": [
+"Alltrades Abbey (Item Shop)"
+],
+"Bronze knife": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Laundry pole": [
+"Stornway (Weapon Shops)"
+],
+"Divine dagger": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Carrying pole": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Rapier": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Oak staff": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Stone claws": [
+"Stornway (Weapon Shops)"
+],
+"Bamboo lance": [
+"Stornway (Weapon Shops)"
+],
+"Wizard's staff": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Iron claws": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Iron lance": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Paring knife": [
+"Stornway (Weapon Shops)"
+],
+"Thorn whip": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Iron fan": [
+"Stornway (Weapon Shops)",
+"Coffinwell (Weapon Shop)"
+],
+"Falcon blade": [
+"Stornway (Weapon Shops)"
+],
+"Cobra claws": [
+"Stornway (Weapon Shops)"
+],
+"Demon spear": [
+"Stornway (Weapon Shops)"
+],
+"Friendly fan": [
+"Stornway (Weapon Shops)"
+],
+"Gladius": [
+"Stornway (Weapon Shops)"
+],
+"Ice axe": [
+"Stornway (Weapon Shops)"
+],
+"Sage's staff": [
+"Stornway (Weapon Shops)"
+],
+"Giant's hammer": [
+"Stornway (Weapon Shops)"
+],
+"Queen's whip": [
+"Stornway (Weapon Shops)"
+],
+"Flametang boomerang": [
+"Stornway (Weapon Shops)"
+],
+"Dragon rod": [
+"Stornway (Weapon Shops)"
+],
+"Purblind bow": [
+"Stornway (Weapon Shops)"
+],
+"Scale armour": [
+"Stornway (Armour Shops)"
+],
+"Chain mail": [
+"Stornway (Armour Shops)",
+"Coffinwell (Armour Shop)"
+],
+"Hairband": [
+"Stornway (Armour Shops)"
+],
+"Training trousers": [
+"Stornway (Armour Shops)"
+],
+"Training top": [
+"Stornway (Armour Shops)"
+],
+"High heels": [
+"Stornway (Armour Shops)",
+"Dourbridge (Secret Shop)"
+],
+"Silver shield": [
+"Stornway (Armour Shops)"
+],
+"Tint-tastic tutu": [
+"Stornway (Armour Shops)"
+],
+"Crimson gauntlets": [
+"Stornway (Armour Shops)"
+],
+"Minerva's mitre": [
+"Stornway (Armour Shops)"
+],
+"Maiden's mantle": [
+"Stornway (Armour Shops)"
+],
+"Combat trousers": [
+"Stornway (Armour Shops)"
+],
+"Canny cap": [
+"Stornway (Armour Shops)"
+],
+"Combat top": [
+"Stornway (Armour Shops)"
+],
+"Clever clogs": [
+"Stornway (Armour Shops)"
+],
+"Top hat": [
+"Stornway (Armour Shops)"
+],
+"Combat costume": [
+"Stornway (Armour Shops)"
+],
+"Crimson boots": [
+"Stornway (Armour Shops)"
+],
+"Ravishing ribbon": [
+"Stornway (Armour Shops)"
+],
+"Wizard's robe": [
+"Stornway (Armour Shops)"
+],
+"Shaman shoes": [
+"Stornway (Armour Shops)"
+],
+"Gigant armour": [
+"Stornway (Armour Shops)"
+],
+"Witch's robe": [
+"Stornway (Armour Shops)"
+],
+"Bardic boots": [
+"Stornway (Armour Shops)"
+],
+"Evac-u-bell": [
+"Stornway (Item Shop)",
+"Coffinwell (Item Shop)",
+"Porth Llaffan (Item Shop)",
+"Slurry Quay (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Gold ring": [
+"Stornway (Item Shop)",
+"Porth Llaffan (Item Shop)",
+"Dourbridge (Item Shop)"
+],
+"Iron cuirass": [
+"Coffinwell (Armour Shop)"
+],
+"Shell shield": [
+"Coffinwell (Armour Shop)"
+],
+"Garish garb": [
+"Coffinwell (Armour Shop)"
+],
+"Red skirt": [
+"Coffinwell (Armour Shop)"
+],
+"Turban": [
+"Coffinwell (Armour Shop)"
+],
+"Iron gauntlets": [
+"Coffinwell (Armour Shop)",
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Iron sabatons": [
+"Coffinwell (Armour Shop)",
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Bronze armour": [
+"Coffinwell (Armour Shop)"
+],
+"Leather gloves": [
+"Coffinwell (Armour Shop)"
+],
+"Iron axe": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Feathered cap": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Sledgehammer": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Silver tiara": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Rubber gloves": [
+"Porth Llaffan (Weapon/Armour Shop)",
+"Slurry Quay (Item Shop)"
+],
+"Boomerang": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Boomer briefs": [
+"Porth Llaffan (Weapon/Armour Shop)",
+"Slurry Quay (Item Shop)"
+],
+"Short bow": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"tortoiseshell~equip": [
+"Porth Llaffan (Weapon/Armour Shop)",
+"Slurry Quay (Item Shop)"
+],
+"Pop socks": [
+"Porth Llaffan (Weapon/Armour Shop)",
+"Dourbridge (Secret Shop)"
+],
+"Cloak of evasion": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Dancer's costume": [
+"Porth Llaffan (Weapon/Armour Shop)"
+],
+"Wellington boots": [
+"Porth Llaffan (Weapon/Armour Shop)",
+"Slurry Quay (Item Shop)"
+],
+"Angel bell": [
+"Porth Llaffan (Item Shop)",
+"Dourbridge (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Magic water": [
+"Porth Llaffan (Item Shop)",
+"Slurry Quay (Item Shop)",
+"Dourbridge (Item Shop)",
+"Bloomingdale (Item Shop)",
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Swinedimples Academy (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Slime earrings": [
+"Porth Llaffan (Item Shop)",
+"Dourbridge (Item Shop)"
+],
+"Gold bracer": [
+"Porth Llaffan (Item Shop)",
+"Dourbridge (Item Shop)"
+],
+"Fur hood": [
+"Slurry Quay (Item Shop)"
+],
+"Pointy hat": [
+"Slurry Quay (Item Shop)"
+],
+"Fishnet stockings": [
+"Slurry Quay (Item Shop)",
+"Dourbridge (Secret Shop)"
+],
+"Galvanised geta": [
+"Slurry Quay (Item Shop)"
+],
+"Silver bracelets": [
+"Slurry Quay (Item Shop)"
+],
+"Bow tie": [
+"Slurry Quay (Item Shop)",
+"Dourbridge (Item Shop)",
+"Gleeba (Item Shop)"
+],
+"Cautery sword": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Sacred claws": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Plain dress": [
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Holy lance": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Foehn fan": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Wayfarer's gloves": [
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Poison needle": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Light shield": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Armour Shop)"
+],
+"Lockpicker's mitts": [
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Stolos' staff": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Blue jeans": [
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Snakeskin whip": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Thief's turban": [
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Denim skirt": [
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Iron bar": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Weapon Shop)"
+],
+"Heavy armour": [
+"Dourbridge (Weapon/Armour Shop)",
+"Bloomingdale (Armour Shop)"
+],
+"Bandit boots": [
+"Dourbridge (Weapon/Armour Shop)"
+],
+"Pink pearl": [
+"Dourbridge (Item Shop)",
+"Gleeba (Item Shop)"
+],
+"Headsman's axe": [
+"Dourbridge (Secret Shop)"
+],
+"Cat ears": [
+"Dourbridge (Secret Shop)",
+"Bloomingdale (Armour Shop)"
+],
+"Heavy handwear": [
+"Dourbridge (Secret Shop)"
+],
+"Marauder's maul": [
+"Dourbridge (Secret Shop)"
+],
+"Maid's mop": [
+"Dourbridge (Secret Shop)"
+],
+"Cheiron's bow": [
+"Dourbridge (Secret Shop)"
+],
+"Jaguarment": [
+"Dourbridge (Secret Shop)"
+],
+"Power shield": [
+"Dourbridge (Secret Shop)",
+"Upover (Armour Shop)"
+],
+"Bunny suit": [
+"Dourbridge (Secret Shop)"
+],
+"Dangerous midriff wrap": [
+"Dourbridge (Secret Shop)"
+],
+"Boss shield": [
+"Dourbridge (Secret Shop)"
+],
+"Dangerous bikini top": [
+"Dourbridge (Secret Shop)"
+],
+"Sturdy slacks": [
+"Dourbridge (Secret Shop)"
+],
+"Bunny ears": [
+"Dourbridge (Secret Shop)"
+],
+"Maid outfit": [
+"Dourbridge (Secret Shop)"
+],
+"Falcon knife earring": [
+"Bloomingdale (Weapon Shop)",
+"Gleeba (Weapon Shop)"
+],
+"Pillar of strength": [
+"Bloomingdale (Weapon Shop)",
+"Gleeba (Weapon Shop)"
+],
+"Platinum sword": [
+"Bloomingdale (Weapon Shop)",
+"Gleeba (Weapon Shop)"
+],
+"Watermaul wand": [
+"Bloomingdale (Weapon Shop)",
+"Gleeba (Weapon Shop)"
+],
+"Crow's claws": [
+"Bloomingdale (Weapon Shop)",
+"Gleeba (Weapon Shop)"
+],
+"Battle fork": [
+"Bloomingdale (Weapon Shop)",
+"Gleeba (Weapon Shop)"
+],
+"Chain whip": [
+"Bloomingdale (Weapon Shop)",
+"Gleeba (Weapon Shop)"
+],
+"Tortoiseshell fan": [
+"Bloomingdale (Weapon Shop)"
+],
+"Deadly nightblade": [
+"Bloomingdale (Weapon Shop)"
+],
+"Edged boomerang": [
+"Bloomingdale (Weapon Shop)",
+"Batsureg (Weapon Shop)"
+],
+"Best vest": [
+"Bloomingdale (Armour Shop)"
+],
+"Platinum shield": [
+"Bloomingdale (Armour Shop)"
+],
+"Warrior's gloves": [
+"Bloomingdale (Armour Shop)"
+],
+"Iron mask": [
+"Bloomingdale (Armour Shop)"
+],
+"Silver mail": [
+"Bloomingdale (Armour Shop)"
+],
+"Snazzy skirt": [
+"Bloomingdale (Armour Shop)"
+],
+"Warrior's helm": [
+"Bloomingdale (Armour Shop)"
+],
+"Tussler's top": [
+"Bloomingdale (Armour Shop)"
+],
+"Loud trousers": [
+"Bloomingdale (Armour Shop)"
+],
+"Feather headband": [
+"Bloomingdale (Armour Shop)"
+],
+"Smart suit": [
+"Bloomingdale (Armour Shop)"
+],
+"Warrior's trousers": [
+"Bloomingdale (Armour Shop)"
+],
+"Circlet": [
+"Bloomingdale (Armour Shop)"
+],
+"Spangled dress": [
+"Bloomingdale (Armour Shop)"
+],
+"Tussler's trousers": [
+"Bloomingdale (Armour Shop)"
+],
+"Sleeping hibiscus": [
+"Bloomingdale (Item Shop)"
+],
+"Softwort": [
+"Bloomingdale (Item Shop)"
+],
+"Wakerobin": [
+"Bloomingdale (Item Shop)"
+],
+"Superior medicine": [
+"Bloomingdale (Item Shop)"
+],
+"Warrior's boots": [
+"Bloomingdale (Shoe Shop)"
+],
+"Hip boots": [
+"Bloomingdale (Shoe Shop)"
+],
+"Femiscyran footwear": [
+"Bloomingdale (Shoe Shop)"
+],
+"Saintly sollerets": [
+"Bloomingdale (Shoe Shop)"
+],
+"Frugal footwear": [
+"Bloomingdale (Shoe Shop)"
+],
+"Sheepskin shoes": [
+"Bloomingdale (Shoe Shop)"
+],
+"Wizard wellies": [
+"Bloomingdale (Shoe Shop)"
+],
+"Siren sandals": [
+"Bloomingdale (Shoe Shop)"
+],
+"Acroboots": [
+"Bloomingdale (Shoe Shop)"
+],
+"Starlet sandals": [
+"Bloomingdale (Shoe Shop)"
+],
+"Cowboy boots": [
+"Bloomingdale (Shoe Shop)"
+],
+"Kung fu shoes": [
+"Bloomingdale (Shoe Shop)"
+],
+"Bandit blade": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)"
+],
+"Lightning staff": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)"
+],
+"Handrills": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)",
+"Wormwood Creek (Weapon Shop)"
+],
+"Fowl fan": [
+"Gleeba (Weapon Shop)"
+],
+"Sandstorm spear": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)",
+"Wormwood Creek (Weapon Shop)"
+],
+"Iron whip": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)"
+],
+"Battle-axe": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)",
+"Wormwood Creek (Weapon Shop)"
+],
+"Assassin's dagger": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)"
+],
+"War hammer": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)",
+"Wormwood Creek (Weapon Shop)"
+],
+"Driller pillar": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)"
+],
+"Crucerang": [
+"Gleeba (Weapon Shop)",
+"Batsureg (Weapon Shop)"
+],
+"Magic shield": [
+"Gleeba (Armour Shop)"
+],
+"Magic armour": [
+"Gleeba (Armour Shop)"
+],
+"Gorgeous gloves": [
+"Gleeba (Armour Shop)"
+],
+"Platinum headgear": [
+"Gleeba (Armour Shop)"
+],
+"Summer dress": [
+"Gleeba (Armour Shop)"
+],
+"Wizard's trousers": [
+"Gleeba (Armour Shop)"
+],
+"Holy hat": [
+"Gleeba (Armour Shop)"
+],
+"Velvet cape": [
+"Gleeba (Armour Shop)"
+],
+"Nicker's knickers": [
+"Gleeba (Armour Shop)"
+],
+"Tricky turban": [
+"Gleeba (Armour Shop)"
+],
+"Magical robes": [
+"Gleeba (Armour Shop)"
+],
+"Swordsman's slacks": [
+"Gleeba (Armour Shop)"
+],
+"Disturbin' turban": [
+"Gleeba (Armour Shop)"
+],
+"Magic mittens": [
+"Gleeba (Armour Shop)"
+],
+"Red tights": [
+"Gleeba (Armour Shop)"
+],
+"Musketeer hat": [
+"Gleeba (Armour Shop)"
+],
+"Fingerless gauntlets": [
+"Gleeba (Armour Shop)"
+],
+"Sneakers": [
+"Gleeba (Armour Shop)"
+],
+"Strong medicine": [
+"Gleeba (Item Shop)",
+"Batsureg (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Strong antidote": [
+"Gleeba (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Valkyrie sword": [
+"Batsureg (Weapon Shop)",
+"Wormwood Creek (Weapon Shop)"
+],
+"Sleepy stick": [
+"Batsureg (Weapon Shop)"
+],
+"Partisan": [
+"Batsureg (Weapon Shop)",
+"Swinedimples Academy (Item Shop)"
+],
+"Razor-wing boomerang": [
+"Batsureg (Weapon Shop)",
+"Wormwood Creek (Weapon Shop)"
+],
+"Cobra fan": [
+"Batsureg (Weapon Shop)"
+],
+"Hunter's bow": [
+"Batsureg (Weapon Shop)"
+],
+"Potshot bow": [
+"Batsureg (Weapon Shop)",
+"Wormwood Creek (Weapon Shop)"
+],
+"Flame shield": [
+"Batsureg (Armour Shop)"
+],
+"Battler's band": [
+"Batsureg (Armour Shop)"
+],
+"Blue skirt": [
+"Batsureg (Armour Shop)"
+],
+"Ice shield": [
+"Batsureg (Armour Shop)"
+],
+"Femiscyran mail": [
+"Batsureg (Armour Shop)"
+],
+"Femiscyran bottoms": [
+"Batsureg (Armour Shop)"
+],
+"Mail coif": [
+"Batsureg (Armour Shop)"
+],
+"Strongsam": [
+"Batsureg (Armour Shop)"
+],
+"Chainmail socks": [
+"Batsureg (Armour Shop)"
+],
+"Hocus hat": [
+"Batsureg (Armour Shop)"
+],
+"Fur vest": [
+"Batsureg (Armour Shop)"
+],
+"Steppe steppers": [
+"Batsureg (Armour Shop)"
+],
+"Hunter's hat": [
+"Batsureg (Armour Shop)"
+],
+"Femiscyran fingerwear": [
+"Batsureg (Armour Shop)"
+],
+"Green tights": [
+"Batsureg (Armour Shop)"
+],
+"Ear cosy": [
+"Batsureg (Armour Shop)"
+],
+"Archer's armguard": [
+"Batsureg (Armour Shop)"
+],
+"Agiliboots": [
+"Batsureg (Armour Shop)"
+],
+"Coagulant": [
+"Batsureg (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Tangleweb": [
+"Batsureg (Item Shop)",
+"Wormwood Creek (Item Shop)",
+"Upover (Item Shop)"
+],
+"Lambswool": [
+"Batsureg (Item Shop)"
+],
+"Swinedimples slacks": [
+"Swinedimples Academy (Item Shop)"
+],
+"Magma staff": [
+"Swinedimples Academy (Item Shop)"
+],
+"Swinedimples skirt": [
+"Swinedimples Academy (Item Shop)"
+],
+"Feline fan": [
+"Swinedimples Academy (Item Shop)"
+],
+"Black knickers": [
+"Swinedimples Academy (Item Shop)"
+],
+"Thinking cap": [
+"Swinedimples Academy (Item Shop)",
+"Wormwood Creek (Armour Shop)"
+],
+"Magical skirt": [
+"Swinedimples Academy (Item Shop)"
+],
+"X-ray specs": [
+"Swinedimples Academy (Item Shop)"
+],
+"White tights": [
+"Swinedimples Academy (Item Shop)"
+],
+"Swinedimples blazer": [
+"Swinedimples Academy (Item Shop)"
+],
+"Dragontail whip": [
+"Wormwood Creek (Weapon Shop)",
+"Upover (Weapon Shop)"
+],
+"Dragonsbane": [
+"Wormwood Creek (Weapon Shop)"
+],
+"Mistick": [
+"Wormwood Creek (Weapon Shop)",
+"Upover (Weapon Shop)"
+],
+"Giant wrench": [
+"Wormwood Creek (Weapon Shop)",
+"Upover (Weapon Shop)"
+],
+"Halberd": [
+"Wormwood Creek (Weapon Shop)"
+],
+"Dragon claws": [
+"Wormwood Creek (Weapon Shop)",
+"Upover (Weapon Shop)"
+],
+"Swallowtail": [
+"Wormwood Creek (Weapon Shop)",
+"Upover (Weapon Shop)"
+],
+"Icicle dirk": [
+"Wormwood Creek (Weapon Shop)"
+],
+"Rune staff": [
+"Wormwood Creek (Weapon Shop)"
+],
+"Moon axe": [
+"Wormwood Creek (Weapon Shop)",
+"Upover (Weapon Shop)"
+],
+"Blowy bow": [
+"Wormwood Creek (Weapon Shop)",
+"Upover (Weapon Shop)"
+],
+"Warrior's shield": [
+"Wormwood Creek (Armour Shop)"
+],
+"Dragon mail": [
+"Wormwood Creek (Armour Shop)",
+"Upover (Armour Shop)"
+],
+"Mental mittens": [
+"Wormwood Creek (Armour Shop)"
+],
+"Dragon shield": [
+"Wormwood Creek (Armour Shop)",
+"Upover (Armour Shop)"
+],
+"Shipmate's shirt": [
+"Wormwood Creek (Armour Shop)"
+],
+"Dragon trousers": [
+"Wormwood Creek (Armour Shop)"
+],
+"Raging bull helm": [
+"Wormwood Creek (Armour Shop)"
+],
+"Dragon top": [
+"Wormwood Creek (Armour Shop)"
+],
+"Kiltlet": [
+"Wormwood Creek (Armour Shop)"
+],
+"Flowing dress": [
+"Wormwood Creek (Armour Shop)",
+"Upover (Armour Shop)"
+],
+"Sorcerer's slacks": [
+"Wormwood Creek (Armour Shop)"
+],
+"Cavalier hat": [
+"Wormwood Creek (Armour Shop)"
+],
+"Bruiser's bracers": [
+"Wormwood Creek (Armour Shop)"
+],
+"Payback pumps": [
+"Wormwood Creek (Armour Shop)"
+],
+"Hermetic hat": [
+"Wormwood Creek (Armour Shop)"
+],
+"Metallic mitts": [
+"Wormwood Creek (Armour Shop)"
+],
+"Safety shoes": [
+"Wormwood Creek (Armour Shop)"
+],
+"Fire blade": [
+"Upover (Weapon Shop)"
+],
+"Sadistick": [
+"Upover (Weapon Shop)"
+],
+"Lightning lance": [
+"Upover (Weapon Shop)"
+],
+"Terra tamper": [
+"Upover (Weapon Shop)"
+],
+"Sword breaker": [
+"Upover (Weapon Shop)"
+],
+"Fire claws": [
+"Upover (Weapon Shop)"
+],
+"Magical mace": [
+"Upover (Weapon Shop)"
+],
+"Stellar fan": [
+"Upover (Weapon Shop)"
+],
+"Gusterang": [
+"Upover (Weapon Shop)"
+],
+"King axe": [
+"Upover (Weapon Shop)"
+],
+"Great bow": [
+"Upover (Weapon Shop)"
+],
+"Mayoress's mittens": [
+"Upover (Armour Shop)"
+],
+"Tempest shield": [
+"Upover (Armour Shop)"
+],
+"Mirror armour": [
+"Upover (Armour Shop)"
+],
+"Glommer's gloves": [
+"Upover (Armour Shop)"
+],
+"Dark robe": [
+"Upover (Armour Shop)"
+],
+"Battle britches": [
+"Upover (Armour Shop)"
+],
+"Mythril helm": [
+"Upover (Armour Shop)"
+],
+"Seabreeze skirt": [
+"Upover (Armour Shop)"
+],
+"Steely sweatband": [
+"Upover (Armour Shop)"
+],
+"Light gauntlets": [
+"Upover (Armour Shop)"
+],
+"Hiking boots": [
+"Upover (Armour Shop)"
+],
+"Magical hat": [
+"Upover (Armour Shop)"
+],
+"Battler's bracers": [
+"Upover (Armour Shop)"
+],
+"She-fu shoes": [
+"Upover (Armour Shop)"
+],
+"Block o' Choc": [
+"DQVC (Items)"
+],
+"Choice Chocolate": [
+"DQVC (Items)"
+],
+"Basic Biscuits": [
+"DQVC (Items)"
+],
+"Posh Biscuits": [
+"DQVC (Items)"
+],
+"Festive Feast": [
+"DQVC (Items)"
+],
+"Christmas Cake": [
+"DQVC (Items)"
+],
+"Birthday Cake": [
+"DQVC (Items)"
+],
+"White Bouquet": [
+"DQVC (Fans)"
+],
+"Sharp Shades": [
+"DQVC (Head)"
+],
+"Monarchic Moustache": [
+"DQVC (Head)"
+],
+"Silver Specs": [
+"DQVC (Head)"
+],
+"Brown Afro": [
+"DQVC (Head)"
+],
+"Red Afro": [
+"DQVC (Head)"
+],
+"Pumpkin Head": [
+"DQVC (Head)"
+],
+"Skull Cap": [
+"DQVC (Head)"
+],
+"Santa's Hat": [
+"DQVC (Head)"
+],
+"Swashbuckler's Bonnet": [
+"DQVC (Head)"
+],
+"Tip-top Topper": [
+"DQVC (Head)"
+],
+"Proper Topper": [
+"DQVC (Head)"
+],
+"Silken Veil": [
+"DQVC (Head)"
+],
+"Skeleton Suit": [
+"DQVC (Torso)"
+],
+"Santa Suit": [
+"DQVC (Torso)"
+],
+"Santa's Little Helper Suit": [
+"DQVC (Torso)"
+],
+"Captain's Coat": [
+"DQVC (Torso)"
+],
+"White Tuxedo": [
+"DQVC (Torso)"
+],
+"Wedding Dress": [
+"DQVC (Torso)"
+],
+"Skeletal Slacks": [
+"DQVC (Legs)"
+],
+"Santa's Slacks": [
+"DQVC (Legs)"
+],
+"Pirate Pantaloons": [
+"DQVC (Legs)"
+],
+"White Tuxedo Trousers": [
+"DQVC (Legs)"
+],
+"White Wing-tips": [
+"DQVC (Feet)"
+],
+"High-class Heels": [
+"DQVC (Feet)"
+],
+"Wedding Ring": [
+"DQVC (Accessories)"
+]
+},
+"hints": {
+"Copper sword": "@Weapon",
+"Bronze knife": "@Weapon",
+"Laundry pole": "@Weapon",
+"Soldier's sword": "@Weapon",
+"Divine dagger": "@Weapon",
+"Carrying pole": "@Weapon",
+"Rapier": "@Weapon",
+"Oak staff": "@Weapon",
+"Stone claws": "@Weapon",
+"Bamboo lance": "@Weapon",
+"Wizard's staff": "@Weapon",
+"Iron claws": "@Weapon",
+"Iron lance": "@Weapon",
+"Leather whip": "@Weapon",
+"Feather fan": "@Weapon",
+"Paring knife": "@Weapon",
+"Thorn whip": "@Weapon",
+"Iron fan": "@Weapon",
+"Falcon blade": "@Weapon",
+"Cobra claws": "@Weapon",
+"Demon spear": "@Weapon",
+"Friendly fan": "@Weapon",
+"Gladius": "@Weapon",
+"Ice axe": "@Weapon",
+"Sage's staff": "@Weapon",
+"Giant's hammer": "@Weapon",
+"Queen's whip": "@Weapon",
+"Flametang boomerang": "@Weapon",
+"Dragon rod": "@Weapon",
+"Purblind bow": "@Weapon",
+"Leather shield": "@Armor",
+"Leather armour": "@Armor",
+"Leather gauntlets": "@Armor",
+"Scale shield": "@Armor",
+"Scale armour": "@Armor",
+"Cotton gloves": "@Armor",
+"Bandana": "@Armor",
+"Chain mail": "@Armor",
+"Cotton trousers": "@Armor",
+"Hairband": "@Armor",
+"Leather dress": "@Armor",
+"Training trousers": "@Armor",
+"Leather hat": "@Armor",
+"Training top": "@Armor",
+"Leather shoes": "@Armor",
+"Wayfarer's clothes": "@Armor",
+"Silk robe": "@Armor",
+"High heels": "@Armor",
+"Silver shield": "@Armor",
+"Tint-tastic tutu": "@Armor",
+"Crimson gauntlets": "@Armor",
+"Minerva's mitre": "@Armor",
+"Maiden's mantle": "@Armor",
+"Combat trousers": "@Armor",
+"Canny cap": "@Armor",
+"Combat top": "@Armor",
+"Clever clogs": "@Armor",
+"Top hat": "@Armor",
+"Combat costume": "@Armor",
+"Crimson boots": "@Armor",
+"Ravishing ribbon": "@Armor",
+"Wizard's robe": "@Armor",
+"Shaman shoes": "@Armor",
+"Gigant armour": "@Armor",
+"Witch's robe": "@Armor",
+"Bardic boots": "@Armor",
+"Poison moth knife": "@Weapon",
+"Iron broadsword": "@Weapon",
+"Oaken pole": "@Weapon",
+"Long spear": "@Weapon",
+"Staff of sentencing": "@Weapon",
+"Razor claws": "@Weapon",
+"Battle whip": "@Weapon",
+"War fan": "@Weapon",
+"Bronze shield": "@Armor",
+"Iron cuirass": "@Armor",
+"Leather kilt": "@Armor",
+"Shell shield": "@Armor",
+"Garish garb": "@Armor",
+"Red skirt": "@Armor",
+"Hardwood headwear": "@Armor",
+"White t-shirt": "@Armor",
+"Iron kneecaps": "@Armor",
+"Turban": "@Armor",
+"Leather boots": "@Armor",
+"Iron gauntlets": "@Armor",
+"Iron sabatons": "@Armor",
+"Bronze armour": "@Armor",
+"Leather gloves": "@Armor",
+"Clogs": "@Armor",
+"Iron axe": "@Both",
+"Feathered cap": "@Both",
+"Sledgehammer": "@Both",
+"Silver tiara": "@Both",
+"Rubber gloves": "@Both",
+"Boomerang": "@Both",
+"Iron armour": "@Both",
+"Boomer briefs": "@Both",
+"Short bow": "@Both",
+"tortoiseshell~equip": "@Both",
+"Pop socks": "@Both",
+"Iron shield": "@Both",
+"Cloak of evasion": "@Both",
+"Iron helmet": "@Both",
+"Dancer's costume": "@Both",
+"Wellington boots": "@Both",
+"Cautery sword": "@Weapon",
+"Sacred claws": "@Weapon",
+"Plain dress": "@Both",
+"Holy lance": "@Weapon",
+"Foehn fan": "@Weapon",
+"Wayfarer's gloves": "@Both",
+"Poison needle": "@Weapon",
+"Light shield": "@Armor",
+"Lockpicker's mitts": "@Both",
+"Stolos' staff": "@Weapon",
+"Blue jeans": "@Both",
+"Snakeskin whip": "@Weapon",
+"Thief's turban": "@Both",
+"Denim skirt": "@Both",
+"Iron bar": "@Weapon",
+"Heavy armour": "@Armor",
+"Bandit boots": "@Both",
+"Falcon knife earring": "@Weapon",
+"Pillar of strength": "@Weapon",
+"Platinum sword": "@Weapon",
+"Watermaul wand": "@Weapon",
+"Crow's claws": "@Weapon",
+"Battle fork": "@Weapon",
+"Chain whip": "@Weapon",
+"Tortoiseshell fan": "@Weapon",
+"Deadly nightblade": "@Weapon",
+"Edged boomerang": "@Weapon",
+"Cat ears": "@Armor",
+"Best vest": "@Armor",
+"Platinum shield": "@Armor",
+"Warrior's gloves": "@Armor",
+"Iron mask": "@Armor",
+"Silver mail": "@Armor",
+"Snazzy skirt": "@Armor",
+"Warrior's helm": "@Armor",
+"Tussler's top": "@Armor",
+"Loud trousers": "@Armor",
+"Feather headband": "@Armor",
+"Smart suit": "@Armor",
+"Warrior's trousers": "@Armor",
+"Circlet": "@Armor",
+"Spangled dress": "@Armor",
+"Tussler's trousers": "@Armor",
+"Warrior's boots": "Feet",
+"Hip boots": "Feet",
+"Femiscyran footwear": "Feet",
+"Saintly sollerets": "Feet",
+"Frugal footwear": "Feet",
+"Sheepskin shoes": "Feet",
+"Wizard wellies": "Feet",
+"Siren sandals": "Feet",
+"Acroboots": "Feet",
+"Starlet sandals": "Feet",
+"Cowboy boots": "Feet",
+"Kung fu shoes": "Feet",
+"Bandit blade": "@Weapon",
+"Lightning staff": "@Weapon",
+"Handrills": "@Weapon",
+"Fowl fan": "@Weapon",
+"Sandstorm spear": "@Weapon",
+"Iron whip": "@Weapon",
+"Battle-axe": "@Weapon",
+"Assassin's dagger": "@Weapon",
+"War hammer": "@Weapon",
+"Driller pillar": "@Weapon",
+"Crucerang": "@Weapon",
+"Magic shield": "@Armor",
+"Magic armour": "@Armor",
+"Gorgeous gloves": "@Armor",
+"Platinum headgear": "@Armor",
+"Summer dress": "@Armor",
+"Wizard's trousers": "@Armor",
+"Holy hat": "@Armor",
+"Velvet cape": "@Armor",
+"Nicker's knickers": "@Armor",
+"Tricky turban": "@Armor",
+"Magical robes": "@Armor",
+"Swordsman's slacks": "@Armor",
+"Disturbin' turban": "@Armor",
+"Magic mittens": "@Armor",
+"Red tights": "@Armor",
+"Musketeer hat": "@Armor",
+"Fingerless gauntlets": "@Armor",
+"Sneakers": "@Armor",
+"Valkyrie sword": "@Weapon",
+"Sleepy stick": "@Weapon",
+"Partisan": "@Weapon",
+"Razor-wing boomerang": "@Weapon",
+"Cobra fan": "@Weapon",
+"Hunter's bow": "@Weapon",
+"Potshot bow": "@Weapon",
+"Flame shield": "@Armor",
+"Battler's band": "@Armor",
+"Blue skirt": "@Armor",
+"Ice shield": "@Armor",
+"Femiscyran mail": "@Armor",
+"Femiscyran bottoms": "@Armor",
+"Mail coif": "@Armor",
+"Strongsam": "@Armor",
+"Chainmail socks": "@Armor",
+"Hocus hat": "@Armor",
+"Fur vest": "@Armor",
+"Steppe steppers": "@Armor",
+"Hunter's hat": "@Armor",
+"Femiscyran fingerwear": "@Armor",
+"Green tights": "@Armor",
+"Ear cosy": "@Armor",
+"Archer's armguard": "@Armor",
+"Agiliboots": "@Armor",
+"Dragontail whip": "@Weapon",
+"Dragonsbane": "@Weapon",
+"Mistick": "@Weapon",
+"Giant wrench": "@Weapon",
+"Halberd": "@Weapon",
+"Dragon claws": "@Weapon",
+"Swallowtail": "@Weapon",
+"Icicle dirk": "@Weapon",
+"Rune staff": "@Weapon",
+"Moon axe": "@Weapon",
+"Blowy bow": "@Weapon",
+"Warrior's shield": "@Armor",
+"Dragon mail": "@Armor",
+"Mental mittens": "@Armor",
+"Dragon shield": "@Armor",
+"Shipmate's shirt": "@Armor",
+"Dragon trousers": "@Armor",
+"Raging bull helm": "@Armor",
+"Dragon top": "@Armor",
+"Kiltlet": "@Armor",
+"Thinking cap": "@Armor",
+"Flowing dress": "@Armor",
+"Sorcerer's slacks": "@Armor",
+"Cavalier hat": "@Armor",
+"Bruiser's bracers": "@Armor",
+"Payback pumps": "@Armor",
+"Hermetic hat": "@Armor",
+"Metallic mitts": "@Armor",
+"Safety shoes": "@Armor",
+"Fire blade": "@Weapon",
+"Sadistick": "@Weapon",
+"Lightning lance": "@Weapon",
+"Terra tamper": "@Weapon",
+"Sword breaker": "@Weapon",
+"Fire claws": "@Weapon",
+"Magical mace": "@Weapon",
+"Stellar fan": "@Weapon",
+"Gusterang": "@Weapon",
+"King axe": "@Weapon",
+"Great bow": "@Weapon",
+"Mayoress's mittens": "@Armor",
+"Tempest shield": "@Armor",
+"Mirror armour": "@Armor",
+"Glommer's gloves": "@Armor",
+"Power shield": "@Armor",
+"Dark robe": "@Armor",
+"Battle britches": "@Armor",
+"Mythril helm": "@Armor",
+"Seabreeze skirt": "@Armor",
+"Steely sweatband": "@Armor",
+"Light gauntlets": "@Armor",
+"Hiking boots": "@Armor",
+"Magical hat": "@Armor",
+"Battler's bracers": "@Armor",
+"She-fu shoes": "@Armor",
+"Block o' Choc": "Ingredients & items",
+"Choice Chocolate": "Ingredients & items",
+"Basic Biscuits": "Ingredients & items",
+"Posh Biscuits": "Ingredients & items",
+"Festive Feast": "Ingredients & items",
+"Christmas Cake": "Ingredients & items",
+"Birthday Cake": "Ingredients & items",
+"White Bouquet": "Fans",
+"Sharp Shades": "Head",
+"Monarchic Moustache": "Head",
+"Silver Specs": "Head",
+"Brown Afro": "Head",
+"Red Afro": "Head",
+"Pumpkin Head": "Head",
+"Skull Cap": "Head",
+"Santa's Hat": "Head",
+"Swashbuckler's Bonnet": "Head",
+"Tip-top Topper": "Head",
+"Proper Topper": "Head",
+"Silken Veil": "Head",
+"Skeleton Suit": "Torso",
+"Santa Suit": "Torso",
+"Santa's Little Helper Suit": "Torso",
+"Captain's Coat": "Torso",
+"White Tuxedo": "Torso",
+"Wedding Dress": "Torso",
+"Skeletal Slacks": "Legs",
+"Santa's Slacks": "Legs",
+"Pirate Pantaloons": "Legs",
+"White Tuxedo Trousers": "Legs",
+"White Wing-tips": "Feet",
+"High-class Heels": "Feet",
+"Wedding Ring": "Accessories"
+}
+}

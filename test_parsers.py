@@ -442,6 +442,67 @@ def test_unsourced_items():
     assert reg.resolve("Spiked boomerangs") is reg.resolve("Spiked boomerang")
 
 
+def test_material_list():
+    import dq9_tree as t
+    R = d.Recipe
+    slime = d.Enemy(1, "Slime", "u", "", "", [d.Drop("Slimedrop", "Item", 1, 8), d.Drop("Sword 3", "Sword", 1, 64)])
+    reg = d.Registry([slime], [
+        R("Sword 1", "Swords", [("Sword 2", 1), ("Slimedrop", 5)]),
+        R("Sword 2", "Swords", [("Slimedrop", 4)]),
+        R("Sword 1", "Swords", [("Sword 3", 2), ("Iron ore", 1)]),     # a second recipe
+        R("Sword 3", "Swords", [("Sword 2", 1), ("Iron ore", 2)]),
+        R("Loop A", "Swords", [("Loop B", 1)]), R("Loop B", "Swords", [("Loop A", 1), ("Slimedrop", 1)]),
+    ], {"Iron ore": ""})
+    shops = {"ironore": ["Zere (Item Shop)", "Stornway (Item Shop)"]}
+    s1, s2 = reg.resolve("Sword 1"), reg.resolve("Sword 2")
+
+    # the example: Sword 1 = Sword 2 + 5 slimedrops, Sword 2 = 4 slimedrops -> 9 slimedrops in all
+    ml = t.material_list(reg, s1, shops)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Slimedrop", 9)], ml.materials
+    assert [(r.name, r.qty, r.expanded) for r in ml.crafted] == [("Sword 2", 1, True)]
+    assert ml.materials[0].how == "Drop: Slime 1/8 (12.50%)"
+    # keep Sword 2 whole: it is listed itself and its recipe is ignored
+    ml = t.material_list(reg, s1, shops, breakdown={s2.key: False})
+    assert [(r.name, r.qty, r.craftable, r.expanded) for r in ml.materials] == \
+        [("Sword 2", 1, True, False), ("Slimedrop", 5, False, False)], ml.materials
+    assert ml.crafted == []
+    # how many to make multiplies everything
+    ml = t.material_list(reg, s1, shops, count=3)
+    assert ml.materials[0].qty == 27 and ml.crafted[0].qty == 3
+    # second recipe: Sword 3 is also dropped, so "prefer drops" keeps it whole by default
+    ml = t.material_list(reg, s1, shops, recipe_index=1)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Slimedrop", 8), ("Iron ore", 5)], ml.materials
+    assert [(r.name, r.qty) for r in ml.crafted] == [("Sword 2", 2), ("Sword 3", 2)]   # made in this order
+    ml = t.material_list(reg, s1, shops, prefer="drops", recipe_index=1)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Sword 3", 2), ("Iron ore", 1)]
+    sw3 = reg.resolve("Sword 3").key
+    ml = t.material_list(reg, s1, shops, prefer="drops", recipe_index=1, breakdown={sw3: True})
+    assert ("Iron ore", 5) in [(r.name, r.qty) for r in ml.materials]       # a tick beats the default
+    assert "Buy: Zere (Item Shop) (+1 more)" in [r.how for r in ml.materials if r.name == "Iron ore"][0]
+    # a recipe that loops back stops there instead of recursing
+    ml = t.material_list(reg, reg.resolve("Loop A"), shops)
+    loop = [r for r in ml.materials if r.name == "Loop A"][0]
+    assert loop.loop and loop.qty == 1 and ml.notes
+    # nothing to break down
+    ml = t.material_list(reg, reg.resolve("Slimedrop"), shops)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Slimedrop", 1)] and ml.notes
+    # unknown ingredient, filled in from its item page
+    reg2 = d.Registry([], [R("Gold platter", "Shields", [("Silver platter", 2)])], {})
+    ml = t.material_list(reg2, reg2.resolve("Gold platter"), {}, found_fn=lambda n: ["The Bad Cave"])
+    assert ml.materials[0].how == "Found: The Bad Cave"
+    text = t.material_list_text(t.material_list(reg, s1, shops))
+    assert "9 \u00d7 Slimedrop" in text and "1 \u00d7 Sword 1" in text
+
+    # choices are remembered on disk
+    import tempfile, pathlib, threading
+    st = d.Store.__new__(d.Store)
+    st.dir = pathlib.Path(tempfile.mkdtemp())
+    st._loc_lock = threading.Lock()
+    assert st.load_list_choices() == {}
+    st.save_list_choices({s2.key: False})
+    assert st.load_list_choices() == {s2.key: False}
+
+
 def test_shops():
     import json, threading, tempfile, pathlib
     st = d.Store.__new__(d.Store)
@@ -652,6 +713,7 @@ def main():
     test_sprites()
     test_weapons()
     test_unsourced_items()
+    test_material_list()
     print("all parser tests passed")
 
 

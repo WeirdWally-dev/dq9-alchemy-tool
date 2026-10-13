@@ -152,3 +152,117 @@ def walk(n: Node):
     yield n
     for c in n.children:
         yield from walk(c)
+
+
+# --------------------------------------------------------------------------- material list
+@dataclass
+class ListRow:
+    name: str
+    key: Optional[str]          # registry key ("" / None if the name matches no known item)
+    qty: int
+    craftable: bool = False     # has a recipe, so it can be broken down into its ingredients
+    expanded: bool = False      # broken down (its ingredients are counted instead of it)
+    loop: bool = False          # can't be broken down here: its recipe needs an item above it
+    how: str = ""               # one line on where to get it
+
+
+@dataclass
+class MaterialList:
+    target: str
+    count: int
+    materials: List[ListRow] = field(default_factory=list)   # what to gather / buy, totalled
+    crafted: List[ListRow] = field(default_factory=list)     # what gets crafted along the way, in order
+    notes: List[str] = field(default_factory=list)
+
+
+def default_breakdown(it: data.ItemInfo, prefer: str = "alchemy") -> bool:
+    """Same choice the tree makes: craft it unless monster drops are preferred and it has some."""
+    return bool(it.recipes) and (prefer != "drops" or not it.droppers)
+
+
+def how_to_get(it: Optional[data.ItemInfo], name: str, shops: Dict[str, List[str]],
+               found_fn: Optional[Callable[[str], List[str]]] = None) -> str:
+    """A short 'where to get it' line for one list row."""
+    parts = []
+    labels = shops.get(it.key if it else data.norm(name)) or shops.get(data.norm(name))
+    if labels:
+        parts.append("Buy: " + labels[0] + (f" (+{len(labels) - 1} more)" if len(labels) > 1 else ""))
+    if it and it.droppers:
+        enemy, drop = it.droppers[0]
+        more = len(it.droppers) - 1
+        parts.append(f"Drop: {enemy.name} {drop.odds_text}" + (f" (+{more} more)" if more else ""))
+    found = list(it.found) if it else []
+    if not parts and not found and found_fn and not (it and it.recipes):
+        found = found_fn(it.name if it else name)
+    if found:
+        parts.append("Found: " + found[0] + (f" (+{len(found) - 1} more)" if len(found) > 1 else ""))
+    if it and it.recipes:
+        parts.append("Craftable")
+    return "  ·  ".join(parts) or "no known source"
+
+
+def material_list(reg: data.Registry, info: data.ItemInfo, shops: Dict[str, List[str]],
+                  prefer: str = "alchemy", breakdown: Optional[Dict[str, bool]] = None,
+                  count: int = 1, recipe_index: int = 0,
+                  found_fn: Optional[Callable[[str], List[str]]] = None) -> MaterialList:
+    """Everything needed to make `count` of `info`, with crafted ingredients broken down into what
+    they're made of and equal items added together. breakdown[key] = False keeps a craftable item
+    on the list as itself (you have it or will farm it) and ignores its recipe; True breaks it down.
+    Items not in `breakdown` follow default_breakdown. The chosen item uses recipes[recipe_index];
+    ingredients use their first recipe (the one the tree and details window show first)."""
+    breakdown = breakdown or {}
+    out = MaterialList(info.name, count)
+    mats: Dict[str, List] = {}      # key -> [name, qty, ItemInfo|None, loop]
+    crafted: Dict[str, List] = {}   # key -> [name, qty, ItemInfo]  (order: crafted first -> last)
+
+    def wants(it: data.ItemInfo) -> bool:
+        b = breakdown.get(it.key)
+        return default_breakdown(it, prefer) if b is None else (b and bool(it.recipes))
+
+    def add(name: str, qty: int, path: frozenset, depth: int):
+        it = reg.resolve(name)
+        key = it.key if it else "?" + data.norm(name)
+        if it and it.recipes and wants(it) and key not in path and depth <= 50:
+            for nm, q in it.recipes[0].ingredients:
+                add(nm, q * qty, path | {key}, depth + 1)
+            row = crafted.setdefault(key, [it.name, 0, it])
+            row[1] += qty
+            crafted[key] = crafted.pop(key)   # keep "made last" order: ingredients before what uses them
+            return
+        row = mats.setdefault(key, [it.name if it else name, 0, it, False])
+        row[1] += qty
+        if it and it.recipes and wants(it) and key in path:
+            row[3] = True
+
+    if not info.recipes:
+        out.notes.append(f"{info.name} has no alchemy recipe, so there is nothing to break down.")
+        add(info.name, count, frozenset(), 0)
+    else:
+        r = info.recipes[min(max(recipe_index, 0), len(info.recipes) - 1)]
+        for nm, q in r.ingredients:
+            add(nm, q * count, frozenset({info.key}), 1)
+
+    for key, (name, qty, it, loop) in mats.items():
+        out.materials.append(ListRow(name, it.key if it else None, qty, bool(it and it.recipes), False, loop,
+                                     how_to_get(it, name, shops, found_fn)))
+    for key, (name, qty, it) in crafted.items():
+        out.crafted.append(ListRow(name, it.key, qty, True, True, False,
+                                   f"{len(it.recipes)} recipes, using the first" if len(it.recipes) > 1 else ""))
+    if any(r.loop for r in out.materials):
+        out.notes.append("Some items can't be broken down here because their recipe needs an item "
+                         "further up the list.")
+    return out
+
+
+def material_list_text(ml: MaterialList) -> str:
+    """Plain-text copy of a material list (for the clipboard)."""
+    lines = [f"To make {ml.count} × {ml.target}:", "", "Gather / buy:"]
+    lines += [f"  {r.qty:>3} × {r.name}    ({r.how})" for r in ml.materials]
+    if ml.crafted:
+        lines += ["", "Craft along the way (in this order):"]
+        lines += [f"  {r.qty:>3} × {r.name}" for r in ml.crafted]
+    if ml.crafted:
+        lines.append(f"  {ml.count:>3} × {ml.target}   (the item itself)")
+    if ml.notes:
+        lines += [""] + ml.notes
+    return "\n".join(lines)

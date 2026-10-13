@@ -1112,6 +1112,17 @@ class Store:
         self._write("enemies.json", [asdict(e) for e in enemies])
         return enemies
 
+    # material-list choices: item key -> break it down (True) or list it whole (False) ----------
+    def load_list_choices(self) -> Dict[str, bool]:
+        raw = self._read("list_choices.json", {})
+        return {k: bool(v) for k, v in raw.items()} if isinstance(raw, dict) else {}
+
+    def save_list_choices(self, choices: Dict[str, bool]) -> None:
+        try:
+            self._write("list_choices.json", choices)
+        except OSError:
+            pass
+
     # weapon list -------------------------------------------------------------
     def load_weapons(self, force: bool = False) -> List[Weapon]:
         """Every weapon on the wiki's weapon list (one request, cached). The page's wiki source is

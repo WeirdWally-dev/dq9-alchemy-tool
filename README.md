@@ -11,6 +11,7 @@ Pick an equipment type, pick an item, and the app draws a tree showing everythin
 - **Monster drops.** Which monsters drop an item, at what rate, and where to find them. Monsters are sorted by best drop rate first, and the "Monsters shown" box controls how many appear. A small **+** badge reveals the rest.
 - **Shops.** Every town and shop that sells an item (362 items, 567 listings across 15 shop pages), plus the weapon shops named on the wiki's weapon list.
 - **Weapon list.** Every weapon on the Dragon Quest Wiki's weapon list, with its picture, attack, vocations, buy and sell price and notes. Quest rewards, chests, bonus-alchemy chances and boss drops show as teal **Found** bubbles. Cells the wiki marks N/A are left out rather than shown as a location.
+- **Material list.** Switch **View** to *Material list* to flatten the tree into one shopping list: every raw ingredient added up across the whole recipe chain (if Sword 1 needs Sword 2 and 5 Slimedrops, and Sword 2 needs 4 Slimedrops, the list says 9 Slimedrops), plus what you'll craft along the way, in the order to craft it. Each craftable item has a tick box: ticked breaks it down into its ingredients, unticked lists the item itself and ignores its recipe (handy when you already own one). Choices are remembered per item. Set how many to make, pick between recipes, and copy the list as text.
 - **Craft or farm toggle.** When an item can be both crafted and dropped, show just one route to keep the tree readable.
 - **Chests, grottos and quests.** When nothing else gives a source for an item, the app reads its dqnine.wikidot.com page ("Where to find", "Reward for") and shows those as **Found** bubbles, so items like the Silver platter no longer show "no known source".
 - **Item details.** Double-click any bubble for its description, sell price, stats and special effects.
@@ -50,7 +51,8 @@ The first launch downloads the enemy list and the weapon list (one request each)
 | Equipment type | Chooses the category of items to list |
 | Filter box | Narrows the item list by name |
 | Monsters shown | How many dropping monsters to show per item (highest drop rate first) |
-| Show | Prefer the alchemy recipe or the monster drop when an item has both |
+| View | Recipe tree, or the totalled material list |
+| Show | Prefer the alchemy recipe or the monster drop when an item has both (also the material list's default for whether to break an item down) |
 | Fit to window | Rescales the tree to fit the view |
 | Import spreadsheet... | Re-reads a recipe spreadsheet (`.xlsx`) |
 | Import woodus page... | Imports a recipes page you saved from your browser (see below) |

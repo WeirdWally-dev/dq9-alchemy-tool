@@ -11,8 +11,9 @@ NODE_W, NODE_H, GAP_X, GAP_Y = 176, 54, 64, 14
 MAX_NODES = 700   # stop unfolding sub-recipes past this, so a huge chain stays drawable
 
 # kind: item (the thing itself) | craft (ingredient made by alchemy) | base (ingredient not made by
-# alchemy) | recipe (one of several recipes) | monster | shop | more | unknown
-KINDS = ("item", "craft", "base", "recipe", "monster", "shop", "more", "unknown")
+# alchemy) | recipe (one of several recipes) | monster | shop | found (quest reward, chest, ...) |
+# more | unknown
+KINDS = ("item", "craft", "base", "recipe", "monster", "shop", "found", "more", "unknown")
 
 
 @dataclass
@@ -76,6 +77,12 @@ def build_tree(reg: data.Registry, info: data.ItemInfo, per_n: int, shops: Dict[
         if labels:
             node.children.append(new("shop", f"Shops ({len(labels)})", labels[0], edge="buy",
                                      key=it.key, tip="\n".join(labels)))
+        # Quest rewards, chests, ... always for the chosen item; for an ingredient only when they
+        # aren't already behind a recipe, so big trees stay readable.
+        if it.found and (depth == 0 or src != "alchemy" or not node.children):
+            label = "Found" if len(it.found) == 1 else f"Found ({len(it.found)} ways)"
+            node.children.append(new("found", label, it.found[0], edge="get", key=it.key,
+                                     tip="\n".join(it.found)))
 
     def ingredient(name: str, qty: int, path: frozenset, depth: int, edge: str) -> Node:
         edge = f"x{qty}" if qty > 1 else edge

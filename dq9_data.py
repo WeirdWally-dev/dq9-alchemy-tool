@@ -47,6 +47,13 @@ SPRITE_URL = "https://dragon-quest.org/w/index.php?title=List_of_alchemy_ingredi
 WIKIDOT = "https://dqnine.wikidot.com"
 WIKIDOT_INDEX = WIKIDOT + "/alchemy"
 BUNDLED_SHOPS = BUNDLE_DIR / "shops_bundled.json"
+WEAPON_PAGE = "List_of_weapons_in_Dragon_Quest_IX"
+WEAPON_URL = "https://dragon-quest.org/wiki/" + WEAPON_PAGE
+# The table is read from its wiki source (clean and compact) rather than the rendered page.
+WEAPON_API = ("https://dragon-quest.org/w/api.php?action=parse&format=json&formatversion=2"
+              "&prop=wikitext&page=" + WEAPON_PAGE)
+WEAPON_RAW = "https://dragon-quest.org/w/index.php?title=" + WEAPON_PAGE + "&action=raw"
+WIKI_IMAGES = "https://dragon-quest.org/w/images"
 
 ITEMS_CAT = "Ingredients & items"
 EQUIP_ORDER = [
@@ -69,8 +76,10 @@ def norm(s: str) -> str:
     """Matching key for an item name: ignores case, spaces, punctuation and a possessive 's
     ("Dragon's scale" == "Dragon scale"). Deliberately NOT fuzzy: DQ9 has many distinct items
     one letter apart (Razer-wing / Razor-wing / Erazor-wing boomerang, Safest / Safety shoes,
-    Hotshot / Potshot bow), and merging those would show the wrong recipe."""
-    return re.sub(r"[^a-z0-9]", "", re.sub(r"['’]s\b", "", s.lower()))
+    Hotshot / Potshot bow), and merging those would show the wrong recipe.
+    Accents are folded first, so "Über gringham whip" matches "Uber gringham whip"."""
+    s = "".join(c for c in unicodedata.normalize("NFKD", s.lower()) if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]", "", re.sub(r"['’]s\b", "", s))
 
 
 def _same_ingredients(a: List[Tuple[str, int]], b: List[Tuple[str, int]]) -> bool:
@@ -143,6 +152,7 @@ class Drop:
     num: int = 0
     den: int = 0
     title: str = ""    # wiki link title, sometimes a fuller item name
+    note: str = ""     # odds text when the rate isn't known ("rare drop, per the weapon list")
 
     @property
     def prob(self) -> float:
@@ -151,7 +161,7 @@ class Drop:
     @property
     def odds_text(self) -> str:
         if not self.den:
-            return "?"
+            return self.note or "?"
         return f"{self.num}/{self.den} ({self.prob * 100:.2f}%)"
 
 
@@ -687,6 +697,303 @@ def parse_sprites(html: str) -> Dict[str, str]:
     return out
 
 
+
+# --------------------------------------------------------------------------- weapon list (dragon-quest.org)
+VOCATIONS = {
+    "WA": "Warrior", "PR": "Priest", "MG": "Mage", "MA": "Martial Artist", "TH": "Thief",
+    "MI": "Minstrel", "GL": "Gladiator", "PL": "Paladin", "PA": "Paladin", "AR": "Armamentalist",
+    "RA": "Ranger", "SA": "Sage", "LU": "Luminary",
+}
+# Rows whose picture on the list page is a placeholder or wrong, with the wiki file to use instead.
+SPRITE_FIXES = {
+    "longbow": "Long bow IX artwork.png",   # the list shows Nopic.png; the artwork exists on the wiki
+}
+PLACEHOLDER_IMAGES = {"nopic.png", "nopic.jpg", "noimage.png"}
+_NA = {"", "n/a", "na", "-", "--", "none", "?"}
+_NOTE_WORDS = re.compile(r"\d|reward|quest|medal|chest|grotto|map|treasure|alchem|drop|stop|"
+                         r"only|found|from|event|dlc|wi-?fi|post|bonus", re.I)
+
+
+@dataclass
+class Weapon:
+    """One row of the wiki's 'List of weapons in Dragon Quest IX' table."""
+    name: str
+    category: str
+    attack: str = ""
+    equip: List[str] = field(default_factory=list)       # vocation abbreviations (GL, RA, ...)
+    buy: Optional[int] = None
+    sell: Optional[int] = None
+    price_note: str = ""                                  # "32 Mini Medals", "Quest 363 reward"
+    recipe: List[Tuple[str, int]] = field(default_factory=list)
+    recipe_note: str = ""                                 # "20% chance to alchemize when ..."
+    towns: List[str] = field(default_factory=list)       # where it's sold (only when it has a buy price)
+    found: List[str] = field(default_factory=list)       # other ways to get it: quest, chest, ...
+    drops: List[Tuple[str, str]] = field(default_factory=list)   # (monster, marker like "R")
+    notes: str = ""
+    image: str = ""                                       # wiki file name, "" if none
+
+    @classmethod
+    def from_dict(cls, d: dict) -> "Weapon":
+        d = dict(d)
+        d["recipe"] = [tuple(x) for x in d.get("recipe", [])]
+        d["drops"] = [tuple(x) for x in d.get("drops", [])]
+        return cls(**d)
+
+    @property
+    def sprite_url(self) -> str:
+        return wiki_image_url(self.image) if self.image else ""
+
+    @property
+    def equip_names(self) -> List[str]:
+        return [VOCATIONS.get(v, v) for v in self.equip]
+
+
+def wiki_image_url(file_name: str) -> str:
+    """URL of a wiki file (MediaWiki stores it under the md5 of its name)."""
+    n = re.sub(r"^(File|Image):", "", file_name.strip(), flags=re.I).replace(" ", "_")
+    if not n:
+        return ""
+    n = n[0].upper() + n[1:]
+    h = hashlib.md5(n.encode("utf-8")).hexdigest()
+    return f"{WIKI_IMAGES}/{h[0]}/{h[:2]}/{quote(n, safe='_()!,-.~')}"
+
+
+_TPL_RX = re.compile(r"\{\{\s*([^{}|]+?)\s*(?:\|[^{}]*)?\}\}")
+_FILE_RX = re.compile(r"\[\[\s*(?:File|Image)\s*:\s*([^|\]]+)[^\]]*\]\]", re.I)
+
+
+def wt_text(s: str, keep_link_trail: bool = True) -> str:
+    """Plain text of a wikitext cell. {{Boomerang W}} -> Boomerang, [[A|b]] -> b, [[A]]x -> Ax.
+    keep_link_trail=False gives [[Iron nail]]s -> Iron nail (the linked name, for recipes)."""
+    s = re.sub(r"<!--.*?-->", "", s or "", flags=re.S)
+    s = re.sub(r"<br\s*/?>", ", ", s, flags=re.I)
+    s = re.sub(r"<ref[^>]*/>|<ref[^>]*>.*?</ref>", "", s, flags=re.S | re.I)
+    s = re.sub(r"<[^>]+>", "", s)
+    s = _TPL_RX.sub(lambda m: re.sub(r"\s+W$", "", m.group(1)), s)
+    s = _FILE_RX.sub("", s)
+    if not keep_link_trail:
+        s = re.sub(r"\[\[([^\[\]|]*)(?:\|[^\[\]]*)?\]\][a-z]+", r"\1", s)
+    s = re.sub(r"\[\[[^\[\]|]*\|([^\[\]]*)\]\]", r"\1", s)
+    s = re.sub(r"\[\[([^\[\]]*)\]\]", r"\1", s)
+    s = s.replace("[[", "").replace("]]", "")            # the page has a few unclosed links
+    s = re.sub(r"'{2,}", "", s).replace(" ", " ")
+    return re.sub(r"\s+", " ", s).strip(" |")
+
+
+def _is_na(s: str) -> bool:
+    return s.strip(" .|").lower() in _NA
+
+
+def _wt_rows(text: str) -> List[Tuple[List[str], List[List[str]]]]:
+    """Every {| table |} in some wikitext as (header cells, data rows of raw cell text)."""
+    tables = []
+    header: List[str] = []
+    rows: List[List[str]] = []
+    cur: Optional[List[str]] = None
+    inside = False
+
+    def split_attr(cell: str) -> str:
+        # 'style="x" | value' -> 'value'; a pipe inside [[..]] or {{..}} is not an attribute pipe
+        depth, i = 0, 0
+        while i < len(cell):
+            two = cell[i:i + 2]
+            if two in ("[[", "{{"):
+                depth += 1
+                i += 2
+                continue
+            if two in ("]]", "}}"):
+                depth = max(depth - 1, 0)
+                i += 2
+                continue
+            if cell[i] == "|" and depth == 0:
+                pre = cell[:i]
+                if "=" in pre and "[[" not in pre:
+                    return cell[i + 1:]
+                return cell
+            i += 1
+        return cell
+
+    for line in text.splitlines():
+        s = line.strip()
+        if s.startswith("{|"):
+            inside, header, rows, cur = True, [], [], None
+            continue
+        if not inside:
+            continue
+        if s.startswith("|}"):
+            if cur is not None:
+                rows.append(cur)
+            tables.append((header, rows))
+            inside, cur = False, None
+            continue
+        if s.startswith("|-"):
+            if cur is not None:
+                rows.append(cur)
+            cur = []
+            continue
+        if s.startswith("|+"):
+            continue
+        if s.startswith("!"):
+            for h in s[1:].split("!!"):
+                header.append(wt_text(split_attr(h)).lower())
+            continue
+        if s.startswith("|"):
+            if cur is None:
+                cur = []
+            for c in s[1:].split("||"):
+                cur.append(split_attr(c).strip())
+            continue
+        if cur:   # a cell's text carried on to the next line
+            cur[-1] = (cur[-1] + "\n" + line).strip()
+    return tables
+
+
+def _parse_prices(raw: str) -> Tuple[Optional[int], Optional[int], List[str], List[str]]:
+    """'1800, 900' / 'N/A, 2100' / '150g, 15g, [[Angel Falls]]' / 'Quest 363 reward, 3700g' / '7000,'
+    -> (buy, sell, towns found among the prices, other notes)."""
+    slots: List[Optional[int]] = []
+    towns, notes = [], []
+    for tok in wt_text(raw).split(","):
+        tok = tok.strip()
+        if not tok:
+            continue
+        m = re.fullmatch(r"(\d+)\s*g?", tok.replace(" ", ""), re.I)
+        if m:
+            slots.append(int(m.group(1)))
+        elif _is_na(tok):
+            slots.append(None)
+        elif _NOTE_WORDS.search(tok):
+            notes.append(tok)
+        else:
+            towns.append(tok)
+    if len(slots) >= 2:
+        return slots[0], slots[1], towns, notes
+    # A single price: every row that has a buy price also gives the sell price, so a lone
+    # number is the sell price ("Quest 363 reward, 3700g", "7000,").
+    return None, (slots[0] if slots else None), towns, notes
+
+
+_ING_RX = re.compile(r"^(.+?)\s*[x×]\s*(\d+)$|^(.+?)\s+[x×]$", re.I)
+
+
+def _parse_weapon_recipe(raw: str) -> Tuple[List[Tuple[str, int]], str]:
+    """'Iron axe x 1, [[Iron ore]] x 1' -> ingredients; free text ('20% chance to alchemize when
+    crafting a Maxi axe.') -> ([], note). A quantity the wiki left out counts as 1."""
+    text = wt_text(raw, keep_link_trail=False)
+    if _is_na(text):
+        return [], ""
+    note = ""
+    m = re.search(r"\s*\(([^()]*)\)\s*$", text)
+    if m and not re.search(r"\d", m.group(1)):
+        note, text = m.group(1).strip(), text[:m.start()]
+    ings: List[Tuple[str, int]] = []
+    guessed = False
+    for part in [p.strip() for p in text.split(",") if p.strip()]:
+        m = _ING_RX.match(part)
+        if not m:
+            return [], wt_text(raw)   # not an ingredient list: keep the whole cell as a note
+        if m.group(1):
+            ings.append((m.group(1).strip(), int(m.group(2))))
+        else:
+            ings.append((m.group(3).strip(), 1))
+            guessed = True
+    if guessed:
+        note = "; ".join(x for x in (note, "the wiki leaves out a quantity, 1 is assumed") if x)
+    return ings, note
+
+
+def _parse_drops(raw: str) -> List[Tuple[str, str]]:
+    """'[[Scarewolf]] (R), Claws (N)' -> [('Scarewolf', 'R'), ('Claws', 'N')]."""
+    out = []
+    for part in wt_text(raw).split(","):
+        part = part.strip()
+        if _is_na(part):
+            continue
+        m = re.match(r"^(.*?)\s*\(([^()]*)\)\s*$", part)
+        out.append((m.group(1).strip(), m.group(2).strip()) if m else (part, ""))
+    return [x for x in out if x[0]]
+
+
+_EQUIP_RX = re.compile(r"^[A-Z]{2}(\s*,\s*[A-Z]{2})*$")
+
+
+def parse_weapon_wikitext(text: str) -> List[Weapon]:
+    """Every weapon in the wiki's weapon-list table. The page is hand-edited, so this tolerates
+    its quirks: N/A cells, prices with or without 'g', towns or quest notes inside the price cell,
+    free-text recipe cells, unclosed links, stray pipes and one row with two columns swapped."""
+    weapons: List[Weapon] = []
+    for header, rows in _wt_rows(text):
+        def col(*keys):
+            for i, h in enumerate(header):
+                if any(k in h for k in keys):
+                    return i
+            return None
+        i_name = col("name")
+        if i_name is None or col("recipe") is None:
+            continue
+        idx = {k: col(*v) for k, v in {
+            "cat": ("category", "type"), "img": ("image", "icon", "sprite"), "atk": ("attack",),
+            "equip": ("equip", "vocation"), "price": ("buy", "price"), "recipe": ("recipe",),
+            "area": ("area", "location", "where"), "drop": ("drop",), "notes": ("note",)}.items()}
+
+        def cell(row, k):
+            i = i_name if k == "name" else idx.get(k)
+            return row[i] if i is not None and i < len(row) else ""
+
+        for row in rows:
+            name = wt_text(cell(row, "name"))
+            if not name:
+                continue
+            equip_raw, price_raw = wt_text(cell(row, "equip")), cell(row, "price")
+            if re.search(r"\d", equip_raw) and _EQUIP_RX.match(wt_text(price_raw)):
+                equip_raw, price_raw = wt_text(price_raw), cell(row, "equip")   # columns swapped
+            buy, sell, price_towns, price_notes = _parse_prices(price_raw)
+            recipe, recipe_note = _parse_weapon_recipe(cell(row, "recipe"))
+
+            area = wt_text(cell(row, "area"))
+            towns, found = list(price_towns), []
+            if not _is_na(area):
+                parts = [p.strip() for p in area.split(",") if not _is_na(p)]
+                if buy is not None and parts and not any(_NOTE_WORDS.search(p) for p in parts):
+                    towns += [p for p in parts if p not in towns]
+                else:
+                    found.append(area)
+            if buy is None and towns:   # towns listed for something you can't buy: where it's found
+                found += towns
+                towns = []
+
+            m = _FILE_RX.search(cell(row, "img"))
+            image = m.group(1).strip() if m else ""
+            if image.lower().replace(" ", "_") in PLACEHOLDER_IMAGES:
+                image = ""
+            image = SPRITE_FIXES.get(skey(name), image)
+
+            weapons.append(Weapon(
+                name=name,
+                category=canon_category(wt_text(cell(row, "cat"))) if cell(row, "cat") else "Other weapons",
+                attack=wt_text(cell(row, "atk")),
+                equip=[v for v in re.split(r"[\s,/]+", equip_raw) if v and not _is_na(v)],
+                buy=buy, sell=sell, price_note="; ".join(price_notes),
+                recipe=recipe, recipe_note=recipe_note,
+                towns=towns, found=found,
+                drops=_parse_drops(cell(row, "drop")),
+                notes="" if _is_na(wt_text(cell(row, "notes"))) else wt_text(cell(row, "notes")),
+                image=image,
+            ))
+    if not weapons:
+        raise ParseError("No weapon table (with Name and Recipes columns) was found on the weapon list page.")
+    return weapons
+
+
+def _drop_marker(marker: str) -> str:
+    return {"R": "rare drop", "N": "common drop"}.get(marker.upper(), marker)
+
+
+def weapon_sprites(weapons: List[Weapon]) -> Dict[str, str]:
+    """{skey(name): image URL} for every weapon with a picture."""
+    return {skey(w.name): w.sprite_url for w in weapons if w.image}
+
+
 # --------------------------------------------------------------------------- HTTP + cache
 class Http:
     UA = "DQ9AlchemyHelper/1.0 (personal-use desktop tool)"
@@ -765,6 +1072,7 @@ class Store:
         self.sprite_index: Dict[str, str] = {}
         self._sprite_norm: Dict[str, str] = {}
         self._index_lock = threading.Lock()
+        self.weapons: List[Weapon] = []
 
     def _read(self, name, default):
         try:
@@ -783,6 +1091,28 @@ class Store:
         enemies = parse_enemy_list(self.http.get(ENEMY_URL))
         self._write("enemies.json", [asdict(e) for e in enemies])
         return enemies
+
+    # weapon list -------------------------------------------------------------
+    def load_weapons(self, force: bool = False) -> List[Weapon]:
+        """Every weapon on the wiki's weapon list (one request, cached). The page's wiki source is
+        what gets cached, so parser fixes apply without downloading it again."""
+        text = None if force else self._read_text("weapons_wikitext.txt")
+        if not text:
+            try:
+                text = json.loads(self.http.get(WEAPON_API))["parse"]["wikitext"]
+                if isinstance(text, dict):   # older API answer shape: {"*": "..."}
+                    text = text.get("*", "")
+            except (requests.RequestException, ValueError, KeyError, TypeError, RobotsDisallowed):
+                text = self.http.get(WEAPON_RAW)
+            (self.dir / "weapons_wikitext.txt").write_text(text, encoding="utf-8")
+        self.weapons = parse_weapon_wikitext(text)
+        return self.weapons
+
+    def _read_text(self, name: str) -> Optional[str]:
+        try:
+            return (self.dir / name).read_text(encoding="utf-8")
+        except OSError:
+            return None
 
     # recipes ---------------------------------------------------------------
     def load_recipes(self, force: bool = False) -> Tuple[List[Recipe], str]:
@@ -836,6 +1166,17 @@ class Store:
         else:
             self.sprite_index = parse_sprites(self.http.get(SPRITE_URL))
             self._write("sprites.json", self.sprite_index)
+        self._index_sprite_names()
+        return self.sprite_index
+
+    def register_sprites(self, extra: Dict[str, str]) -> None:
+        """Add icons from another page (the weapon list). Icons already known are kept."""
+        for k, url in extra.items():
+            if url:
+                self.sprite_index.setdefault(skey(k), url)
+        self._index_sprite_names()
+
+    def _index_sprite_names(self) -> None:
         self._sprite_norm = {}
         clash = set()
         for k in self.sprite_index:
@@ -845,7 +1186,6 @@ class Store:
             self._sprite_norm[n] = k
         for n in clash:
             del self._sprite_norm[n]   # ambiguous (e.g. Tortoiseshell / Tortoise shell): exact name only
-        return self.sprite_index
 
     def _sprite_key(self, name: str) -> Optional[str]:
         k = skey(name)
@@ -966,6 +1306,16 @@ class Store:
                     lst = out.setdefault(key(k), [])
                     if label not in lst:
                         lst.append(label)
+        # Towns from the weapon list, for towns the shop list doesn't already give for that item.
+        for w in getattr(self, "weapons", []):
+            if w.buy is None:
+                continue
+            lst = out.setdefault(norm(w.name), [])
+            for town in w.towns:
+                if not any(norm(x.split(" (")[0]) == norm(town) for x in lst):
+                    lst.append(f"{town} (Weapon Shops)")
+            if not lst:
+                del out[norm(w.name)]
         return out
 
     def shop_items(self) -> Dict[str, str]:
@@ -983,6 +1333,8 @@ class ItemInfo:
     category: str
     recipes: List[Recipe] = field(default_factory=list)
     droppers: List[Tuple[Enemy, Drop]] = field(default_factory=list)
+    weapon: Optional[Weapon] = None                        # its row on the wiki's weapon list
+    found: List[str] = field(default_factory=list)         # other ways to get it (quest, chest, ...)
 
 
 _SHOP_EXTRA: Dict[str, Dict[str, str]] = {   # words only the shop-only names need
@@ -1028,10 +1380,11 @@ class Registry:
     """Joins the enemy drop table with the recipe list, matching item names across sites."""
 
     def __init__(self, enemies: List[Enemy], recipes: List[Recipe],
-                 shop_items: Optional[Dict[str, str]] = None):
+                 shop_items: Optional[Dict[str, str]] = None, weapons: Optional[List[Weapon]] = None):
         self.enemies = enemies
         self.recipes = recipes
         self.shop_items = shop_items or {}
+        self.weapons = weapons or []
         self.items: Dict[str, ItemInfo] = {}
         self.alias: Dict[str, str] = {}
         self._kinds: Dict[str, Counter] = {}
@@ -1111,6 +1464,8 @@ class Registry:
                 info.category = r.category
                 self._cat_prio[info.key] = prio
 
+        self._add_weapons()
+
         # Things only a shop sells (no drop, no recipe) still need a place in the lists.
         for name, hint in self.shop_items.items():
             if "~" in name or self.resolve(name):
@@ -1118,6 +1473,41 @@ class Registry:
             key = norm(name)
             self.items[key] = ItemInfo(key, name, shop_category(name, hint))
             self._add_alias(name, key)
+
+    def _add_weapons(self):
+        """Fold in the wiki's weapon list. Its weapon type is trusted over the guesses made for the
+        other sources; its recipe is only used when no other source has one (the list is hand-typed
+        and has a few cut-off cells); quest rewards, chests, bonus-alchemy chances and boss drops
+        become 'found' entries. N/A cells add nothing."""
+        by_enemy = {norm(e.name): e for e in self.enemies}
+        for w in self.weapons:
+            info = self.resolve(w.name)
+            if info is None:
+                key = norm(w.name)
+                info = self.items.setdefault(key, ItemInfo(key, w.name, w.category))
+                self._add_alias(w.name, key)
+            info.weapon = w
+            if w.category and w.category != "Other weapons":
+                info.category = w.category
+                self._cat_prio[info.key] = 3
+            if w.recipe and not info.recipes:
+                extra = {"Note": w.recipe_note} if w.recipe_note else {}
+                info.recipes.append(Recipe(w.name, info.category, list(w.recipe), extra, "weapon list"))
+            found = list(w.found)
+            if w.price_note:
+                found.append(w.price_note)
+            if w.recipe_note and not w.recipe:
+                found.append(w.recipe_note)   # "20% chance to alchemize when crafting a ..."
+            have = {id(e) for e, _ in info.droppers}
+            for monster, marker in w.drops:
+                enemy = by_enemy.get(norm(monster))
+                if enemy is None:
+                    found.append(f"Dropped by {monster}" + (f" ({_drop_marker(marker)})" if marker else ""))
+                elif id(enemy) not in have:
+                    info.droppers.append((enemy, Drop(info.name, w.category, 0, 0, "",
+                                                      _drop_marker(marker) or "listed on the weapon list")))
+                    have.add(id(enemy))
+            info.found = [f for f in found if f and f not in info.found] + info.found
 
     def categories(self) -> List[str]:
         present = {i.category for i in self.items.values() if i.category}
@@ -1186,6 +1576,8 @@ def _recipe_html(reg: Registry, r: Recipe, per_n: int, loc_fn: LocFn, shops: Dic
         ing_shops = shops.get(norm(nm)) or (shops.get(ing.key) if ing else None)
         if ing_shops:
             h.append("<p><b>Buy:</b> " + esc("; ".join(ing_shops)) + "</p>")
+        if ing and ing.found:
+            h.append("<p><b>Found:</b> " + esc("; ".join(ing.found)) + "</p>")
         if ing and ing.droppers:
             h.append(_monster_table(ing.droppers, per_n, loc_fn, needed))
         if ing and ing.recipes:
@@ -1199,7 +1591,7 @@ def _recipe_html(reg: Registry, r: Recipe, per_n: int, loc_fn: LocFn, shops: Dic
                 h.append(f"<p><i>Can be made by alchemy{note}:</i></p><blockquote>")
                 h.append(_recipe_html(reg, ing.recipes[0], per_n, loc_fn, shops, needed, path | {key}, depth + 1))
                 h.append("</blockquote>")
-        elif not ing_shops and not (ing and ing.droppers):
+        elif not ing_shops and not (ing and (ing.droppers or ing.found)):
             h.append("<p><i>No monster on the enemy list drops this and no recipe makes it. "
                      "It may be found in the world (chests, shiny spots, quests).</i></p>")
     return "".join(h)
@@ -1221,6 +1613,16 @@ def _details_html(state: str, det: Optional[dict]) -> str:
     return "".join(h)
 
 
+def _weapon_html(w: Weapon) -> str:
+    """The weapon-list row as a small fact table (N/A and empty cells left out)."""
+    price = lambda v: f"{v:,} G" if v is not None else ""   # noqa: E731
+    rows = [("Attack", w.attack), ("Equip", ", ".join(w.equip_names)), ("Buy price", price(w.buy)),
+            ("Sell price", price(w.sell)), ("Notes", w.notes)]
+    body = "".join(f"<tr><td><b>{esc(k)}</b>&nbsp;&nbsp;</td><td>{esc(v)}</td></tr>" for k, v in rows if v)
+    return (f"<table cellspacing='2'>{body}</table>"
+            f"<p><small style='color:#888'>From the weapon list: {esc(WEAPON_URL)}</small></p>") if body else ""
+
+
 def render_item_html(reg: Registry, info: ItemInfo, per_n: int, loc_fn: LocFn,
                      shops: Dict[str, List[str]], detail_fn=None) -> Tuple[str, List[Enemy]]:
     """detail_fn(name) -> ("ok"|"loading"|"none", dict|None) supplies the wiki's item facts."""
@@ -1229,9 +1631,14 @@ def render_item_html(reg: Registry, info: ItemInfo, per_n: int, loc_fn: LocFn,
     if detail_fn:
         h.append(_details_html(*detail_fn(info.name)))
 
+    if info.weapon:
+        h.append(_weapon_html(info.weapon))
+
     own_shops = shops.get(info.key)
     if own_shops:
         h.append("<h3>Buy it</h3><ul>" + "".join(f"<li>{esc(s)}</li>" for s in own_shops) + "</ul>")
+    if info.found:
+        h.append("<h3>Other ways to get it</h3><ul>" + "".join(f"<li>{esc(s)}</li>" for s in info.found) + "</ul>")
 
     if info.recipes:
         h.append("<h3>Alchemy</h3>")
@@ -1244,7 +1651,7 @@ def render_item_html(reg: Registry, info: ItemInfo, per_n: int, loc_fn: LocFn,
         h.append("<h3>Dropped by monsters</h3>")
         h.append(_monster_table(info.droppers, per_n, loc_fn, needed))
 
-    if not info.recipes and not info.droppers and not own_shops:
+    if not info.recipes and not info.droppers and not own_shops and not info.found:
         h.append("<p><i>No alchemy recipe or monster drop found for this item.</i></p>")
     if not own_shops:
         h.append("<p><small>Not sold in any town shop on the shop list.</small></p>")

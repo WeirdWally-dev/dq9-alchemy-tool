@@ -9,7 +9,8 @@ Pick an equipment type, pick an item, and the app draws a tree showing everythin
 - **Equipment browser.** Choose a category (swords, axes, spears, head, torso, accessories, ingredients and more) and filter the item list by name.
 - **Recipe tree.** A visual bubble map of the full recipe, unfolding nested recipes for crafted ingredients. Quantities sit on the connecting lines.
 - **Monster drops.** Which monsters drop an item, at what rate, and where to find them. Monsters are sorted by best drop rate first, and the "Monsters shown" box controls how many appear. A small **+** badge reveals the rest.
-- **Shops.** Every town and shop that sells an item (362 items, 567 listings across 15 shop pages).
+- **Shops.** Every town and shop that sells an item (362 items, 567 listings across 15 shop pages), plus the weapon shops named on the wiki's weapon list.
+- **Weapon list.** Every weapon on the Dragon Quest Wiki's weapon list, with its picture, attack, vocations, buy and sell price and notes. Quest rewards, chests, bonus-alchemy chances and boss drops show as teal **Found** bubbles. Cells the wiki marks N/A are left out rather than shown as a location.
 - **Craft or farm toggle.** When an item can be both crafted and dropped, show just one route to keep the tree readable.
 - **Item details.** Double-click any bubble for its description, sell price, stats and special effects.
 - **Dark mode** throughout.
@@ -37,7 +38,7 @@ python -m pip install -r requirements.txt
 python dq9_alchemy_helper.py
 ```
 
-The first launch downloads the enemy list (a single request). Monster locations and item details are looked up the first time you view them, then cached.
+The first launch downloads the enemy list and the weapon list (one request each). Monster locations and item details are looked up the first time you view them, then cached.
 
 > **VS Code users:** if you get `ModuleNotFoundError: No module named 'PyQt5'` but `pip` says it's installed, VS Code is using a different Python interpreter than your terminal. Pick the right one with **Python: Select Interpreter** in the Command Palette.
 
@@ -60,11 +61,14 @@ The first launch downloads the enemy list (a single request). Monster locations 
 |---|---|---|
 | Alchemy recipes (445) | Community recipe spreadsheet | Bundled as `sheet_recipes.json` |
 | Monsters, drops, drop rates, locations | [Dragon Quest Wiki](https://dragon-quest.org/wiki/List_of_enemies_in_Dragon_Quest_IX) | Fetched on demand and cached |
+| Weapons: pictures, stats, prices, where to get them | [Dragon Quest Wiki](https://dragon-quest.org/wiki/List_of_weapons_in_Dragon_Quest_IX) | Fetched once (page source via the wiki API) and cached |
 | Shop listings | [dqnine.wikidot.com/shops](http://dqnine.wikidot.com/shops) | Bundled as `shops_bundled.json` |
 | Item details | dqnine.wikidot.com item pages | Fetched on demand and cached |
 | Extra recipes (optional) | [Woodus Dragon's Den](https://www.woodus.com/den/games/dq9ds/alchemy_recipes.php) | Manual import |
 
 Woodus's `robots.txt` asks automated tools not to fetch its recipe page, so the app never downloads it. To use it anyway, open the page in your browser, save it with **Ctrl+S** as "Webpage, HTML only", and load it with **Import woodus page...**.
+
+The weapon list is hand-edited, so the parser tolerates its quirks (N/A cells, prices with or without "g", quest notes in the price column, cut-off recipe cells, one row with two columns swapped). Its recipes are only used when no other source has one. The Longbow row shows a placeholder picture, so the app uses the wiki's *Long bow IX artwork* file instead (see `SPRITE_FIXES` in `dq9_data.py` to correct others).
 
 Item names are matched exactly, because the game has distinct items with near-identical names (for example the *Tortoiseshell* ingredient and the *Tortoise shell* armour).
 

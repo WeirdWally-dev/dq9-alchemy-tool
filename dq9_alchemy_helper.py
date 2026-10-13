@@ -5,7 +5,8 @@ DQ9 Alchemy Helper - pick an equipment type, pick an item, see how to get it.
     python -m pip install PyQt5 requests beautifulsoup4 openpyxl
     python dq9_alchemy_helper.py
 
-First launch downloads the enemy list (one request) and caches it in ~/.dq9_helper/.
+First launch downloads the enemy list and the weapon list (one request each) and caches them in
+~/.dq9_helper/.
 Monster locations and item details (price, description, effects) are looked up on demand
 (one polite request each, cached forever).
 """
@@ -48,10 +49,12 @@ ROBOTS_MSG = (
 COLORS = {
     "item": ("#3b6ea8", "#8fbcf2"), "craft": ("#2b4666", "#5b8fd0"), "base": ("#2c4a30", "#6aa84f"),
     "recipe": ("#3d3558", "#9a88d6"), "monster": ("#6b2d2d", "#e06666"), "shop": ("#5c4a14", "#e0b030"),
+    "found": ("#1f5a55", "#4fc1b5"),
     "more": ("#33353b", "#7b7f88"), "unknown": ("#33353b", "#7b7f88"),
 }
 LEGEND = [("item", "this item"), ("craft", "made by alchemy"), ("base", "base ingredient"),
-          ("monster", "monster drop"), ("shop", "sold in shops"), ("unknown", "no known source")]
+          ("monster", "monster drop"), ("shop", "sold in shops"), ("found", "quest / chest / other"),
+          ("unknown", "no known source")]
 
 
 SPRITE_PX = 34   # icons are drawn at most this big inside a bubble
@@ -269,6 +272,11 @@ class LoadWorker(QThread):
         except Exception as e:  # noqa: BLE001 - surface anything to the user
             self.failed.emit(f"Couldn't load the enemy list:\n{e}")
             return
+        try:
+            self.status.emit("Loading weapon list...")
+            self.store.load_weapons(self.force)
+        except Exception:  # noqa: BLE001 - the weapon list adds detail; the app works without it
+            pass
         woodus, note = [], ""
         try:
             self.status.emit("Loading alchemy recipes...")
@@ -283,10 +291,12 @@ class LoadWorker(QThread):
             self.store.load_sprite_index(self.force)
         except Exception:  # noqa: BLE001 - icons are optional
             pass
+        self.store.register_sprites(data.weapon_sprites(self.store.weapons))
         if note == "robots" and (woodus or sheet):
             note = ""   # woodus.com is optional once the spreadsheet (or a saved copy) is there
         self.status.emit("Matching items across sources...")
-        self.ready.emit(data.Registry(enemies, woodus + sheet, self.store.shop_items()), note)
+        self.ready.emit(data.Registry(enemies, woodus + sheet, self.store.shop_items(),
+                                      self.store.weapons), note)
 
 
 class LocWorker(QThread):
@@ -599,7 +609,7 @@ class MainWindow(QMainWindow):
         """Re-merge every recipe source we have (no network) after an import."""
         if self.registry:
             self.set_registry(data.Registry(self.registry.enemies, self.store.cached_recipes(),
-                                          self.store.shop_items()))
+                                            self.store.shop_items(), self.store.weapons))
 
     # ------------------------------------------------------------------ list + detail
     def fill_items(self, *_):
@@ -607,7 +617,8 @@ class MainWindow(QMainWindow):
         self.items.clear()
         if self.registry:
             for info in self.registry.items_in(self.category.currentText(), self.filter.text()):
-                tags = [t for t, ok in (("alchemy", info.recipes), ("drop", info.droppers)) if ok]
+                tags = [t for t, ok in (("alchemy", info.recipes), ("drop", info.droppers),
+                                        ("found", info.found)) if ok]
                 it = QListWidgetItem(info.name + (f"   ({', '.join(tags)})" if tags else ""))
                 it.setData(Qt.UserRole, info.key)
                 self.items.addItem(it)

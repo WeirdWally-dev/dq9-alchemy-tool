@@ -2,6 +2,14 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
+## 1.3.1 - 2026-10-13
+
+- **Fixed: the app never finished loading** (nothing in the lists, on Android and everywhere else). The pause between web requests was miscalculated, so the second request of a session waited forever.
+- **Phone menus rebuilt.** The ⋮ menus and the dropdowns (equipment type, alchemy/drops) now open as a full screen of large buttons instead of Qt's small pop-ups, which didn't work properly with touch. Back closes them.
+- **Windows app is back**, now built from the same C++ code: a `DQ9-Alchemy-Helper-Setup.exe` installer (no admin rights needed) and a portable zip. Same desktop layout as before (item list on the left, tree on the right, details in their own windows) with tooltips, Ctrl+D / Ctrl+B and mouse-wheel zoom. Your existing `%USERPROFILE%\.dq9_helper` cache and bookmarks carry over.
+- **Import spreadsheet...** works again (Windows and Android): re-reads the `.xlsx` recipe spreadsheet.
+- Behind the scenes: every build now runs the app on an Android emulator and checks the live wiki pages, so problems like the loading bug get caught before a release.
+
 ## 1.3.0 - 2026-10-13 (Android)
 
 First Android release: the whole app rewritten in C++ with Qt 6, on the `android-cpp` branch.

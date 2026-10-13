@@ -17,6 +17,8 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QMenu>
+#include <QPushButton>
+#include <QScrollArea>
 #include <QMessageBox>
 #include <QDialog>
 #include <QSplitter>
@@ -33,6 +35,19 @@
 using namespace dq9;
 
 namespace {
+
+// A combo box whose list opens as the phone menu page instead of Qt's pop-up.
+class PageCombo : public QComboBox {
+public:
+    std::function<void()> onPopup;
+    void showPopup() override
+    {
+        if (onPopup)
+            onPopup();
+        else
+            QComboBox::showPopup();
+    }
+};
 
 constexpr int ROLE_KEY = Qt::UserRole;
 constexpr int ROLE_MARK_KEY = Qt::UserRole + 1;
@@ -156,13 +171,7 @@ QWidget *MainWindow::buildBrowsePage()
 {
     auto *page = new QWidget;
     auto *menuBtn = toolButton(QStringLiteral("⋮"), tr("Menu"));
-    auto *menu = new QMenu(menuBtn);
-    menu->addAction(QStringLiteral("★ ") + tr("Bookmarks"), this, &MainWindow::showBookmarks);
-    menu->addAction(tr("Refresh data"), this, [this] { startLoad(true); });
-    menu->addAction(tr("Import spreadsheet..."), this, &MainWindow::importSheet);
-    menu->addAction(tr("Import woodus page..."), this, &MainWindow::importRecipes);
-    menu->addSeparator();
-    menu->addAction(tr("About"), this, [this] {
+    auto about = [this] {
         QMessageBox::about(this, tr("About"),
                            tr("<h3>DQ9 Alchemy Helper %1</h3>"
                               "<p>How to get any item in Dragon Quest IX: craft it, farm it or buy it.</p>"
@@ -170,13 +179,23 @@ QWidget *MainWindow::buildBrowsePage()
                               "spreadsheet. Fetched politely (robots.txt respected) and cached on this device.</p>"
                               "<p>GPL-3.0. Dragon Quest is a trademark of Square Enix; this is an unofficial fan tool.</p>")
                                .arg(QStringLiteral(APP_VERSION)));
-    });
-    connect(menuBtn, &QToolButton::clicked, menuBtn, [menuBtn, menu] {
-        menu->popup(menuBtn->mapToGlobal(QPoint(menuBtn->width() - menu->sizeHint().width(), menuBtn->height())));
+    };
+    connect(menuBtn, &QToolButton::clicked, this, [this, menuBtn, about] {
+        showMenu(tr("Menu"),
+                 {{QStringLiteral("\u2605 ") + tr("Bookmarks"), [this] { showBookmarks(); }},
+                  {tr("Refresh data"), [this] { startLoad(true); }},
+                  {tr("Import spreadsheet..."), [this] { importSheet(); }},
+                  {tr("Import woodus page..."), [this] { importRecipes(); }},
+                  {QString(), nullptr},
+                  {tr("About"), about}},
+                 menuBtn->mapToGlobal(QPoint(0, menuBtn->height())));
     });
     auto *title = new QLabel(tr("DQ9 Alchemy Helper"));
 
-    m_category = new QComboBox;
+    auto *category = new PageCombo;
+    if (!m_wide)
+        category->onPopup = [this] { chooseFromCombo(m_category, tr("Equipment type")); };
+    m_category = category;
     connect(m_category, &QComboBox::currentIndexChanged, this, &MainWindow::fillItems);
     m_filter = new QLineEdit;
     m_filter->setPlaceholderText(tr("Filter items..."));
@@ -241,7 +260,10 @@ QWidget *MainWindow::buildItemPage()
     m_modeGroup->addButton(listBtn, 1);
     connect(m_modeGroup, &QButtonGroup::idClicked, this, &MainWindow::modeChanged);
 
-    m_prefer = new QComboBox;
+    auto *prefer = new PageCombo;
+    if (!m_wide)
+        prefer->onPopup = [this] { chooseFromCombo(m_prefer, tr("Show which route")); };
+    m_prefer = prefer;
     m_prefer->addItem(tr("Prefer alchemy"), QStringLiteral("alchemy"));
     m_prefer->addItem(tr("Prefer drops"), QStringLiteral("drops"));
     m_prefer->setToolTip(tr("When an item can be crafted AND dropped by monsters, show only this one"));
@@ -321,6 +343,81 @@ QWidget *MainWindow::buildInfoPage()
     body->addWidget(m_infoView);
     lay->addLayout(body, 1);
     return page;
+}
+
+QWidget *MainWindow::buildMenuPage()
+{
+    auto *page = new QWidget;
+    auto *back = toolButton(QStringLiteral("\u2039"), tr("Back"));
+    connect(back, &QToolButton::clicked, this, &MainWindow::goBack);
+    m_menuTitle = new QLabel;
+    auto *scroll = new QScrollArea;
+    scroll->setWidgetResizable(true);
+    scroll->setFrameShape(QFrame::NoFrame);
+    m_menuButtons = new QWidget;
+    new QVBoxLayout(m_menuButtons);
+    scroll->setWidget(m_menuButtons);
+    enableKineticScroll(scroll);
+    auto *lay = new QVBoxLayout(page);
+    lay->setContentsMargins(0, 0, 0, 0);
+    lay->setSpacing(0);
+    lay->addWidget(header(back, m_menuTitle, {}));
+    lay->addWidget(scroll, 1);
+    return page;
+}
+
+void MainWindow::showMenu(const QString &title, const MenuEntries &entries, const QPoint &globalPos)
+{
+    if (m_wide) {
+        QMenu menu(this);
+        for (const auto &[label, action] : entries) {
+            if (label.isEmpty())
+                menu.addSeparator();
+            else
+                menu.addAction(label, this, action);
+        }
+        menu.exec(globalPos);
+        return;
+    }
+    if (!m_menuPage) {
+        m_menuPage = buildMenuPage();
+        m_pages->addWidget(m_menuPage);
+    }
+    m_menuTitle->setText(title);
+    auto *lay = static_cast<QVBoxLayout *>(m_menuButtons->layout());
+    while (QLayoutItem *old = lay->takeAt(0)) {
+        delete old->widget();
+        delete old;
+    }
+    lay->setContentsMargins(12, 12, 12, 12);
+    lay->setSpacing(8);
+    for (const auto &[label, action] : entries) {
+        if (label.isEmpty()) {
+            lay->addSpacing(12);
+            continue;
+        }
+        auto *b = new QPushButton(label);
+        b->setMinimumHeight(52);
+        b->setStyleSheet(QStringLiteral("text-align:left; padding-left:16px; font-size:16px;"));
+        connect(b, &QPushButton::clicked, this, [this, action] {
+            goBack();   // leave the menu first, so the action's own page (if any) goes on top
+            QTimer::singleShot(0, this, action);
+        });
+        lay->addWidget(b);
+    }
+    lay->addStretch(1);
+    showPage(m_menuPage);
+}
+
+void MainWindow::chooseFromCombo(QComboBox *combo, const QString &title)
+{
+    MenuEntries entries;
+    for (int i = 0; i < combo->count(); ++i) {
+        const QString text = combo->itemText(i);
+        entries.append({(i == combo->currentIndex() ? QStringLiteral("\u2713  ") : QStringLiteral("     ")) + text,
+                        [combo, i] { combo->setCurrentIndex(i); }});
+    }
+    showMenu(title, entries, combo->mapToGlobal(QPoint(0, combo->height())));
 }
 
 void MainWindow::showPage(QWidget *page)
@@ -562,35 +659,35 @@ void MainWindow::itemsMenu(const QPoint &pos)
     QListWidgetItem *it = m_items->itemAt(pos);
     if (!it || !m_registry)
         return;
-    QMenu menu(this);
+    MenuEntries entries;
     const ItemPtr info = m_registry->item(it->data(ROLE_KEY).toString());
     if (!info) {
         const QString key = it->data(ROLE_MARK_KEY).toString();
         if (key.isEmpty())
             return;
-        menu.addAction(tr("Remove bookmark"), this, [this, key] {
+        entries.append({tr("Remove bookmark"), [this, key] {
             m_bookmarks.removeIf([&](const Bookmark &m) { return m.key == key; });
             m_store.saveBookmarks(m_bookmarks);
             fillItems();
-        });
+        }});
     } else {
         const bool on = isBookmarked(m_bookmarks, info.get());
-        menu.addAction(on ? tr("Remove bookmark") : tr("Add bookmark"), this, [this, info] { toggleBookmark(*info); });
+        entries.append({on ? tr("Remove bookmark") : tr("Add bookmark"), [this, info] { toggleBookmark(*info); }});
         if (on && m_category->currentText() == BOOKMARKS_CAT && m_filter->text().trimmed().isEmpty()) {
-            menu.addSeparator();
-            menu.addAction(tr("Move up"), this, [this, info] {
+            entries.append({QString(), nullptr});
+            entries.append({tr("Move up"), [this, info] {
                 moveBookmark(m_bookmarks, *info, -1);
                 m_store.saveBookmarks(m_bookmarks);
                 fillItems();
-            });
-            menu.addAction(tr("Move down"), this, [this, info] {
+            }});
+            entries.append({tr("Move down"), [this, info] {
                 moveBookmark(m_bookmarks, *info, 1);
                 m_store.saveBookmarks(m_bookmarks);
                 fillItems();
-            });
+            }});
         }
     }
-    menu.exec(m_items->viewport()->mapToGlobal(pos));
+    showMenu(it->text().section(QStringLiteral("   ("), 0, 0), entries, m_items->viewport()->mapToGlobal(pos));
 }
 
 void MainWindow::showBookmarks()
@@ -657,25 +754,25 @@ void MainWindow::toggleBookmark(const ItemInfo &info)
 
 void MainWindow::itemPageMenu()
 {
-    QMenu menu(this);
-    menu.addAction(tr("How to read the tree"), this, [this] {
+    MenuEntries entries;
+    entries.append({tr("How to read the tree"), [this] {
         openInfo(tr("Legend"), [] { return Rendered{theme::legendHtml(), {}}; });
-    });
+    }});
     if (m_current) {
-        menu.addAction(tr("Item details"), this, [this] { openItemInfo(m_current->key, m_current->name); });
+        entries.append({tr("Item details"), [this] { openItemInfo(m_current->key, m_current->name); }});
         if (isBookmarked(m_bookmarks, m_current.get())) {
-            menu.addSeparator();
-            menu.addAction(tr("Move bookmark up"), this, [this] {
+            entries.append({QString(), nullptr});
+            entries.append({tr("Move bookmark up"), [this] {
                 moveBookmark(m_bookmarks, *m_current, -1);
                 m_store.saveBookmarks(m_bookmarks);
-            });
-            menu.addAction(tr("Move bookmark down"), this, [this] {
+            }});
+            entries.append({tr("Move bookmark down"), [this] {
                 moveBookmark(m_bookmarks, *m_current, 1);
                 m_store.saveBookmarks(m_bookmarks);
-            });
+            }});
         }
     }
-    menu.exec(mapToGlobal(QPoint(std::max(0, width() - menu.sizeHint().width() - 8), 48)));
+    showMenu(m_current ? m_current->name : tr("Menu"), entries, mapToGlobal(QPoint(std::max(0, width() - 240), 48)));
 }
 
 // --------------------------------------------------------------------------- info page

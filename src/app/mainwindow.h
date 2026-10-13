@@ -47,6 +47,12 @@ private:
     QWidget *buildItemPage();
     QWidget *buildInfoPage();
     QWidget *header(QWidget *left, QLabel *title, QList<QWidget *> right);
+    QWidget *buildMenuPage();
+    // A menu: a pop-up menu on desktop, a full-screen page of big buttons on a phone (touch and
+    // Qt's pop-up menus don't get on). An entry with an empty label is a separator.
+    using MenuEntries = QList<QPair<QString, std::function<void()>>>;
+    void showMenu(const QString &title, const MenuEntries &entries, const QPoint &globalPos);
+    void chooseFromCombo(QComboBox *combo, const QString &title);
     void showPage(QWidget *page);
     bool goBack();
     void setStatus(const QString &text, int ms = 0);
@@ -104,6 +110,9 @@ private:
     bool m_wide;
     QStackedWidget *m_pages = nullptr;   // phone layout only
     QWidget *m_browsePage, *m_itemPage, *m_infoPage;
+    QWidget *m_menuPage = nullptr;
+    QLabel *m_menuTitle = nullptr;
+    QWidget *m_menuButtons = nullptr;
     QList<QWidget *> m_history;
 
     // browse page

@@ -52,7 +52,12 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-        run: >
-          gh release create "${GITHUB_REF_NAME}" dist/DQ9-Alchemy-Helper.exe
-          --title "DQ9 Alchemy Helper ${GITHUB_REF_NAME}"
-          --notes-file notes.md
+        run: |
+          # If the release was already made on GitHub's website, attach the exe to it instead.
+          if gh release view "${GITHUB_REF_NAME}" > /dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" dist/DQ9-Alchemy-Helper.exe --clobber
+            gh release edit "${GITHUB_REF_NAME}" --notes-file notes.md
+          else
+            gh release create "${GITHUB_REF_NAME}" dist/DQ9-Alchemy-Helper.exe \
+              --title "DQ9 Alchemy Helper ${GITHUB_REF_NAME}" --notes-file notes.md
+          fi

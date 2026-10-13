@@ -57,8 +57,10 @@ void LoadWorker::run()
         // icons are optional
     }
     m_store.registerSprites(weaponSprites(m_store.weapons));
-    if (note == QStringLiteral("robots") && (!woodus.isEmpty() || !sheet.isEmpty()))
+    if (!note.isEmpty() && (!woodus.isEmpty() || !sheet.isEmpty())) {
+        qCInfo(lcLoad) << "woodus.com skipped:" << note;
         note.clear();   // woodus.com is optional once the spreadsheet (or a saved copy) is there
+    }
     emit status(tr("Matching items across sources..."));
     auto reg = std::make_shared<const Registry>(enemies, woodus + sheet, m_store.shopItems(), m_store.weapons);
     qCInfo(lcLoad) << "ready:" << enemies.size() << "enemies," << reg->recipeCount() << "recipes, note:" << note;

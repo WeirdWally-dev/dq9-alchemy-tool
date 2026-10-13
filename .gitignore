@@ -30,3 +30,4 @@ build*/
 CMakeLists.txt.user*
 *.apk
 *.jks
+!tests/recipes_sample.xlsx

@@ -24,6 +24,9 @@ public:
     virtual QString get(const QString &url);
     virtual QByteArray getBytes(const QString &url, double gapSeconds = 0.5);
 
+    // How long to wait before the next request, in milliseconds (0 if the gap has already passed).
+    static long long waitMs(double gapSeconds, std::chrono::steady_clock::duration sinceLast);
+
 protected:
     // One request on the calling thread. status 0 = no answer (offline, timeout, TLS failure).
     static QByteArray fetch(const QString &url, int *status, QString *error);

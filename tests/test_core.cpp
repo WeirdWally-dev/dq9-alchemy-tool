@@ -8,6 +8,7 @@
 #include "core/text.h"
 #include "core/tree.h"
 #include "core/wikitext.h"
+#include "core/xlsx.h"
 
 #include <QCoreApplication>
 #include <QFile>
@@ -327,6 +328,43 @@ static void testSheet()
     for (const auto &r : shipped)
         for (const auto &i : r.ingredients)
             CHECK(i.name != QStringLiteral("Agressence"));
+}
+
+static void testXlsx()
+{
+    QFile f(QStringLiteral(":/tests/recipes_sample.xlsx"));
+    CHECK(f.open(QIODevice::ReadOnly));
+    const QByteArray data = f.readAll();
+    const auto sheets = readXlsx(data);
+    CHECK_EQ(int(sheets.size()), 2);
+    CHECK_EQ(sheets[0][1].value(0), QStringLiteral("Weapon Name"));
+    CHECK_EQ(sheets[1][2].value(1), QStringLiteral("42"));
+    // Rebuilt from the bundled recipes in the spreadsheet's layout, so parsing it must give them back
+    // exactly, weapon and armour types included (they come from the alphabetical runs).
+    const auto parsed = parseRecipeSheet(data);
+    const auto shipped = freshStore()->loadSheetRecipes();
+    CHECK_EQ(int(parsed.size()), int(shipped.size()));
+    int same = 0;
+    for (int i = 0; i < std::min(parsed.size(), shipped.size()); ++i)
+        same += parsed[i] == shipped[i] ? 1 : 0;
+    CHECK_EQ(same, int(shipped.size()));
+    bool threw = false;
+    try {
+        readXlsx("not a zip");
+    } catch (const ParseError &) {
+        threw = true;
+    }
+    CHECK(threw);
+    // a store import replaces the bundled recipes with the imported ones
+    auto st = freshStore();
+    QTemporaryDir d;
+    QFile out(d.filePath("x.xlsx"));
+    if (out.open(QIODevice::WriteOnly)) {
+        out.write(data);
+        out.close();
+    }
+    CHECK_EQ(int(st->importSheetFile(d.filePath("x.xlsx")).size()), 445);
+    CHECK_EQ(int(st->loadSheetRecipes().size()), 445);
 }
 
 static void testMergeAndNesting()
@@ -827,6 +865,11 @@ static void testRobotsAndText()
     CHECK(named.canFetch("OtherBot/1.0", "https://x.org/page"));
     const Robots empty = Robots::parse("User-agent: *\nDisallow:\n");
     CHECK(empty.canFetch(Http::UA, "https://x.org/anything"));
+    using namespace std::chrono_literals;
+    CHECK_EQ(Http::waitMs(1.0, 0ms), 1000LL);
+    CHECK_EQ(Http::waitMs(1.0, 250ms), 750LL);
+    CHECK_EQ(Http::waitMs(0.5, 2s), 0LL);
+    CHECK_EQ(Http::waitMs(1.0, std::chrono::steady_clock::now().time_since_epoch()), 0LL);
     CHECK(Robots::allowAll().canFetch(Http::UA, "https://x.org/") && !Robots::disallowAll().canFetch(Http::UA, "https://x.org/"));
 
     CHECK(similar("Oak staff", "Oaken staff") && !similar("Mitre", "Priest costume"));
@@ -911,7 +954,7 @@ int main(int argc, char **argv)
         return runLive();
     g_tmp = std::make_unique<QTemporaryDir>();
     const std::pair<const char *, std::function<void()>> tests[] = {
-        {"basics", testBasics}, {"sheet", testSheet}, {"merge_and_nesting", testMergeAndNesting},
+        {"basics", testBasics}, {"sheet", testSheet}, {"xlsx", testXlsx}, {"merge_and_nesting", testMergeAndNesting},
         {"exact_names", testExactNames}, {"shops", testShops}, {"item_pages", testItemPages},
         {"tree", testTree}, {"prefer", testPrefer}, {"sprites", testSprites}, {"weapons", testWeapons},
         {"unsourced_items", testUnsourcedItems}, {"material_list", testMaterialList},

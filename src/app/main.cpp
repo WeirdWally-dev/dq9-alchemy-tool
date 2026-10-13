@@ -7,6 +7,7 @@
 #include "app/theme.h"
 
 #include <QApplication>
+#include <QIcon>
 
 int main(int argc, char *argv[])
 {
@@ -17,11 +18,18 @@ int main(int argc, char *argv[])
     qRegisterMetaType<RegistryPtr>("RegistryPtr");
     theme::applyDark(app);
 
-    MainWindow win;
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+    MainWindow win(false);
     win.showMaximized();
 #else
-    win.resize(430, 860);   // phone-shaped on desktop too, so the desktop build previews the mobile layout
+    // Desktop layout; DQ9_PHONE_LAYOUT=1 previews the phone layout in a phone-shaped window.
+    const bool phone = qEnvironmentVariableIntValue("DQ9_PHONE_LAYOUT") == 1;
+    MainWindow win(!phone);
+    if (phone)
+        win.resize(412, 860);
+    else
+        win.resize(1150, 720);
+    QApplication::setWindowIcon(QIcon(QStringLiteral(":/data/icon.png")));
     win.show();
 #endif
     return app.exec();

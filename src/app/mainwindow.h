@@ -1,8 +1,9 @@
-// Phone-first main window: one screen at a time.
+// Main window. Three parts:
 //   Browse  - equipment type, filter, item list, bookmarks
 //   Item    - the recipe tree or the material list for the chosen item
 //   Info    - the full write-up for a tapped bubble (an item or a monster)
-// Back (Android's back gesture, or Esc) steps back through them.
+// On a phone they are one screen at a time and Back (Android's back gesture, or Esc) steps back.
+// On a desktop, Browse and Item sit side by side and each Info opens in its own window.
 #pragma once
 
 #include "app/workers.h"
@@ -11,6 +12,7 @@
 
 #include <QHash>
 #include <QMainWindow>
+#include <QPointer>
 #include <QPixmap>
 #include <QSet>
 
@@ -33,7 +35,7 @@ class TreeView;
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    MainWindow();
+    explicit MainWindow(bool wide);
     ~MainWindow() override;
 
 protected:
@@ -55,6 +57,7 @@ private:
     void onFailed(const QString &msg);
     void setRegistry(RegistryPtr registry);
     void importRecipes();
+    void importSheet();
     void rebuildRegistry();
 
     // browse
@@ -76,6 +79,7 @@ private:
     void openItemInfo(const QString &key, const QString &name);
     void openInfo(const QString &title, std::function<dq9::Rendered()> render);
     void refreshInfo();
+    void refreshInfoView(QTextBrowser *view, const std::function<dq9::Rendered()> &render);
 
     // icons and look-ups
     QPair<bool, QPixmap> getSprite(const QString &name);
@@ -97,7 +101,8 @@ private:
     QTimer *m_redrawTimer;       // batches item-page results into one tree redraw
     bool m_robotsNoticeShown = false;
 
-    QStackedWidget *m_pages;
+    bool m_wide;
+    QStackedWidget *m_pages = nullptr;   // phone layout only
     QWidget *m_browsePage, *m_itemPage, *m_infoPage;
     QList<QWidget *> m_history;
 
@@ -109,6 +114,7 @@ private:
 
     // item page
     QLabel *m_itemTitle;
+    QWidget *m_itemBack;
     QToolButton *m_bookmarkBtn;
     QButtonGroup *m_modeGroup;
     QComboBox *m_prefer;
@@ -122,4 +128,9 @@ private:
     QLabel *m_infoTitle;
     QTextBrowser *m_infoView;
     std::function<dq9::Rendered()> m_infoRender;
+    struct InfoWindow {   // desktop layout: one window per opened bubble
+        QPointer<QTextBrowser> view;
+        std::function<dq9::Rendered()> render;
+    };
+    QList<InfoWindow> m_infoWindows;
 };

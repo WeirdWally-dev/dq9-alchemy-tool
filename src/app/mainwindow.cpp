@@ -18,6 +18,8 @@
 #include <QListWidget>
 #include <QMenu>
 #include <QMessageBox>
+#include <QDialog>
+#include <QSplitter>
 #include <QScrollBar>
 #include <QScroller>
 #include <QShortcut>
@@ -64,7 +66,8 @@ void enableKineticScroll(QAbstractScrollArea *area)
 
 } // namespace
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(bool wide)
+    : m_wide(wide)
 {
     setWindowTitle(tr("DQ9 Alchemy Helper v%1").arg(QStringLiteral(APP_VERSION)));
 
@@ -88,18 +91,32 @@ MainWindow::MainWindow()
     m_sprites->start();
     m_bookmarks = m_store.loadBookmarks();
 
-    m_pages = new QStackedWidget;
     m_browsePage = buildBrowsePage();
     m_itemPage = buildItemPage();
     m_infoPage = buildInfoPage();
-    m_pages->addWidget(m_browsePage);
-    m_pages->addWidget(m_itemPage);
-    m_pages->addWidget(m_infoPage);
-    setCentralWidget(m_pages);
+    if (m_wide) {   // desktop: list on the left, tree on the right, details in their own windows
+        auto *split = new QSplitter(Qt::Horizontal);
+        split->addWidget(m_browsePage);
+        split->addWidget(m_itemPage);
+        split->setStretchFactor(0, 1);
+        split->setStretchFactor(1, 3);
+        split->setSizes({300, 850});
+        setCentralWidget(split);
+        m_itemBack->hide();
+        m_infoPage->hide();
+        m_view->message(tr("Select an item on the left."));
+        connect(m_items, &QListWidget::currentItemChanged, this, [this](QListWidgetItem *it) { itemTapped(it); });
+    } else {
+        m_pages = new QStackedWidget;
+        m_pages->addWidget(m_browsePage);
+        m_pages->addWidget(m_itemPage);
+        m_pages->addWidget(m_infoPage);
+        setCentralWidget(m_pages);
+    }
     qApp->installEventFilter(this);
 
     new QShortcut(QKeySequence(QStringLiteral("Ctrl+D")), this, [this] {
-        if (m_current && m_pages->currentWidget() != m_browsePage)
+        if (m_current && (m_wide || m_pages->currentWidget() != m_browsePage))
             toggleBookmark(*m_current);
     });
     new QShortcut(QKeySequence(QStringLiteral("Ctrl+B")), this, [this] { showBookmarks(); });
@@ -142,6 +159,7 @@ QWidget *MainWindow::buildBrowsePage()
     auto *menu = new QMenu(menuBtn);
     menu->addAction(QStringLiteral("★ ") + tr("Bookmarks"), this, &MainWindow::showBookmarks);
     menu->addAction(tr("Refresh data"), this, [this] { startLoad(true); });
+    menu->addAction(tr("Import spreadsheet..."), this, &MainWindow::importSheet);
     menu->addAction(tr("Import woodus page..."), this, &MainWindow::importRecipes);
     menu->addSeparator();
     menu->addAction(tr("About"), this, [this] {
@@ -198,6 +216,7 @@ QWidget *MainWindow::buildItemPage()
     auto *page = new QWidget;
     auto *back = toolButton(QStringLiteral("‹"), tr("Back"));
     connect(back, &QToolButton::clicked, this, &MainWindow::goBack);
+    m_itemBack = back;
     m_itemTitle = new QLabel;
     m_bookmarkBtn = toolButton(QStringLiteral("☆"), tr("Bookmark this item (Ctrl+D)"));
     connect(m_bookmarkBtn, &QToolButton::clicked, this, [this] {
@@ -306,7 +325,7 @@ QWidget *MainWindow::buildInfoPage()
 
 void MainWindow::showPage(QWidget *page)
 {
-    if (m_pages->currentWidget() == page)
+    if (m_wide || m_pages->currentWidget() == page)
         return;
     m_history << m_pages->currentWidget();
     m_pages->setCurrentWidget(page);
@@ -314,7 +333,7 @@ void MainWindow::showPage(QWidget *page)
 
 bool MainWindow::goBack()
 {
-    if (m_history.isEmpty())
+    if (m_wide || m_history.isEmpty())
         return false;
     QWidget *prev = m_history.takeLast();
     if (m_pages->currentWidget() == m_infoPage)
@@ -416,7 +435,10 @@ void MainWindow::setRegistry(RegistryPtr registry)
         m_current = m_registry->item(m_current->key);
         if (!m_current) {
             m_history.clear();
-            m_pages->setCurrentWidget(m_browsePage);
+            if (m_wide)
+                m_view->message(tr("Select an item on the left."));
+            else
+                m_pages->setCurrentWidget(m_browsePage);
         } else {
             m_matlist->setItem(m_current.get());
             draw();
@@ -442,6 +464,23 @@ void MainWindow::importRecipes()
     setStatus(tr("Imported %1 recipes from the woodus page").arg(recipes.size()), 6000);
 }
 
+void MainWindow::importSheet()
+{
+    const QString path = QFileDialog::getOpenFileName(this, tr("Open the recipes spreadsheet"), QString(),
+                                                      tr("Excel files (*.xlsx *.xlsm);;All files (*)"));
+    if (path.isEmpty())
+        return;
+    QList<Recipe> recipes;
+    try {
+        recipes = m_store.importSheetFile(path);
+    } catch (const std::exception &e) {
+        QMessageBox::warning(this, tr("Couldn't read that file"), errorText(e));
+        return;
+    }
+    rebuildRegistry();
+    setStatus(tr("Imported %1 recipes from the spreadsheet").arg(recipes.size()), 6000);
+}
+
 void MainWindow::rebuildRegistry()
 {
     // Re-merge every recipe source we have (no network) after an import.
@@ -453,6 +492,7 @@ void MainWindow::rebuildRegistry()
 // --------------------------------------------------------------------------- browse
 void MainWindow::fillItems()
 {
+    const QSignalBlocker block(m_items);
     m_items->clear();
     if (!m_registry)
         return;
@@ -488,6 +528,8 @@ void MainWindow::fillItems()
         auto *it = new QListWidgetItem(star + info->name + (tags.isEmpty() ? QString() : QStringLiteral("   (%1)").arg(tags.join(QStringLiteral(", ")))));
         it->setData(ROLE_KEY, info->key);
         m_items->addItem(it);
+        if (m_wide && m_current && info->key == m_current->key)
+            m_items->setCurrentItem(it);
     }
     if (marked && rows.isEmpty()) {
         auto *hint = new QListWidgetItem(m_bookmarks.isEmpty()
@@ -508,8 +550,11 @@ void MainWindow::itemTapped(QListWidgetItem *it)
             itemsMenu(m_items->visualItemRect(it).center());   // a bookmark whose item is gone: offer to remove it
         return;
     }
-    if (const ItemPtr info = m_registry->item(key))
+    if (const ItemPtr info = m_registry->item(key)) {
+        if (m_wide && m_current == info)
+            return;
         openItem(info);
+    }
 }
 
 void MainWindow::itemsMenu(const QPoint &pos)
@@ -552,7 +597,8 @@ void MainWindow::showBookmarks()
 {
     m_history.clear();
     m_infoRender = nullptr;
-    m_pages->setCurrentWidget(m_browsePage);
+    if (!m_wide)
+        m_pages->setCurrentWidget(m_browsePage);
     m_filter->clear();
     m_category->setCurrentIndex(std::max(m_category->findText(BOOKMARKS_CAT), 0));
     fillItems();
@@ -678,6 +724,20 @@ void MainWindow::openItemInfo(const QString &key, const QString &name)
 
 void MainWindow::openInfo(const QString &title, std::function<Rendered()> render)
 {
+    if (m_wide) {
+        auto *dlg = new QDialog(this);
+        dlg->setWindowTitle(title);
+        dlg->setAttribute(Qt::WA_DeleteOnClose);
+        auto *view = new QTextBrowser;
+        view->setOpenLinks(false);
+        auto *lay = new QVBoxLayout(dlg);
+        lay->addWidget(view);
+        dlg->resize(560, 640);
+        m_infoWindows.append({view, render});
+        dlg->show();
+        refreshInfoView(view, render);
+        return;
+    }
     m_infoTitle->setText(title);
     m_infoTitle->setToolTip(title);
     m_infoRender = std::move(render);
@@ -689,12 +749,22 @@ void MainWindow::openInfo(const QString &title, std::function<Rendered()> render
 
 void MainWindow::refreshInfo()
 {
-    if (!m_infoRender || m_pages->currentWidget() != m_infoPage)
+    if (m_wide) {
+        m_infoWindows.removeIf([](const InfoWindow &w) { return w.view.isNull(); });
+        for (const auto &w : m_infoWindows)
+            refreshInfoView(w.view, w.render);
         return;
-    QScrollBar *bar = m_infoView->verticalScrollBar();
+    }
+    if (m_infoRender && m_pages->currentWidget() == m_infoPage)
+        refreshInfoView(m_infoView, m_infoRender);
+}
+
+void MainWindow::refreshInfoView(QTextBrowser *view, const std::function<Rendered()> &render)
+{
+    QScrollBar *bar = view->verticalScrollBar();
     const int pos = bar->value();
-    const Rendered r = m_infoRender();
-    m_infoView->setHtml(theme::css() + r.html);
+    const Rendered r = render();
+    view->setHtml(theme::css() + r.html);
     QTimer::singleShot(0, bar, [bar, pos] { bar->setValue(pos); });
     for (const auto &enemy : r.needed)
         m_loc->request(enemy);

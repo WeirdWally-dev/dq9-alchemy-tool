@@ -27,7 +27,9 @@ keep = re.compile(r"dq9|DQ9|Qt|qt\.|libc|DEBUG|FATAL|AndroidRuntime|crash|Abort|
 lines = [l for l in log if keep.search(l)]
 annotate("pids", read("pid.txt") + "\n" + read("install.txt")[-500:])
 annotate("crash buffer", read("crash.txt")[-30000:] or "(empty)", "error" if read("crash.txt").strip() else "notice")
-annotate("app log (filtered logcat)", "\n".join(lines[-400:])[-60000:] or "(no matching lines)")
+app = read("applog.txt").splitlines()
+annotate("app log", "\n".join(app[-300:])[-20000:] or "(app not running at the end)")
+annotate("system log (filtered)", "\n".join(l for l in lines if "dq9" in l.lower() or "FATAL" in l or "AndroidRuntime" in l)[-8000:] or "(nothing)")
 
 shots = sorted(f for f in os.listdir(SMOKE) if f.endswith(".png"))
 for name in shots:
@@ -36,11 +38,11 @@ for name in shots:
     except Exception as e:  # noqa: BLE001
         annotate(f"screenshot {name}", f"unreadable: {e}")
         continue
-    im.thumbnail((270, 600))
+    im.thumbnail((180, 400))
     buf = io.BytesIO()
-    im.save(buf, "JPEG", quality=45)
+    im.save(buf, "JPEG", quality=40)
     b64 = base64.b64encode(buf.getvalue()).decode()
-    parts = [b64[i:i + 55000] for i in range(0, len(b64), 55000)]
+    parts = [b64[i:i + 4000] for i in range(0, len(b64), 4000)]
     for i, p in enumerate(parts):
         annotate(f"screenshot {name} {im.size[0]}x{im.size[1]} part {i + 1}/{len(parts)}", p, "notice")
 sys.exit(0)

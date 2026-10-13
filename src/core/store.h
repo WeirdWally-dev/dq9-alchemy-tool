@@ -41,6 +41,7 @@ public:
     // recipes
     QPair<QList<Recipe>, QString> loadRecipes(bool force = false);   // note "robots" when blocked
     QList<Recipe> importRecipesFile(const QString &path);
+    QList<Recipe> importSheetFile(const QString &path);   // an .xlsx recipe spreadsheet
     QList<Recipe> loadSheetRecipes() const;
     QList<Recipe> cachedRecipes() const;
 

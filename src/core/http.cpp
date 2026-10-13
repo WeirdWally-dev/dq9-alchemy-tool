@@ -82,10 +82,8 @@ QByteArray Http::rateLimited(const QString &url, QMutex &lock, std::chrono::stea
     QByteArray body;
     {
         QMutexLocker guard(&lock);
-        const auto gap = std::chrono::duration<double>(gapSeconds);
-        const auto wait = gap - (std::chrono::steady_clock::now() - last);
-        if (wait.count() > 0)
-            QThread::msleep(static_cast<unsigned long>(wait.count() * 1000));
+        if (const long long wait = waitMs(gapSeconds, std::chrono::steady_clock::now() - last); wait > 0)
+            QThread::msleep(static_cast<unsigned long>(wait));
         body = fetch(url, &status, &error);
         last = std::chrono::steady_clock::now();
     }
@@ -93,6 +91,15 @@ QByteArray Http::rateLimited(const QString &url, QMutex &lock, std::chrono::stea
         throw HttpError(status, status ? QStringLiteral("HTTP %1 for %2").arg(status).arg(url)
                                        : QStringLiteral("%1 (%2)").arg(error, url));
     return body;
+}
+
+long long Http::waitMs(double gapSeconds, std::chrono::steady_clock::duration sinceLast)
+{
+    // Whole milliseconds on both sides: mixing a double-seconds duration with the clock's
+    // nanoseconds once turned a one-second pause into decades.
+    using ms = std::chrono::milliseconds;
+    const long long wait = static_cast<long long>(gapSeconds * 1000) - std::chrono::duration_cast<ms>(sinceLast).count();
+    return wait > 0 ? wait : 0;
 }
 
 QString Http::get(const QString &url)

@@ -138,6 +138,9 @@ void TreeView::addBubble(int index, const NodePtr &node)
     bubble->setPos(node->x, node->y);
     bubble->setZValue(1);
     bubble->setData(ROLE_NODE, index);
+    const QString tip = node->tip.isEmpty() ? (node->sub.isEmpty() ? node->label : node->label + QLatin1Char('\n') + node->sub) : node->tip;
+    bubble->setToolTip(tip + tr("\n\n(click for details)"));
+    bubble->setCursor(Qt::PointingHandCursor);
 
     double left = 11;
     if (!node->sprite.isEmpty() && m_spriteFn) {

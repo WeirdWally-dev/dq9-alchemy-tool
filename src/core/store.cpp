@@ -3,6 +3,7 @@
 #include "core/parsers.h"
 #include "core/text.h"
 #include "core/wikitext.h"
+#include "core/xlsx.h"
 
 #include <QCryptographicHash>
 #include <QFile>
@@ -216,6 +217,16 @@ QList<Recipe> Store::importRecipesFile(const QString &path)
         throw ParseError(QStringLiteral("Couldn't open %1: %2").arg(path, f.errorString()));
     const QList<Recipe> recipes = parseRecipes(QString::fromUtf8(f.readAll()));
     writeJson(QStringLiteral("recipes.json"), QJsonDocument(recipesToJson(recipes)));
+    return recipes;
+}
+
+QList<Recipe> Store::importSheetFile(const QString &path)
+{
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly))
+        throw ParseError(QStringLiteral("Couldn't open %1: %2").arg(path, f.errorString()));
+    const QList<Recipe> recipes = parseRecipeSheet(f.readAll());
+    writeJson(QStringLiteral("sheet_recipes.json"), QJsonDocument(recipesToJson(recipes)));
     return recipes;
 }
 

@@ -29,6 +29,20 @@ if(MSVC)
     add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/utf-8>)   # the sources are UTF-8
 endif()
 
+# --------------------------------------------------------------------------- miniz (zip reader, for .xlsx)
+# Vendored from https://github.com/richgel999/miniz 3.0.2 (MIT), see third_party/miniz/LICENSE.
+add_library(miniz STATIC
+    third_party/miniz/miniz.c third_party/miniz/miniz_tdef.c
+    third_party/miniz/miniz_tinfl.c third_party/miniz/miniz_zip.c)
+target_include_directories(miniz PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/miniz)
+target_compile_definitions(miniz PUBLIC MINIZ_NO_ZLIB_COMPATIBLE_NAMES MINIZ_NO_TIME)
+set_target_properties(miniz PROPERTIES POSITION_INDEPENDENT_CODE ON)
+if(CMAKE_C_COMPILER_ID MATCHES "Clang|GNU")
+    target_compile_options(miniz PRIVATE -w)
+elseif(MSVC)
+    target_compile_options(miniz PRIVATE /W0)
+endif()
+
 # --------------------------------------------------------------------------- core (no widgets)
 # Everything except the GUI: parsing, caching, cross-referencing, the tree and the material list.
 # The tests link against this, so they need no display.
@@ -44,9 +58,10 @@ add_library(dq9core STATIC
     src/core/registry.h src/core/registry.cpp
     src/core/render.h src/core/render.cpp
     src/core/tree.h src/core/tree.cpp
+    src/core/xlsx.h src/core/xlsx.cpp
 )
 target_include_directories(dq9core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
-target_link_libraries(dq9core PUBLIC Qt6::Core Qt6::Network gumbo)
+target_link_libraries(dq9core PUBLIC Qt6::Core Qt6::Network gumbo miniz)
 target_compile_definitions(dq9core PUBLIC APP_VERSION="${PROJECT_VERSION}")
 
 qt_add_resources(dq9core "bundled_data"
@@ -101,7 +116,7 @@ if(DQ9_BUILD_TESTS AND NOT ANDROID)
     qt_add_resources(dq9_tests "test_data"
         PREFIX "/tests"
         BASE tests
-        FILES tests/weapon_wikitext.txt
+        FILES tests/weapon_wikitext.txt tests/recipes_sample.xlsx
     )
     add_test(NAME dq9_tests COMMAND dq9_tests)
 endif()

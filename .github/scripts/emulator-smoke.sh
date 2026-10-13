@@ -34,6 +34,8 @@ adb shell input tap $((w / 2)) $((h * 50 / 100))
 sleep 8
 adb exec-out screencap -p > smoke/4-tap.png
 echo "pid at end: $(adb shell pidof $PKG)" | tee -a smoke/pid.txt
+pid=$(adb shell pidof $PKG | tr -d "\r")
+[ -n "$pid" ] && adb logcat -d --pid="$pid" > smoke/applog.txt
 adb logcat -d > smoke/logcat.txt
 adb logcat -d -b crash > smoke/crash.txt
 true

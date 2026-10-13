@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Saved web pages and source spreadsheets (imported at runtime, not shipped)
+*.html
+*_files/
+*.xlsx
+*.zip
+
+# Debug dumps
+debug/

@@ -1,0 +1,8338 @@
+[
+ {
+  "item": "Aurora blade",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Cautery sword",
+    1
+   ],
+   [
+    "Brighten rock",
+    3
+   ],
+   [
+    "Holy water",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragon slayer",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Dragonsbane",
+    1
+   ],
+   [
+    "Mighty armlet",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Erdrick's sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Rusty sword",
+    1
+   ],
+   [
+    "Glass frit",
+    9
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fire blade",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Valkyrie sword",
+    1
+   ],
+   [
+    "Lava lump",
+    3
+   ],
+   [
+    "Rockbomb shard",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fizzle foil",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Rapier",
+    1
+   ],
+   [
+    "Narspicious",
+    3
+   ],
+   [
+    "Mythril ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel broadsword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Steel broadsword",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Inferno blade",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Fire blade",
+    1
+   ],
+   [
+    "Sunstone",
+    1
+   ],
+   [
+    "Rockbomb shard",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Liquid metal sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Metal slime sword",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slimedrop",
+    6
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Metal king sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Liquid metal sword",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Nebula sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Stardust sword",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Silver Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Platinum sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Iron broadsword",
+    1
+   ],
+   [
+    "Platinum ore",
+    1
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Stardust sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Supernova sword",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel broadsword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Iron broadsword",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Supernova sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Nebula sword",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Silver Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Über falcon blade",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Falcon blade",
+    1
+   ],
+   [
+    "Meteorite bracer",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Über miracle sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Miracle sword",
+    1
+   ],
+   [
+    "Life bracer",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Warrior's sword",
+  "category": "Swords",
+  "ingredients": [
+   [
+    "Soldier's sword",
+    1
+   ],
+   [
+    "Raging ruby",
+    1
+   ],
+   [
+    "Warrior's Helm",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Celestial spear",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Long spear",
+    1
+   ],
+   [
+    "Holy talisman",
+    1
+   ],
+   [
+    "Platinum ore",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Demon spear",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Celestial spear",
+    1
+   ],
+   [
+    "Terrible tattoo",
+    3
+   ],
+   [
+    "Malicite",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel lance",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Steel lance",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gracos's trident",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Trident",
+    1
+   ],
+   [
+    "Mighty armlet",
+    1
+   ],
+   [
+    "Densinium",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Halberd",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Partisan",
+    1
+   ],
+   [
+    "Battle axe",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Holy lance",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Iron lance",
+    1
+   ],
+   [
+    "Gold rosary",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Lightning lance",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Celestial spear",
+    1
+   ],
+   [
+    "Thunderball",
+    3
+   ],
+   [
+    "Mythril ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Liquid metal spear",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Metal slime spear",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slimedrop",
+    6
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Metal king spear",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Liquid metal spear",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Poker",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Split-pot poker",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sandstorm spear",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Holy lance",
+    1
+   ],
+   [
+    "Kitty litter",
+    2
+   ],
+   [
+    "Glass frit",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Split-pot poker",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Stud poker",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Red Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel lance",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Iron lance",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Storm spear",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Lightning lance",
+    1
+   ],
+   [
+    "Thunderball",
+    5
+   ],
+   [
+    "Gold bar",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Stud poker",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Poker",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Red Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Trident",
+  "category": "Spears",
+  "ingredients": [
+   [
+    "Battle fork",
+    1
+   ],
+   [
+    "Seashell",
+    2
+   ],
+   [
+    "Crimson coral",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Assassin's dagger",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Deadly nightblade",
+    1
+   ],
+   [
+    "Poison needle",
+    1
+   ],
+   [
+    "Evencloth",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Batterfly dagger",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Poison moth knife",
+    1
+   ],
+   [
+    "Coagulant",
+    3
+   ],
+   [
+    "Butterfly wing",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Darting dagger",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Deft dagger",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Purple Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dashing dagger",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Dashing dagger",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Purple Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Deft dagger",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Dashing dagger",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Divine dagger",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Bronze knife",
+    1
+   ],
+   [
+    "Holy water",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dread dagger",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Batterfly dagger",
+    1
+   ],
+   [
+    "Disturbin' turban",
+    1
+   ],
+   [
+    "Butterfly wing",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Falcon knife earrings",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Deadly nightblade",
+    1
+   ],
+   [
+    "Slime earrings",
+    1
+   ],
+   [
+    "Agility ring",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fenrir fang",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Icicle dirk",
+    1
+   ],
+   [
+    "Ice crystal",
+    5
+   ],
+   [
+    "Magic beast horn",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Flame tang",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Gladius",
+    1
+   ],
+   [
+    "Sunstone",
+    1
+   ],
+   [
+    "Crimson coral",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gladius",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Flame tang",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Icicle dirk",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Divine dagger",
+    1
+   ],
+   [
+    "Ice crystal",
+    3
+   ],
+   [
+    "Edged boomerang",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Poison moth knife",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Divine dagger",
+    1
+   ],
+   [
+    "Coagulant",
+    2
+   ],
+   [
+    "Manky mud",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Poison needle",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Magic beast horn",
+    1
+   ],
+   [
+    "Manky mud",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Soul breaker",
+  "category": "Knives",
+  "ingredients": [
+   [
+    "Sword breaker",
+    1
+   ],
+   [
+    "Life bracer",
+    1
+   ],
+   [
+    "Spirit bracer",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Bright staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Brilliant staff",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Brilliant staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Shining staff",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Blue Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hieroglyph staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Rune staff",
+    1
+   ],
+   [
+    "Sorcerer's ring",
+    1
+   ],
+   [
+    "Sage's elixir",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Lightning conductor",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Stolos' staff",
+    1
+   ],
+   [
+    "Thunderball",
+    3
+   ],
+   [
+    "Magic water",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Magma staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Stolos' staff",
+    1
+   ],
+   [
+    "Rockbomb shard",
+    3
+   ],
+   [
+    "Brighten rock",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mega-magical mace",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Magical mace",
+    1
+   ],
+   [
+    "Astral plume",
+    1
+   ],
+   [
+    "Mythril ore",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Rune staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Stolos' staff",
+    1
+   ],
+   [
+    "Ruby of protection",
+    1
+   ],
+   [
+    "Magic water",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Savant's staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Sage's staff",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Sage's elixir",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Shining staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Bright staff",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Blue Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Staff of divine wrath",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Staff of sentencing",
+    1
+   ],
+   [
+    "Flurry feather",
+    3
+   ],
+   [
+    "Sage's elixir",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Staff of sentencing",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Wizard's staff",
+    1
+   ],
+   [
+    "Flurry feather",
+    1
+   ],
+   [
+    "Magic water",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tsunami staff",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Watermaul wand",
+    1
+   ],
+   [
+    "Celestial skein",
+    1
+   ],
+   [
+    "Enchanted stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Watermaul wand",
+  "category": "Wands",
+  "ingredients": [
+   [
+    "Stolos' staff",
+    1
+   ],
+   [
+    "Seashell",
+    3
+   ],
+   [
+    "Crimson coral",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Archdemon whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Demon whip",
+    1
+   ],
+   [
+    "Terrible tattoo",
+    2
+   ],
+   [
+    "Malicite",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Demon whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Iron whip",
+    1
+   ],
+   [
+    "Terrible tattoo",
+    1
+   ],
+   [
+    "Wing of bat",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragontail whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Iron whip",
+    1
+   ],
+   [
+    "Dragon scale",
+    3
+   ],
+   [
+    "Aggressence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Empress's whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Queen's whip",
+    1
+   ],
+   [
+    "Highness heels",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Giga Gringham whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Mega gringham whip",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Green Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigaspike whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Spiked steel whip",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Goddess whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Empress's whip",
+    1
+   ],
+   [
+    "Goddess ring",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gringham whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Giga Gringham whip",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mega gringham whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Gringham whip",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Green Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Scourge whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Archdemon whip",
+    1
+   ],
+   [
+    "Saint's ashes",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Serpentine whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Snakeskin whip",
+    1
+   ],
+   [
+    "Snakeskin",
+    5
+   ],
+   [
+    "Magic beast horn",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sidewinder",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Serpentine whip",
+    1
+   ],
+   [
+    "Snakeskin",
+    6
+   ],
+   [
+    "Tough guy tattoo",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Snakeskin whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Leather whip",
+    1
+   ],
+   [
+    "Snakeskin",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Spiked steel whip",
+  "category": "Whips",
+  "ingredients": [
+   [
+    "Iron whip",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ballistick",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Optimistick",
+    1
+   ],
+   [
+    "Technicolour dreamcloth",
+    1
+   ],
+   [
+    "Mercury's bandana",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Catatonic cosh",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Senseless stick",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Blue Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel bar",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Steel bar",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Killer pillar",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Driller pillar",
+    1
+   ],
+   [
+    "Mighty armlet",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Knockout rod",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Catatonic cosh",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mistick",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Driller pillar",
+    1
+   ],
+   [
+    "Fresh water",
+    3
+   ],
+   [
+    "Flurry feather",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Optimistick",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Mistick",
+    1
+   ],
+   [
+    "Celestial skein",
+    2
+   ],
+   [
+    "Agility ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Orichalcudgel",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Orichalcum",
+    3
+   ],
+   [
+    "Hephaestus' flame",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Pillar of strength",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Oaken pole",
+    3
+   ],
+   [
+    "Utility belt",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Senseless stick",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Knockout rod",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Blue Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Slumber stick",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Sleepy stick",
+    1
+   ],
+   [
+    "Sleeping hibiscus",
+    3
+   ],
+   [
+    "Narspicious",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel bar",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Iron bar",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Xenlon rod",
+  "category": "Staves",
+  "ingredients": [
+   [
+    "Dragon rod",
+    1
+   ],
+   [
+    "Dragon scale",
+    3
+   ],
+   [
+    "Sainted soma",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Beastmaster claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Beast claws",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ],
+   [
+    "Magic beast horn",
+    9
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Combusticlaws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Fire claws",
+    1
+   ],
+   [
+    "Sunstone",
+    1
+   ],
+   [
+    "Rockbomb shard",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragonlord claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Dragovian claws",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragovian claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Dragonlord claws",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Red Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragovian lord claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Dragovian claws",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Red Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fire claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Dragon claws",
+    1
+   ],
+   [
+    "Lava lump",
+    3
+   ],
+   [
+    "Rockbomb shard",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Steel claws",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hammer handrills",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Handrills",
+    1
+   ],
+   [
+    "Iron nail",
+    5
+   ],
+   [
+    "Iron ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Kestrel claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Crow's claws",
+    1
+   ],
+   [
+    "Agility ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "King cobra claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Cobra claws",
+    1
+   ],
+   [
+    "Terrible tattoo",
+    4
+   ],
+   [
+    "Wing of bat",
+    4
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Kite claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Kestrel claws",
+    1
+   ],
+   [
+    "Enchanted stone",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Orichalcum claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Combusticlaws",
+    1
+   ],
+   [
+    "Orichalcum",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sacred claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Iron claws",
+    1
+   ],
+   [
+    "Holy talisman",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel claws",
+  "category": "Claws",
+  "ingredients": [
+   [
+    "Iron claws",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Azure dragon fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Cobra fan",
+    1
+   ],
+   [
+    "Thunderball",
+    3
+   ],
+   [
+    "Dragon scale",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Black tortoise fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Tortoiseshell fan",
+    1
+   ],
+   [
+    "Royal soil",
+    3
+   ],
+   [
+    "Tortoise shell",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Cobra fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "War fan",
+    1
+   ],
+   [
+    "Snakeskin",
+    2
+   ],
+   [
+    "Dragon scale",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Critical fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Hypercritical fan",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Feline fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "War fan",
+    1
+   ],
+   [
+    "Kitty litter",
+    2
+   ],
+   [
+    "Seashell",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Foehn fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Feather fan",
+    1
+   ],
+   [
+    "Flurry feather",
+    1
+   ],
+   [
+    "Agility ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fowl fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "War fan",
+    1
+   ],
+   [
+    "Flurry feather",
+    2
+   ],
+   [
+    "Crimson coral",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Friendly fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Solar fan",
+    1
+   ],
+   [
+    "Life bracer",
+    1
+   ],
+   [
+    "Horse manure",
+    9
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gale force fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Foehn fan",
+    1
+   ],
+   [
+    "Enchanted stone",
+    1
+   ],
+   [
+    "Agility ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Steel fan",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hypercritical fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Overcritical fan",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Green Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Lunar fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Stellar fan",
+    1
+   ],
+   [
+    "Full moon ring",
+    1
+   ],
+   [
+    "Lucida shard",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Overcritical fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Critical fan",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Green Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Solar fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Lunar fan",
+    1
+   ],
+   [
+    "Sunstone",
+    1
+   ],
+   [
+    "Crimson coral",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Iron fan",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tortoiseshell fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "War fan",
+    1
+   ],
+   [
+    "Tortoiseshell",
+    2
+   ],
+   [
+    "Evencloth",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Vermillion bird fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Fowl fan",
+    1
+   ],
+   [
+    "Lava lump",
+    3
+   ],
+   [
+    "Razor-wing boomerang",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "White tiger fan",
+  "category": "Fans",
+  "ingredients": [
+   [
+    "Feline fan",
+    1
+   ],
+   [
+    "Ice crystal",
+    3
+   ],
+   [
+    "Kitty shield",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Avalanche axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Ice axe",
+    1
+   ],
+   [
+    "Ice crystal",
+    6
+   ],
+   [
+    "Agate of evolution",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Bad axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Climaxe",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Climaxe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Maxi axe",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Purple Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Executioner's axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Headsman's axe",
+    1
+   ],
+   [
+    "Ethereal stone",
+    2
+   ],
+   [
+    "Raging ruby",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Full moon axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Moon axe",
+    1
+   ],
+   [
+    "Full moon ring",
+    1
+   ],
+   [
+    "Mystifying mixture",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Steel axe",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Golden axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Iron axe",
+    1
+   ],
+   [
+    "Gold bar",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ice axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Kaiser axe",
+    1
+   ],
+   [
+    "Ice crystal",
+    3
+   ],
+   [
+    "Icicle dirk",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Kaiser axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "King axe",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "King axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Golden axe",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Maxi axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Bad axe",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Purple Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Moon axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Battle axe",
+    1
+   ],
+   [
+    "Lunaria",
+    1
+   ],
+   [
+    "Mystifying mixture",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel axe",
+  "category": "Axes",
+  "ingredients": [
+   [
+    "Iron axe",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ace of clubs",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Oaken club",
+    1
+   ],
+   [
+    "Belle cap",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Earthsplitter",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Groundbreaker",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Yellow Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Groundbreaker",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Moonmasher",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Megaton hammer",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Hela's hammer",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Densinium",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Moonmasher",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Earthsplitter",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Yellow Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Terra firmer",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Terra tamper",
+    1
+   ],
+   [
+    "Royal soil",
+    5
+   ],
+   [
+    "Densinium",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Terra hammer",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Terra firmer",
+    1
+   ],
+   [
+    "Royal soil",
+    7
+   ],
+   [
+    "Ethereal stone",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Terra tamper",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Über war hammer",
+    1
+   ],
+   [
+    "Royal soil",
+    3
+   ],
+   [
+    "Flintstone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Titan's hammer",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Giant's hammer",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Tough guy tattoo",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Über war hammer",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "War hammer",
+    1
+   ],
+   [
+    "Mighty armlet",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Warlord's hammer",
+  "category": "Hammers",
+  "ingredients": [
+   [
+    "Megaton hammer",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Mighty armlet",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Asterang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Meteorang",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Silver Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Banefire boomerang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Flametang boomerang",
+    1
+   ],
+   [
+    "Sunstone",
+    1
+   ],
+   [
+    "Rockbomb shard",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Blusterang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Gusterang",
+    1
+   ],
+   [
+    "Staff of divine wrath",
+    1
+   ],
+   [
+    "Agility ring",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Crucerang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Reinforced boomerang",
+    1
+   ],
+   [
+    "Hunter's bow",
+    1
+   ],
+   [
+    "Gold rosary",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Cutting-edge boomerang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Edged boomerang",
+    1
+   ],
+   [
+    "Magic beast horn",
+    3
+   ],
+   [
+    "Iron nail",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Eaglewing",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Swallowtail",
+    1
+   ],
+   [
+    "Kestrel claws",
+    1
+   ],
+   [
+    "Flurry feather",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Erazor-wing boomerang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Razer-wing boomerang",
+    1
+   ],
+   [
+    "Aggressence",
+    3
+   ],
+   [
+    "Mythril Ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Flametang boomerang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Gusterang",
+    1
+   ],
+   [
+    "Lava lump",
+    3
+   ],
+   [
+    "Rockbomb shard",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gusterang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Swallowtail",
+    1
+   ],
+   [
+    "Flurry feather",
+    3
+   ],
+   [
+    "Agility ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hexarang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Pentarang",
+    1
+   ],
+   [
+    "Lucida shard",
+    3
+   ],
+   [
+    "Mythril ore",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Meteorang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Stellarang",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Pentarang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Hexarang",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Razer-wing boomerang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Razor-wing boomerang",
+    1
+   ],
+   [
+    "Lunaria",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Reinforced boomerang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Boomerang",
+    1
+   ],
+   [
+    "Iron nail",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Stellarang",
+  "category": "Boomerangs",
+  "ingredients": [
+   [
+    "Asterang",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Silver Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Aeon's bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Archangel's bow",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Yellow Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Angel's bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Aeon's bow",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Archangel's bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Angel's bow",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Yellow Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Billowing bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Blowy bow",
+    1
+   ],
+   [
+    "Staff of divine wrath",
+    1
+   ],
+   [
+    "Celestial skein",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Blinding bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Purblind bow",
+    1
+   ],
+   [
+    "Mystifying mixture",
+    2
+   ],
+   [
+    "Ethereal stone",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Blowy bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Potshot bow",
+    1
+   ],
+   [
+    "Flurry feather",
+    3
+   ],
+   [
+    "Agility ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Blustery bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Billowing bow",
+    1
+   ],
+   [
+    "Gusterang",
+    1
+   ],
+   [
+    "Celestial skein",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hotshot bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Potshot bow",
+    1
+   ],
+   [
+    "Hunter's hat",
+    1
+   ],
+   [
+    "Archer's armguard",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hunter's bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Longbow",
+    1
+   ],
+   [
+    "Chain whip",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Longbow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Short bow",
+    1
+   ],
+   [
+    "Laundry pole",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Odin's bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Oh-no bow",
+    1
+   ],
+   [
+    "Saint's ashes",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Oh-no bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Odin's bow",
+    1
+   ],
+   [
+    "Malicite",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Purblind bow",
+  "category": "Bows",
+  "ingredients": [
+   [
+    "Great bow",
+    1
+   ],
+   [
+    "Mystifying mixture",
+    1
+   ],
+   [
+    "Enchanted stone",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Big boss shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Boss shield",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Mighty armlet",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Brain drainer",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Devilry drinker",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Catty shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Kitty shield",
+    1
+   ],
+   [
+    "Kitty litter",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Devilry drinker",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Psyche swiper",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Green Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragon shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Magic shield",
+    1
+   ],
+   [
+    "Dragon scale",
+    3
+   ],
+   [
+    "Raging ruby",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Empowered shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Power shield",
+    1
+   ],
+   [
+    "Life bracer",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Enchanted shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Magic shield",
+    1
+   ],
+   [
+    "Enchanted stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Erdrick's shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Rusty shield",
+    1
+   ],
+   [
+    "Glass frit",
+    9
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ethereal shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Enchanted shield",
+    1
+   ],
+   [
+    "Ethereal stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Flame shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Magic shield",
+    1
+   ],
+   [
+    "Lava lump",
+    1
+   ],
+   [
+    "Resurrock",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Steel shield",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Goddess shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Saintess shield",
+    1
+   ],
+   [
+    "Goddess ring",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gold platter",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Silver platter",
+    1
+   ],
+   [
+    "Gold bracer",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ice shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Magic shield",
+    1
+   ],
+   [
+    "Ice crystal",
+    1
+   ],
+   [
+    "Resurrock",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Kitty shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Light shield",
+    1
+   ],
+   [
+    "Kitty litter",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Liquid metal shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Metal slime shield",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slimedrop",
+    6
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Metal king shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Liquid metal shield",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ogre shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Dark shield",
+    1
+   ],
+   [
+    "Densinium",
+    2
+   ],
+   [
+    "Magic beast horn",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Platinum platter",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Gold platter",
+    1
+   ],
+   [
+    "Platinum ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Platinum shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Light shield",
+    1
+   ],
+   [
+    "Platinum ore",
+    1
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Power shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Warrior's shield",
+    1
+   ],
+   [
+    "Raging ruby",
+    1
+   ],
+   [
+    "Panacea",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Psyche swiper",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Brain drainer",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Green Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Saintess shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Ruinous shield",
+    1
+   ],
+   [
+    "Saint's ashes",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Shell shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Scale shield",
+    1
+   ],
+   [
+    "Tortoiseshell",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Silver shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "White knight's shield",
+    1
+   ],
+   [
+    "Mirrorstone",
+    3
+   ],
+   [
+    "Mythril ore",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Iron shield",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tempest shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Magic shield",
+    1
+   ],
+   [
+    "Flurry feather",
+    3
+   ],
+   [
+    "Ruby of protection",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "White knight's shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "White shield",
+    1
+   ],
+   [
+    "Holy talisman",
+    1
+   ],
+   [
+    "Mythril ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "White shield",
+  "category": "Shields",
+  "ingredients": [
+   [
+    "Light shield",
+    1
+   ],
+   [
+    "Seashell",
+    5
+   ],
+   [
+    "Holy water",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Apollo's crown",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Sun crown",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Sunstone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Autumn shower hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Summer cloud hat",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Green Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Blessed helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Hallowed helm",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Purple Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Bunny ears",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Hairband",
+    1
+   ],
+   [
+    "Bunny tail",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Canny cap",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Feathered cap",
+    1
+   ],
+   [
+    "Brainy bracer",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Cat ears",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Hairband",
+    1
+   ],
+   [
+    "Kitty litter",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Crown of clarity",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Thinking cap",
+    1
+   ],
+   [
+    "Thinkincense",
+    5
+   ],
+   [
+    "Mythril ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ear cosy",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Fur hood",
+    1
+   ],
+   [
+    "Bunny tail",
+    1
+   ],
+   [
+    "Lambswool",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Erdrick's helmet",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Rusty helmet",
+    1
+   ],
+   [
+    "Glass frit",
+    9
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Feather headband",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Hairband",
+    1
+   ],
+   [
+    "Flurry Feather",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Feathered cap",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Leather hat",
+    1
+   ],
+   [
+    "Flurry feather",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Filigree mask",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Iron mask",
+    1
+   ],
+   [
+    "Silver platter",
+    1
+   ],
+   [
+    "Silver tiara",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fur hood",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Leather hat",
+    1
+   ],
+   [
+    "Magic beast hide",
+    1
+   ],
+   [
+    "Lambswool",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel helmet",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Steel helmet",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gold circlet",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Circlet",
+    1
+   ],
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Gold bracer",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Golden tiara",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Silver tiara",
+    1
+   ],
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Gold bracer",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Great helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Hades' helm",
+    1
+   ],
+   [
+    "Saint's ashes",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hades' helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Great helm",
+    1
+   ],
+   [
+    "Malicite",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hallowed helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Wonder helm",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Happy hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Unhappy hat",
+    1
+   ],
+   [
+    "Lucky pendant",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hunter's hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Pointy hat",
+    1
+   ],
+   [
+    "Lambswool",
+    1
+   ],
+   [
+    "Magic beast hide",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Liquid metal helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Metal slime helm",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slimedrop",
+    6
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Malleable mask",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Circlet",
+    1
+   ],
+   [
+    "Butterfly wing",
+    2
+   ],
+   [
+    "Narspicious",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mega-magical hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Magical hat",
+    1
+   ],
+   [
+    "Prayer ring",
+    2
+   ],
+   [
+    "Sorcerer's stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mercury's bandana",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Trailblazing bandana",
+    1
+   ],
+   [
+    "Agility ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Metal king helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Liquid metal helm",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Minotaur helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Raging bull helm",
+    1
+   ],
+   [
+    "Magic beast horn",
+    4
+   ],
+   [
+    "Mighty armlet",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Musketeer hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Feathered cap",
+    1
+   ],
+   [
+    "Feather headband",
+    1
+   ],
+   [
+    "Magic beast hide",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mythril coif",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Mail coif",
+    1
+   ],
+   [
+    "Mythril ore",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mythril helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Platinum headgear",
+    1
+   ],
+   [
+    "Mythril ore",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Papillon mask",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Malleable mask",
+    1
+   ],
+   [
+    "Dread dagger",
+    1
+   ],
+   [
+    "Narspicious",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Phantom mask",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Papillon mask",
+    1
+   ],
+   [
+    "Dark robe",
+    1
+   ],
+   [
+    "Slipweed",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Platinum headgear",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Iron mask",
+    1
+   ],
+   [
+    "Platinum ore",
+    1
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Pointy hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Leather hat",
+    1
+   ],
+   [
+    "Magic beast horn",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Raging bull helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Gigasteel helmet",
+    1
+   ],
+   [
+    "Magic beast horn",
+    2
+   ],
+   [
+    "Tough guy tattoo",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Scholar's circlet",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Thinking cap",
+    1
+   ],
+   [
+    "Brainy bracer",
+    1
+   ],
+   [
+    "Sage's elixir",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Skull helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Apollo's crown",
+    1
+   ],
+   [
+    "Malicite",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Slood",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Pointy hat",
+    1
+   ],
+   [
+    "Slimedrop",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Spellward circlet",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Gold circlet",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ],
+   [
+    "Gold bar",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Spring breeze hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Winter sky hat",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Green Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Star circlet",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Gold circlet",
+    1
+   ],
+   [
+    "Lucida shard",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel helmet",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Iron helmet",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Summer cloud hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Spring breeze hat",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Green Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sun crown",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Skull helm",
+    1
+   ],
+   [
+    "Saint's ashes",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Thief's turban",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Turban",
+    1
+   ],
+   [
+    "Evencloth",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Thinking cap",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Steel helmet",
+    1
+   ],
+   [
+    "Gold circlet",
+    1
+   ],
+   [
+    "Sorcerer's stone",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Trailblazing bandana",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Bandana",
+    1
+   ],
+   [
+    "Bow tie",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tricky turban",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Turban",
+    1
+   ],
+   [
+    "Toad oil",
+    1
+   ],
+   [
+    "Snakeskin",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Winter sky hat",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Autumn shower hat",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Green Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Wonder helm",
+  "category": "Head",
+  "ingredients": [
+   [
+    "Blessed helm",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Purple Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Aeon's robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Archangel's robe",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Yellow Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Angel's robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Aeon's robe",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Archangel's robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Angel's robe",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Yellow Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Cape of good karma",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Majestic mantle",
+    1
+   ],
+   [
+    "Thinkincense",
+    6
+   ],
+   [
+    "Sage's elixir",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Catoptric armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Mirror armour",
+    1
+   ],
+   [
+    "Mirrorstone",
+    5
+   ],
+   [
+    "Catholicon ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Celestria's gown",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Nightmare gown",
+    1
+   ],
+   [
+    "Saint's ashes",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Celestria's raiment",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Celestria's gown",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Astral plume",
+    7
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Cloak of concealment",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Cloak of evasion",
+    1
+   ],
+   [
+    "Slipweed",
+    2
+   ],
+   [
+    "Lambswool",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dancer's dress",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Dancer's costume",
+    1
+   ],
+   [
+    "Brighten rock",
+    3
+   ],
+   [
+    "Technicolour dreamcloth",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dangerous bustier",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Divine bustier",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dark robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Velvet cape",
+    1
+   ],
+   [
+    "Evencloth",
+    3
+   ],
+   [
+    "Slipweed",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Divine bustier",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Silk bustier",
+    1
+   ],
+   [
+    "Slipweed",
+    7
+   ],
+   [
+    "Sainted soma",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragon dress",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Strongsam",
+    1
+   ],
+   [
+    "Dragon scale",
+    1
+   ],
+   [
+    "Finessence",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragon mail",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Magic armour",
+    1
+   ],
+   [
+    "Dragon scale",
+    2
+   ],
+   [
+    "Raging ruby",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragon top",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Tussler's top",
+    1
+   ],
+   [
+    "Dragon scale",
+    2
+   ],
+   [
+    "Finessence",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Emperor's attire",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "King's coat",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ],
+   [
+    "Lambswool",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Empress's robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Queen's robe",
+    1
+   ],
+   [
+    "Spellward circlet",
+    1
+   ],
+   [
+    "Lambswool",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Enchanted armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Magic armour",
+    1
+   ],
+   [
+    "Enchanted stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Enchanted robes",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Wizard's robe",
+    1
+   ],
+   [
+    "Enchanted stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Erdrick's armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Rusty armour",
+    1
+   ],
+   [
+    "Glass frit",
+    9
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ethereal armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Enchanted armour",
+    1
+   ],
+   [
+    "Ethereal stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ethereal robes",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Enchanted robes",
+    1
+   ],
+   [
+    "Ethereal stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fizzle-proof suit",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Fizzle-retardant suit",
+    1
+   ],
+   [
+    "Sorcerer's ring",
+    1
+   ],
+   [
+    "Grubby bandage",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Flamenco shirt",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Garish garb",
+    1
+   ],
+   [
+    "Brighten rock",
+    3
+   ],
+   [
+    "Technicolour dreamcloth",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Flowing dress",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Enchanted robes",
+    1
+   ],
+   [
+    "Celestial skein",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Full plate armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Iron armour",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fur poncho",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Leather cape",
+    1
+   ],
+   [
+    "Magic beast hide",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fur vest",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Fur poncho",
+    1
+   ],
+   [
+    "Magic beast hide",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Full plate armour",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Glorious armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Victorious armour",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Red Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gold mail",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Silver mail",
+    1
+   ],
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Gold bracer",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gooey gear",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Garish garb",
+    1
+   ],
+   [
+    "Slimedrop",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Holy mail",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Chain mail",
+    1
+   ],
+   [
+    "Holy talisman",
+    1
+   ],
+   [
+    "Mythril ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hot bikini top",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Dangerous bikini top",
+    1
+   ],
+   [
+    "Seashell",
+    3
+   ],
+   [
+    "Crimson coral",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "King's coat",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Prince's pea coat",
+    1
+   ],
+   [
+    "King axe",
+    1
+   ],
+   [
+    "Lambswool",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Large-scale armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Scale armour",
+    1
+   ],
+   [
+    "Scale shield",
+    1
+   ],
+   [
+    "Snakeskin",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Liquid metal armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Metal slime armour",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slimedrop",
+    6
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Macabre mantle",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Dark robe",
+    1
+   ],
+   [
+    "Wing of bat",
+    4
+   ],
+   [
+    "Terrible tattoo",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Majestic mantle",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Velvet cape",
+    1
+   ],
+   [
+    "Bow tie",
+    1
+   ],
+   [
+    "Brighten rock",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mesotoga",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Stratotoga",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Blue Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Metal king armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Liquid metal armour",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mirror armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Magic armour",
+    1
+   ],
+   [
+    "Mirrorstone",
+    3
+   ],
+   [
+    "Sober ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mythical armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Glorious armour",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Red Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Platinum mail",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Gold mail",
+    1
+   ],
+   [
+    "Platinum ore",
+    1
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Prince's pea coat",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Twinkling tuxedo",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Princess's robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Shimmering dress",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Queen's robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Princess's robe",
+    1
+   ],
+   [
+    "Monarch's mittens",
+    1
+   ],
+   [
+    "Lambswool",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Robe of sweet dreams",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Robe of serenity",
+    1
+   ],
+   [
+    "Sleeping hibiscus",
+    3
+   ],
+   [
+    "Lambswool",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sacrosanct armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Sacred armour",
+    1
+   ],
+   [
+    "Ruby of protection",
+    1
+   ],
+   [
+    "Life bracer",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sage's robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Saintly robe",
+    1
+   ],
+   [
+    "Fizzle-proof suit",
+    1
+   ],
+   [
+    "Thinkincense",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Saintly robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Ascetic robe",
+    1
+   ],
+   [
+    "Rosary",
+    1
+   ],
+   [
+    "Grubby bandage",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Shimmering dress",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Spangled dress",
+    1
+   ],
+   [
+    "Pink pearl",
+    1
+   ],
+   [
+    "Brighten rock",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Silk bustier",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Dangerous bustier",
+    1
+   ],
+   [
+    "Tangleweb",
+    7
+   ],
+   [
+    "Silk robe",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Silver cuirass",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Iron cuirass",
+    1
+   ],
+   [
+    "Silver platter",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sizzling bikini top",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Hot bikini top",
+    1
+   ],
+   [
+    "Technicolour dreamcloth",
+    1
+   ],
+   [
+    "Astral plume",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Spiked armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Magic armour",
+    1
+   ],
+   [
+    "Magic beast horn",
+    2
+   ],
+   [
+    "Iron nails",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Stratotoga",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Tropotoga",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Blue Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Superstar's suit",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Star's suit",
+    1
+   ],
+   [
+    "Lucida shard",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Technicolour tutu",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Tint-tastic tutu",
+    1
+   ],
+   [
+    "Technicolour dreamcloth",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tortoise shell",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Iron cuirass",
+    1
+   ],
+   [
+    "Tortoiseshell",
+    1
+   ],
+   [
+    "Emerald moss",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tortoiseshell armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Tortoise shell",
+    1
+   ],
+   [
+    "Tortoiseshell",
+    2
+   ],
+   [
+    "Emerald moss",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tracksuit top",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Training top",
+    1
+   ],
+   [
+    "Finessence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tropotoga",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Mesotoga",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tussler's top",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Tracksuit top",
+    1
+   ],
+   [
+    "Finessence",
+    1
+   ],
+   [
+    "Magic beast hide",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Twinkling tuxedo",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Smart suit",
+    1
+   ],
+   [
+    "Bow tie",
+    1
+   ],
+   [
+    "Brighten rock",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Victorious armour",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Mythical armour",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Xenlon robe",
+  "category": "Torso",
+  "ingredients": [
+   [
+    "Dragon robe",
+    1
+   ],
+   [
+    "Dragon top",
+    1
+   ],
+   [
+    "Dragon dress",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Apprentice's gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Grandmaster's gloves",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Blessed bindings",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Bruiser's bracers",
+    1
+   ],
+   [
+    "Thinkincense",
+    3
+   ],
+   [
+    "Sage's elixir",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Diana gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Vesta gauntlets",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Red Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Enchanted gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Magic mittens",
+    1
+   ],
+   [
+    "Enchanted stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Erdrick's gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Rusty gauntlets",
+    1
+   ],
+   [
+    "Glass frit",
+    9
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ethereal gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Enchanted gloves",
+    1
+   ],
+   [
+    "Ethereal stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Steel gauntlets",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gloomy gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Heavy handwear",
+    1
+   ],
+   [
+    "Evencloth",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Grandmaster's gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Master's gloves",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Silver Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Guru's gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Heavy handwear",
+    1
+   ],
+   [
+    "Thinkincense",
+    3
+   ],
+   [
+    "Sage's elixir",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Heavy gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Sturdy gauntlets",
+    1
+   ],
+   [
+    "Densinium",
+    2
+   ],
+   [
+    "Aggressence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Leather gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Cotton gloves",
+    1
+   ],
+   [
+    "Magic beast hide",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Liquid metal slime gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Metal slime gauntlets",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slimedrop",
+    6
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Marquess's mittens",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Mayoress's mittens",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Master's gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Apprentice's gloves",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Silver Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Matador's gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Mental mittens",
+    1
+   ],
+   [
+    "Slipweed",
+    4
+   ],
+   [
+    "Mercury's bandana",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Metal king slime gloves",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Liquid metal slime gloves",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slime crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Monarch's mittens",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Marquess's mittens",
+    1
+   ],
+   [
+    "Highness heels",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Murky mittens",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Gloomy gloves",
+    1
+   ],
+   [
+    "Malicite",
+    1
+   ],
+   [
+    "Evencloth",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Iron gauntlets",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sturdy gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Light gauntlets",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Aggressence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tempestes gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Diana gauntlets",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Red Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Vesta gauntlets",
+  "category": "Arms",
+  "ingredients": [
+   [
+    "Tempestes gauntlets",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Blessed bottoms",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Wizard's trousers",
+    1
+   ],
+   [
+    "Sorcerer's stone",
+    1
+   ],
+   [
+    "Lambswool",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Boomer briefs",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Boxer shorts",
+    1
+   ],
+   [
+    "Boomerang",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Chainmail socks",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Pop socks",
+    1
+   ],
+   [
+    "Chain mail",
+    2
+   ],
+   [
+    "Iron nails",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Dragon trousers",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Tussler's trousers",
+    1
+   ],
+   [
+    "Dragon scale",
+    2
+   ],
+   [
+    "Finessence",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Eternity trousers",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Immortal trousers",
+    1
+   ],
+   [
+    "Agate of evolution",
+    3
+   ],
+   [
+    "Purple Orb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Fancy pants",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Loud trousers",
+    1
+   ],
+   [
+    "Belle cap",
+    3
+   ],
+   [
+    "Narspicious",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel kneecaps",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Steel kneecaps",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Green tights",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Pop socks",
+    1
+   ],
+   [
+    "Emerald moss",
+    4
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hot bikini bottoms",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Dangerous midriff wrap",
+    1
+   ],
+   [
+    "Seashell",
+    3
+   ],
+   [
+    "Crimson coral",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Immortal trousers",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Invincible trousers",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Purple Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Impregnable leggings",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Sturdy slacks",
+    1
+   ],
+   [
+    "Densinium",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Invincible trousers",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Eternity trousers",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Leather kilt",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Boxer shorts",
+    1
+   ],
+   [
+    "Magic beast hide",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Red tights",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Pop socks",
+    1
+   ],
+   [
+    "Crimson coral",
+    4
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sizzling bikini bottoms",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Hot bikini bottoms",
+    1
+   ],
+   [
+    "Technicolour dreamcloth",
+    1
+   ],
+   [
+    "Astral plume",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel kneecaps",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Iron kneecaps",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tantric trousers",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Dragon trousers",
+    1
+   ],
+   [
+    "Thinkincense",
+    3
+   ],
+   [
+    "Sage's elixir",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tracky bottoms",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Training trousers",
+    1
+   ],
+   [
+    "Finessence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Transparent tights",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Red tights",
+    1
+   ],
+   [
+    "Green tights",
+    1
+   ],
+   [
+    "White tights",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tussler's trousers",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Tracky bottoms",
+    1
+   ],
+   [
+    "Finessence",
+    1
+   ],
+   [
+    "Magic beast hide",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "White tights",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Pop socks",
+    1
+   ],
+   [
+    "Seashell",
+    4
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Wonder pants",
+  "category": "Legs",
+  "ingredients": [
+   [
+    "Boomer briefs",
+    1
+   ],
+   [
+    "Aggressence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Basilic boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Hero's boots",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Yellow Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Brahman boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Clever clogs",
+    1
+   ],
+   [
+    "Thinkincense",
+    3
+   ],
+   [
+    "Sage's elixir",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Classy clogs",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Clogs",
+    1
+   ],
+   [
+    "Belle cap",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Elevating shoes",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Depressing shoes",
+    1
+   ],
+   [
+    "Lucky pendant",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Emperor's boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Basilic boots",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Yellow Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gigasteel sabatons",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Steel sabatons",
+    1
+   ],
+   [
+    "Iron ore",
+    2
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hero's boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Emperor's boots",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Highness heels",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Stiletto heels",
+    1
+   ],
+   [
+    "Monarchic mark",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hobnail boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Leather boots",
+    1
+   ],
+   [
+    "Magic beast hide",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Liquid metal slime boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Metal slime sollerets",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slimedrop",
+    6
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Metal king slime boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Liquid metal slime boots",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Slime Crown",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Payback pumps",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Steel sabatons",
+    1
+   ],
+   [
+    "Magic beast horn",
+    2
+   ],
+   [
+    "Iron nails",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Pixie boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Elevating shoes",
+    1
+   ],
+   [
+    "Elfin charm",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Safer shoes",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Safety shoes",
+    1
+   ],
+   [
+    "Ruby of protection",
+    1
+   ],
+   [
+    "Mythril ore",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Safest shoes",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Safer shoes",
+    1
+   ],
+   [
+    "Ruby of protection",
+    1
+   ],
+   [
+    "Orichalcum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sagacious sandals",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Sensible sandals",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Blue Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sapient sandals",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Sagacious sandals",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ],
+   [
+    "Blue Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sensible sandals",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Sapient sandals",
+    1
+   ],
+   [
+    "Reset stone",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sorceress sandals",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Siren sandals",
+    1
+   ],
+   [
+    "Sleeping hibiscus",
+    3
+   ],
+   [
+    "Belle cap",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Steel sabatons",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Iron sabatons",
+    1
+   ],
+   [
+    "Iron ore",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Stiletto heels",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "High heels",
+    1
+   ],
+   [
+    "Fishnet stockings",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tricksie boots",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Pixie boots",
+    1
+   ],
+   [
+    "Agate of evolution",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Wu shoes",
+  "category": "Feet",
+  "ingredients": [
+   [
+    "Kung fu shoes",
+    1
+   ],
+   [
+    "Finessence",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Agility ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Prayer ring",
+    1
+   ],
+   [
+    "Flurry feather",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Bow tie",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Butterfly wing",
+    2
+   ],
+   [
+    "Grubby bandage",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Brainy bracer",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold bracer",
+    1
+   ],
+   [
+    "Sorcerer's stone",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Catholicon ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Rousing ring",
+    1
+   ],
+   [
+    "Sober ring",
+    1
+   ],
+   [
+    "Contra band",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Contra band",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Poison needle",
+    1
+   ],
+   [
+    "Special antidote",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Elfin charm",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Holy talisman",
+    1
+   ],
+   [
+    "Elfin elixir",
+    1
+   ],
+   [
+    "Emerald moss",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Full moon ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Poison moth knife",
+    1
+   ],
+   [
+    "Lunaria",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Goddess ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Life ring",
+    1
+   ],
+   [
+    "Sainted soma",
+    1
+   ],
+   [
+    "Gold bar",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Holy talisman",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold rosary",
+    1
+   ],
+   [
+    "Holy water",
+    5
+   ],
+   [
+    "Resurrock",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Life bracer",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold bracer",
+    1
+   ],
+   [
+    "Life ring",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Life ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Prayer ring",
+    1
+   ],
+   [
+    "Resurrock",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Lucky pendant",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Reckless necklace",
+    1
+   ],
+   [
+    "Saint's ashes",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Meteorite bracer",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold bar",
+    1
+   ],
+   [
+    "Agility ring",
+    2
+   ],
+   [
+    "Lucida shard",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mighty armlet",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold bracer",
+    1
+   ],
+   [
+    "Strength ring",
+    1
+   ],
+   [
+    "Tough guy tattoo",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Monarchic mark",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Lucky pendant",
+    1
+   ],
+   [
+    "Raging ruby",
+    1
+   ],
+   [
+    "Ruby of protection",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Prayer ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Sage's elixir",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Raging ruby",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Strength ring",
+    1
+   ],
+   [
+    "Corundum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ring of clarity",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Moon axe",
+    1
+   ],
+   [
+    "Angel bell",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Rosary",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Pink pearl",
+    1
+   ],
+   [
+    "Fresh water",
+    3
+   ],
+   [
+    "Thinkincense",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Rousing ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Sleepy stick",
+    1
+   ],
+   [
+    "Wakerobin",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ruby of protection",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Dragon scale",
+    1
+   ],
+   [
+    "Corundum",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Slime earrings",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Slimedrop",
+    1
+   ],
+   [
+    "Gold ring",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sober ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Sandstorm spear",
+    1
+   ],
+   [
+    "Panacea",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sorcerer's ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Skull ring",
+    1
+   ],
+   [
+    "Saint's ashes",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Spirit bracer",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold bracer",
+    1
+   ],
+   [
+    "Prayer ring",
+    1
+   ],
+   [
+    "Elfin charm",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Strength ring",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Gold ring",
+    1
+   ],
+   [
+    "Aggressence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Tough guy tattoo",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Terrible tattoo",
+    1
+   ],
+   [
+    "Aggressence",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Utility belt",
+  "category": "Accessories",
+  "ingredients": [
+   [
+    "Leather kilt",
+    1
+   ],
+   [
+    "Ultramarine mittens",
+    1
+   ],
+   [
+    "Grubby bandage",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Agate of evolution",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Sainted soma",
+    2
+   ],
+   [
+    "Ethereal stone",
+    2
+   ],
+   [
+    "Chronocrystal",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Aggressence",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Fisticup",
+    2
+   ],
+   [
+    "Wakerobin",
+    1
+   ],
+   [
+    "Softwort",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Astral plume",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Flurry feather",
+    3
+   ],
+   [
+    "Fresh water",
+    2
+   ],
+   [
+    "Angel bell",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Birdsong nectar",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Nectar",
+    3
+   ],
+   [
+    "Fresh water",
+    1
+   ],
+   [
+    "Sleeping hibiscus",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Celestial skein",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Fresh water",
+    3
+   ],
+   [
+    "Tangleweb",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Densinium",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Flintstone",
+    3
+   ],
+   [
+    "Iron Ore",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Elfin elixir",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Yggdrasil leaf",
+    1
+   ],
+   [
+    "Royal soil",
+    3
+   ],
+   [
+    "Nectar",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Enchanted stone",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Thunderball",
+    2
+   ],
+   [
+    "Ice crystal",
+    2
+   ],
+   [
+    "Mystifying mixture",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Ethereal stone",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Enchanted stone",
+    1
+   ],
+   [
+    "Perfect panacea",
+    1
+   ],
+   [
+    "Narspicious",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Finessence",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Fisticup",
+    2
+   ],
+   [
+    "Slipweed",
+    1
+   ],
+   [
+    "Superior medicine",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Gold bar",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Sainted soma",
+    3
+   ],
+   [
+    "Ethereal stone",
+    2
+   ],
+   [
+    "Birdsong nectar",
+    5
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Hephaestus' flame",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Lava lump",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ],
+   [
+    "Toad oil",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Lucida shard",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Brighten rock",
+    3
+   ],
+   [
+    "Evencloth",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Lunaria",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Moonwort bulb",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Magic water",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Holy water",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ],
+   [
+    "Nectar",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Malicite",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Pink pearl",
+    1
+   ],
+   [
+    "Terrible tattoo",
+    2
+   ],
+   [
+    "Narspicious",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Mystifying mixture",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Belle cap",
+    1
+   ],
+   [
+    "Manky mud",
+    1
+   ],
+   [
+    "Cowpat",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Panacea",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Special medicine",
+    1
+   ],
+   [
+    "Superior medicine",
+    1
+   ],
+   [
+    "Moonwort bulb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Perfect panacea",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Panacea",
+    1
+   ],
+   [
+    "Angel bell",
+    1
+   ],
+   [
+    "Wakerobin",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sage's elixir",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Magic water",
+    1
+   ],
+   [
+    "Royal soil",
+    1
+   ],
+   [
+    "Nectar",
+    3
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sage's Stone",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Orichalcum",
+    1
+   ],
+   [
+    "Birdsong nectar",
+    3
+   ],
+   [
+    "Silver Orb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sainted soma",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Lucida shard",
+    2
+   ],
+   [
+    "Sage's elixir",
+    2
+   ],
+   [
+    "Astral plume",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Softwort",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Strong medicine",
+    1
+   ],
+   [
+    "Moonwort bulb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Special antidote",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Strong antidote",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Special medicine",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Strong medicine",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Strong antidote",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Antidotal herb",
+    1
+   ],
+   [
+    "Medicinal herb",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Strong medicine",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Medicinal herb",
+    2
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Sunstone",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Lucida shard",
+    2
+   ],
+   [
+    "Mirrorstone",
+    3
+   ],
+   [
+    "Hephaestus' flame",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Superior medicine",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Medicinal herb",
+    1
+   ],
+   [
+    "Strong medicine",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Technicolour dreamcloth",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Grubby bandage",
+    3
+   ],
+   [
+    "Brighten rock",
+    1
+   ],
+   [
+    "Celestial skein",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ },
+ {
+  "item": "Yggdrasil dew",
+  "category": "Ingredients & items",
+  "ingredients": [
+   [
+    "Yggdrasil leaf",
+    1
+   ],
+   [
+    "Elfin elixir",
+    1
+   ]
+  ],
+  "extra": {},
+  "source": "spreadsheet"
+ }
+]

@@ -1,0 +1,4 @@
+PyQt5>=5.15
+requests>=2.25
+beautifulsoup4>=4.9
+openpyxl>=3.0

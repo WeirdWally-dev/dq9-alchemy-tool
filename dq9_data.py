@@ -587,12 +587,32 @@ def parse_recipe_sheet(path: str) -> List[Recipe]:
 
 # --------------------------------------------------------------------------- item pages (dqnine.wikidot.com)
 _DETAIL_KNOWN = ["Classification", "Used by", "Attack", "Defence", "Defense", "Style", "Special",
-                 "Rarity", "Buy price", "Sell price", "How to make", "Where to find",
+                 "Rarity", "Buy price", "Sell price", "How to make", "Where to find", "Reward for",
                  "Can be used for"]
 _DETAIL_SUB = {"Use", "Equip", "Note", "Notes", "Tip", "Warning"}   # sub-labels inside a value
 _DETAIL_RX = re.compile(r"^([A-Z][A-Za-z' ]{1,24}?)\s*:\s*(.*)$")
 DETAIL_SHOWN = ["Classification", "Used by", "Attack", "Defence", "Defense", "Style", "Special",
-                "Rarity", "Buy price", "Sell price", "Where to find", "Can be used for"]
+                "Rarity", "Buy price", "Sell price", "Where to find", "Reward for", "Can be used for"]
+# Item-page fields that say how to get an item, and the prefix each gets as a "found" entry.
+FOUND_FIELDS = {"Where to find": "", "Reward for": "Quest reward: ", "Location": "", "Locations": "",
+                "Obtained": "", "Found": "", "How to obtain": ""}
+
+
+def details_found(det: Optional[dict]) -> List[str]:
+    """Ways to get an item, from its dqnine.wikidot.com page ('Where to find', 'Reward for').
+    Chests, grottos, dungeons and quests are not in any other source the app uses."""
+    out: List[str] = []
+    for label, value in (det or {}).get("fields", []):
+        prefix = FOUND_FIELDS.get(label)
+        if prefix is None or not value:
+            continue
+        for part in value.split("; "):
+            part = part.strip(" .;")
+            if part and part.lower() not in _NA and part.lower() not in ("unknown", "not available"):
+                entry = prefix + part
+                if entry not in out:
+                    out.append(entry)
+    return out
 
 
 def dkey(name: str) -> str:
@@ -1391,6 +1411,7 @@ class Registry:
         self._names: Dict[str, Counter] = {}
         self._cat_prio: Dict[str, int] = {}
         self._build()
+        self._built = True   # lookups may now fall back to a plural/singular spelling
 
     @property
     def recipe_count(self) -> int:
@@ -1403,7 +1424,12 @@ class Registry:
             self.alias.setdefault(n, key)
 
     def resolve(self, name: str) -> Optional[ItemInfo]:
-        key = self.alias.get(norm(name))
+        n = norm(name)
+        key = self.alias.get(n)
+        if key is None and len(n) > 4 and getattr(self, "_built", False):
+            # Plural spelling in one source only: the spreadsheet's "Iron nails" is the enemy
+            # list's "Iron nail". Only tried when the exact name is unknown.
+            key = self.alias.get(n[:-1]) if n.endswith("s") else self.alias.get(n + "s")
         return self.items[key] if key else None
 
     def _item_for(self, r: Recipe) -> ItemInfo:
@@ -1558,7 +1584,7 @@ MAX_NEST = 6   # how many levels of "this ingredient is itself crafted" to unfol
 
 
 def _recipe_html(reg: Registry, r: Recipe, per_n: int, loc_fn: LocFn, shops: Dict[str, List[str]],
-                 needed: list, path: frozenset, depth: int) -> str:
+                 needed: list, path: frozenset, depth: int, detail_fn=None) -> str:
     """One recipe's ingredient list, then where to get each ingredient: shop, monster drops, or
     (unfolded underneath) its own recipe. `path` holds the items already being unfolded, so a
     recipe that loops back on itself stops instead of recursing forever."""
@@ -1589,11 +1615,20 @@ def _recipe_html(reg: Registry, r: Recipe, per_n: int, loc_fn: LocFn, shops: Dic
                 more = len(ing.recipes) - 1
                 note = f" (showing 1 of {len(ing.recipes)} recipes; select it in the list for the rest)" if more else ""
                 h.append(f"<p><i>Can be made by alchemy{note}:</i></p><blockquote>")
-                h.append(_recipe_html(reg, ing.recipes[0], per_n, loc_fn, shops, needed, path | {key}, depth + 1))
+                h.append(_recipe_html(reg, ing.recipes[0], per_n, loc_fn, shops, needed, path | {key}, depth + 1,
+                                      detail_fn))
                 h.append("</blockquote>")
         elif not ing_shops and not (ing and (ing.droppers or ing.found)):
-            h.append("<p><i>No monster on the enemy list drops this and no recipe makes it. "
-                     "It may be found in the world (chests, shiny spots, quests).</i></p>")
+            # Nothing in the bundled sources: its item page usually says (chests, grottos, quests).
+            state, det = detail_fn(ing.name if ing else nm) if detail_fn else ("none", None)
+            page_found = details_found(det)
+            if page_found:
+                h.append("<p><b>Found:</b> " + esc("; ".join(page_found)) + "</p>")
+            elif state == "loading":
+                h.append("<p><small><i>Looking up where to find it...</i></small></p>")
+            else:
+                h.append("<p><i>No monster on the enemy list drops this and no recipe makes it. "
+                         "It may be found in the world (chests, shiny spots, quests).</i></p>")
     return "".join(h)
 
 
@@ -1628,8 +1663,11 @@ def render_item_html(reg: Registry, info: ItemInfo, per_n: int, loc_fn: LocFn,
     """detail_fn(name) -> ("ok"|"loading"|"none", dict|None) supplies the wiki's item facts."""
     needed: List[Enemy] = []
     h = [f"<h2>{esc(info.name)}</h2><p><b>{esc(info.category)}</b></p>"]
+    page_found: List[str] = []
     if detail_fn:
-        h.append(_details_html(*detail_fn(info.name)))
+        state, det = detail_fn(info.name)
+        h.append(_details_html(state, det))
+        page_found = details_found(det)
 
     if info.weapon:
         h.append(_weapon_html(info.weapon))
@@ -1645,13 +1683,13 @@ def render_item_html(reg: Registry, info: ItemInfo, per_n: int, loc_fn: LocFn,
         for n, r in enumerate(info.recipes, 1):
             if len(info.recipes) > 1:
                 h.append(f"<h4>Recipe {n}</h4>")
-            h.append(_recipe_html(reg, r, per_n, loc_fn, shops, needed, frozenset({info.key}), 0))
+            h.append(_recipe_html(reg, r, per_n, loc_fn, shops, needed, frozenset({info.key}), 0, detail_fn))
 
     if info.droppers:
         h.append("<h3>Dropped by monsters</h3>")
         h.append(_monster_table(info.droppers, per_n, loc_fn, needed))
 
-    if not info.recipes and not info.droppers and not own_shops and not info.found:
+    if not info.recipes and not info.droppers and not own_shops and not info.found and not page_found:
         h.append("<p><i>No alchemy recipe or monster drop found for this item.</i></p>")
     if not own_shops:
         h.append("<p><small>Not sold in any town shop on the shop list.</small></p>")

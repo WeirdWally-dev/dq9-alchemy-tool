@@ -3,7 +3,7 @@ Turns an item into a left-to-right branching tree of "bubbles" (no Qt in here, s
 tested on its own):  item -> its recipe(s) -> ingredients -> (their recipes ...) -> monsters / shops.
 """
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Callable, Dict, List, Optional
 
 import dq9_data as data
 
@@ -34,10 +34,22 @@ class Node:
 
 
 def build_tree(reg: data.Registry, info: data.ItemInfo, per_n: int, shops: Dict[str, List[str]],
-               prefer: str = "alchemy") -> Node:
+               prefer: str = "alchemy", found_fn: Optional[Callable[[str], List[str]]] = None) -> Node:
     """prefer: "alchemy" or "drops". An item that has both a recipe and monster drops shows only
-    the preferred one (an item with just one of them shows that one). Shops always add a leaf."""
+    the preferred one (an item with just one of them shows that one). Shops always add a leaf.
+    found_fn(name) -> extra ways to get an item (its wiki page's "Where to find", quest rewards).
+    It is asked about the chosen item and about anything that would otherwise have no known source,
+    so the GUI only looks up the pages that matter."""
     count = [0]
+
+    def extra_found(name: str, known: List[str], need: bool) -> List[str]:
+        if not (found_fn and need):
+            return list(known)
+        return list(known) + [f for f in found_fn(name) if f not in known]
+
+    def found_leaf(found: List[str], key: Optional[str]) -> Node:
+        label = "Found" if len(found) == 1 else f"Found ({len(found)} ways)"
+        return new("found", label, found[0], edge="get", key=key, tip="\n".join(found))
 
     def new(*a, **k) -> Node:
         count[0] += 1
@@ -79,19 +91,24 @@ def build_tree(reg: data.Registry, info: data.ItemInfo, per_n: int, shops: Dict[
                                      key=it.key, tip="\n".join(labels)))
         # Quest rewards, chests, ... always for the chosen item; for an ingredient only when they
         # aren't already behind a recipe, so big trees stay readable.
-        if it.found and (depth == 0 or src != "alchemy" or not node.children):
-            label = "Found" if len(it.found) == 1 else f"Found ({len(it.found)} ways)"
-            node.children.append(new("found", label, it.found[0], edge="get", key=it.key,
-                                     tip="\n".join(it.found)))
+        found = extra_found(it.name, it.found, depth == 0 or not node.children)
+        if found and (depth == 0 or src != "alchemy" or not node.children):
+            node.children.append(found_leaf(found, it.key))
 
     def ingredient(name: str, qty: int, path: frozenset, depth: int, edge: str) -> Node:
         edge = f"x{qty}" if qty > 1 else edge
         it = reg.resolve(name)
         if it is None:
             lab = shops.get(data.norm(name))
-            kind = "shop" if lab else "unknown"
-            return new(kind, name, "shop" if lab else "no known source", edge=edge,
-                       tip="\n".join(lab or ["No monster drops it and no recipe makes it."]))
+            if lab:
+                return new("shop", name, "shop", edge=edge, tip="\n".join(lab))
+            found = extra_found(name, [], True)
+            if found:
+                node = new("base", name, "", edge=edge, sprite=name)
+                node.children.append(found_leaf(found, None))
+                return node
+            return new("unknown", name, "no known source", edge=edge,
+                       tip="No monster drops it and no recipe makes it.")
         kind = "craft" if source_of(it) == "alchemy" else "base"
         node = new(kind, it.name, it.category, edge=edge, key=it.key, sprite=it.name)
         if it.key in path:

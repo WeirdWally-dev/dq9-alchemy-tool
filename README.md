@@ -12,6 +12,7 @@ Pick an equipment type, pick an item, and the app draws a tree showing everythin
 - **Shops.** Every town and shop that sells an item (362 items, 567 listings across 15 shop pages), plus the weapon shops named on the wiki's weapon list.
 - **Weapon list.** Every weapon on the Dragon Quest Wiki's weapon list, with its picture, attack, vocations, buy and sell price and notes. Quest rewards, chests, bonus-alchemy chances and boss drops show as teal **Found** bubbles. Cells the wiki marks N/A are left out rather than shown as a location.
 - **Craft or farm toggle.** When an item can be both crafted and dropped, show just one route to keep the tree readable.
+- **Chests, grottos and quests.** When nothing else gives a source for an item, the app reads its dqnine.wikidot.com page ("Where to find", "Reward for") and shows those as **Found** bubbles, so items like the Silver platter no longer show "no known source".
 - **Item details.** Double-click any bubble for its description, sell price, stats and special effects.
 - **Dark mode** throughout.
 - **Polite and cached.** Online data is fetched once, respecting each site's `robots.txt`, and cached in `~/.dq9_helper/`.

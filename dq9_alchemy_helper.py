@@ -457,8 +457,13 @@ class MainWindow(QMainWindow):
         self.loc.done.connect(lambda _url: self.rerender_timer.start())
         self.loc.start()
         self.details = DetailWorker(self.store)
-        self.details.done.connect(lambda _n: self.rerender_timer.start())
+        self.details.done.connect(self.details_ready)
         self.details.start()
+        self.found_wait = set()   # items the tree is waiting on an item page for
+        self.redraw_timer = QTimer(self)   # batches item-page results into one tree redraw
+        self.redraw_timer.setSingleShot(True)
+        self.redraw_timer.setInterval(250)
+        self.redraw_timer.timeout.connect(self.draw)
         self.sprites = SpriteWorker(self.store)
         self.sprites.done.connect(self.sprite_ready)
         self.sprites.start()
@@ -654,11 +659,28 @@ class MainWindow(QMainWindow):
         for b in self.view.sprite_bubbles.get(key, []):
             b.set_sprite(px)
 
+    def found_for(self, name):
+        """Where-to-find lines from an item's wiki page. Starts the look-up if it isn't cached;
+        the tree is redrawn when it arrives."""
+        state, det = self.details.state(name)
+        if state == "loading":
+            self.found_wait.add(data.dkey(name))
+            return []
+        return data.details_found(det)
+
+    def details_ready(self, name):
+        self.rerender_timer.start()
+        key = data.dkey(name)
+        if key in self.found_wait:
+            self.found_wait.discard(key)
+            self.redraw_timer.start()
+
     def draw(self, *_):
         if not (self.registry and self.current):
             return
+        self.found_wait.clear()
         root = tree.build_tree(self.registry, self.current, self.per_n.value(), self.store.shops(),
-                               self.prefer.currentData())
+                               self.prefer.currentData(), self.found_for)
         self.view.show_tree(root)
 
     # ------------------------------------------------------------------ double-click windows

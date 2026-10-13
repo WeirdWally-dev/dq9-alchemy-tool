@@ -388,6 +388,60 @@ def test_weapons():
     assert len(st.load_weapons()) == 19 and len(FakeHttp.calls) == 1          # from the cache
 
 
+# Shaped like dqnine.wikidot.com/silver-platter: bold labels, bulleted "Where to find".
+SILVER_PLATTER_HTML = """<div id="page-content"><p>A salver made of silver that makes a stopgap shield.</p>
+<p><strong>Classification:</strong> <a href="/shields">Shield</a><br/><strong>Defence:</strong> 6</p>
+<p><strong>Rarity:</strong> 1/5<br/><strong>Buy price:</strong> Cannot Buy<br/><strong>Sell price:</strong> 100 G</p>
+<p><strong>Where to find:</strong></p><ul><li><a href="/the-bad-cave">The Bad Cave</a>, The Plumbed Depths</li>
+<li>Rank 2 (H) blue chest in grotto (2%)</li><li>Rank 4 overworld blue chest outside grotto (5%)</li></ul>
+<p><strong>Reward for:</strong> 028 Desert Foxes (repeat)</p>
+<p><strong>Alchemises:</strong></p><ul><li>Gold platter</li></ul></div>"""
+
+
+def test_unsourced_items():
+    import dq9_tree as t
+    det = d.parse_item_page(SILVER_PLATTER_HTML, "Silver platter")
+    found = d.details_found(det)
+    assert found == ["The Bad Cave, The Plumbed Depths", "Rank 2 (H) blue chest in grotto (2%)",
+                     "Rank 4 overworld blue chest outside grotto (5%)",
+                     "Quest reward: 028 Desert Foxes (repeat)"], found
+    assert d.details_found({"fields": [["Where to find", "N/A"], ["Sell price", "5 G"]]}) == []
+    assert d.details_found(None) == []
+
+    reg = d.Registry([], [d.Recipe("Gold platter", "Shields", [("Gold bracer", 1), ("Silver platter", 1)]),
+                          d.Recipe("Gold bracer", "Accessories", [("Gold bar", 1)])], {"Gold bar": ""})
+    shops = {"goldbar": ["Somewhere (Item Shop)"]}
+    asked = []
+
+    def found_fn(name):
+        asked.append(name)
+        return found if name == "Silver platter" else []
+    root = t.build_tree(reg, reg.resolve("Gold platter"), 3, shops, "alchemy", found_fn)
+    silver = root.children[1]
+    assert silver.label == "Silver platter" and silver.kind == "base", (silver.kind, silver.sub)
+    assert silver.children[0].kind == "found" and silver.children[0].label == "Found (4 ways)"
+    assert "Gold bracer" not in asked and "Gold bar" not in asked     # already sourced: no page look-up
+    assert asked.count("Silver platter") == 1 and "Gold platter" in asked
+    # without the page (offline / still loading) it stays "no known source"
+    root = t.build_tree(reg, reg.resolve("Gold platter"), 3, shops, "alchemy", lambda n: [])
+    assert root.children[1].kind == "unknown"
+
+    # detail popups use the same page facts
+    pages = {"silver platter": det}
+    detail_fn = lambda n: ("ok", pages[d.dkey(n)]) if d.dkey(n) in pages else ("loading", None)   # noqa: E731
+    html, _ = d.render_item_html(reg, reg.resolve("Gold platter"), 5, lambda e: ("ok", []), shops, detail_fn)
+    assert "Rank 2 (H) blue chest" in html and "Looking up" not in html.split("Silver platter")[-1]
+    html, _ = d.render_item_html(reg, reg.resolve("Gold platter"), 5, lambda e: ("ok", []), shops,
+                                 lambda n: ("loading", None))
+    assert "Looking up where to find it" in html
+
+    # a plural spelling in one source finds the other source's item
+    herb = d.Enemy(1, "Hammerhood", "u", "", "", [d.Drop("Iron nail", "Item", 1, 8)])
+    reg = d.Registry([herb], [d.Recipe("Spiked boomerang", "Boomerangs", [("Iron nails", 3)])], {})
+    assert reg.resolve("Iron nails") is reg.resolve("Iron nail") and reg.resolve("Iron nails").droppers
+    assert reg.resolve("Spiked boomerangs") is reg.resolve("Spiked boomerang")
+
+
 def test_shops():
     import json, threading, tempfile, pathlib
     st = d.Store.__new__(d.Store)
@@ -597,6 +651,7 @@ def main():
     test_prefer()
     test_sprites()
     test_weapons()
+    test_unsourced_items()
     print("all parser tests passed")
 
 

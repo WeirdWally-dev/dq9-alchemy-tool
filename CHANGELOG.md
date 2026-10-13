@@ -2,7 +2,7 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
-## 1.2.0 - 2026-10-13 (Android)
+## 1.3.0 - 2026-10-13 (Android)
 
 First Android release: the whole app rewritten in C++ with Qt 6, on the `android-cpp` branch.
 

@@ -21,7 +21,7 @@ The one desktop feature not carried over is importing the `.xlsx` recipe spreads
 
 ## Install on your phone
 
-1. Open the repo's **Actions** tab, pick the latest green **Build Android app** run on `android-cpp`, and download **DQ9-Alchemy-Helper-apk** from its Artifacts (or grab the APK from a release tagged `android-v...`).
+1. Open the repo's **Actions** tab, pick the latest green **Build Android app** run on `android-cpp`, and download **DQ9-Alchemy-Helper-apk** from its Artifacts (or grab the APK from the latest release).
 2. Copy `DQ9-Alchemy-Helper.apk` to your phone and open it. Android will ask you to allow installing from that source the first time.
 
 Needs Android 9 or newer on a 64-bit (arm64) device, which covers nearly every phone from the last several years.
@@ -63,12 +63,14 @@ GitHub Actions builds the APK on every push to `android-cpp`. To have each new v
 
 Make a key once with `keytool -genkeypair -keystore release.jks -alias dq9 -keyalg RSA -keysize 2048 -validity 10000` and keep it safe. Without these secrets the build signs with a throwaway key, so you'd need to uninstall before installing the next build.
 
-To publish a release: bump `VERSION` in `CMakeLists.txt`, add a matching `## x.y.z` section at the top of `CHANGELOG.md`, then tag and push:
+To publish a release: bump `VERSION` in `CMakeLists.txt` and add a matching `## x.y.z` section at the top of `CHANGELOG.md`. Then either make the release on GitHub's website with a new tag like `v1.4.0` targeting `android-cpp`, or tag and push:
 
 ```bash
-git tag android-v1.2.0
-git push origin android-cpp android-v1.2.0
+git tag v1.4.0
+git push origin android-cpp v1.4.0
 ```
+
+The workflow builds the APK and attaches it to that release (creating the release if it doesn't exist yet).
 
 ## Project structure
 

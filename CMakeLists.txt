@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
-# Bump VERSION for each release and tag the commit android-v<same number>.
-project(DQ9AlchemyHelper VERSION 1.2.0 LANGUAGES C CXX)
+# Bump VERSION for each release and tag the commit v<same number> on this branch.
+project(DQ9AlchemyHelper VERSION 1.3.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

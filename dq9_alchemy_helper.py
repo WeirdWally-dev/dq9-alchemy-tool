@@ -23,6 +23,7 @@ from PyQt5.QtWidgets import (
 )
 
 import dq9_data as data
+from version import __version__
 import dq9_tree as tree
 
 BG, PANEL, TEXT, MUTED = "#17181c", "#22242a", "#e6e6e6", "#a0a4ad"
@@ -429,7 +430,7 @@ class SpriteWorker(QThread):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("DQ9 Alchemy Helper")
+        self.setWindowTitle(f"DQ9 Alchemy Helper v{__version__}")
         self.store = data.Store()
         self.registry = None
         self.current = None

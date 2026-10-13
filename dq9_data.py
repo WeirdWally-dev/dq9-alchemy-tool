@@ -22,6 +22,7 @@ import difflib
 import hashlib
 import json
 import re
+import sys
 import threading
 import time
 import unicodedata
@@ -39,11 +40,13 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 ENEMY_URL = "https://dragon-quest.org/wiki/List_of_enemies_in_Dragon_Quest_IX"
 RECIPE_URL = "https://www.woodus.com/den/games/dq9ds/alchemy_recipes.php"
 APP_DIR = Path.home() / ".dq9_helper"
-BUNDLED_SHEET = Path(__file__).resolve().with_name("sheet_recipes.json")
+# Bundled data sits next to this file, or in PyInstaller's unpack folder when run as an .exe.
+BUNDLE_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
+BUNDLED_SHEET = BUNDLE_DIR / "sheet_recipes.json"
 SPRITE_URL = "https://dragon-quest.org/w/index.php?title=List_of_alchemy_ingredients_in_Dragon_Quest_IX"
 WIKIDOT = "https://dqnine.wikidot.com"
 WIKIDOT_INDEX = WIKIDOT + "/alchemy"
-BUNDLED_SHOPS = Path(__file__).resolve().with_name("shops_bundled.json")
+BUNDLED_SHOPS = BUNDLE_DIR / "shops_bundled.json"
 
 ITEMS_CAT = "Ingredients & items"
 EQUIP_ORDER = [

@@ -15,12 +15,15 @@ Pick an equipment type, pick an item, and the app draws a tree showing everythin
 - **Dark mode** throughout.
 - **Polite and cached.** Online data is fetched once, respecting each site's `robots.txt`, and cached in `~/.dq9_helper/`.
 
-## Requirements
+## Download (Windows)
 
-- Python 3.9 or newer (developed on 3.13)
-- PyQt5, requests, beautifulsoup4, openpyxl
+Grab `DQ9-Alchemy-Helper.exe` from the [latest release](https://github.com/WeirdWally-dev/dq9-alchemy-tool/releases/latest) and double-click it. No Python needed.
 
-## Installation
+Windows SmartScreen may warn about an unrecognised app the first time, because the exe isn't code-signed. Click **More info → Run anyway**. Your cached data lives in `%USERPROFILE%\.dq9_helper\`, so it carries over when you update.
+
+## Running from source
+
+Requirements: Python 3.9 or newer (developed on 3.13) and the packages in `requirements.txt`.
 
 ```bash
 git clone https://github.com/WeirdWally-dev/dq9-alchemy-tool.git
@@ -71,9 +74,13 @@ Item names are matched exactly, because the game has distinct items with near-id
 dq9_alchemy_helper.py   PyQt5 GUI: main window, tree view, detail dialogs
 dq9_data.py             Data layer: scraping, parsing, caching, cross-referencing
 dq9_tree.py             Builds the recipe/drop/shop tree the GUI draws
+version.py              The app's version number
 sheet_recipes.json      Bundled alchemy recipes
 shops_bundled.json      Bundled shop listings
 test_parsers.py         Test suite (no network or PyQt5 needed)
+CHANGELOG.md            Release notes for each version
+scripts/                Release helper
+.github/workflows/      Builds the Windows exe and publishes releases
 ```
 
 ## Running the tests
@@ -81,6 +88,26 @@ test_parsers.py         Test suite (no network or PyQt5 needed)
 ```bash
 python test_parsers.py
 ```
+
+## Making a release
+
+Releases are built automatically by GitHub Actions. To ship a new version:
+
+1. Bump `__version__` in `version.py` (for example `1.1.0`).
+2. Add a `## 1.1.0 - <date>` section at the top of `CHANGELOG.md` listing what changed. This becomes the release notes.
+3. Commit, then tag and push:
+
+   ```bash
+   git commit -am "Release 1.1.0"
+   git tag v1.1.0
+   git push origin main v1.1.0
+   ```
+
+The workflow runs the tests, checks that the tag, `version.py` and `CHANGELOG.md` agree, builds the exe with PyInstaller on Windows, and publishes it on the Releases page. Progress shows under the repo's **Actions** tab.
+
+For a test build without publishing, open **Actions → Build Windows app → Run workflow**. The exe appears as a downloadable artifact on that run.
+
+Version numbers follow `MAJOR.MINOR.PATCH`: bump PATCH for fixes, MINOR for new features, MAJOR for big changes.
 
 ## License
 

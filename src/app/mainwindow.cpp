@@ -527,6 +527,7 @@ void MainWindow::setRegistry(RegistryPtr registry)
         idx = m_bookmarks.isEmpty() ? 1 : 0;
     m_category->setCurrentIndex(std::min(idx, m_category->count() - 1));
     m_category->blockSignals(false);
+    m_category->update();   // Android sometimes keeps showing the empty box from before the load
     fillItems();
     if (m_current) {   // the item page follows its item into the new data, or closes
         m_current = m_registry->item(m_current->key);

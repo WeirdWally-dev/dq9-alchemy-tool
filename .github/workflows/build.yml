@@ -1,0 +1,292 @@
+name: Build
+
+# Every push to main runs the tests and builds the Windows app and the Android APK (download them
+# from the run's Artifacts). If a GitHub Release named v<VERSION from CMakeLists.txt> exists, both
+# are attached to it, so making the release on the website is enough. Pushing a version tag
+# (v1.4.0) builds and publishes too.
+on:
+  push:
+    branches: ["**"]   # every branch is built and tested; only main and tags publish
+    tags: ["v*"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  QT_VERSION: "6.8.3"
+  NDK_VERSION: "26.1.10909125"   # the NDK Qt 6.8 is built and tested with
+
+jobs:
+  # ------------------------------------------------------------------------- Linux: tests
+  test:
+    name: Tests (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev
+
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          cache: true
+
+      - name: Build
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+
+      - name: Run tests
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ./build/dq9_tests
+
+      # The real loaders against the live sites: catches wiki page changes and network/TLS
+      # problems the offline fixtures can't. Results show as annotations on the run.
+      - name: Live check
+        continue-on-error: true   # the sites being down shouldn't block a build
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          set +e
+          ./build/dq9_tests --live | tee live.txt
+          status=${PIPESTATUS[0]}
+          echo "::notice title=Live check (Linux)::$(sed -e 's/%/%25/g' live.txt | awk '{printf "%s%%0A", $0}')"
+          exit $status
+
+  # ------------------------------------------------------------------------- Windows: exe
+  windows:
+    name: Windows app
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Build
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+
+      - name: Run tests
+        shell: bash
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ./build/dq9_tests.exe
+
+      - name: Live check
+        continue-on-error: true
+        shell: bash
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          ./build/dq9_tests.exe --live | tee live.txt
+          echo "::notice title=Live check (Windows)::$(sed -e 's/%/%25/g' live.txt | awk '{printf "%s%%0A", $0}')"
+
+      - name: Bundle the Qt libraries next to the exe
+        shell: bash
+        run: |
+          mkdir -p deploy
+          cp build/DQ9AlchemyHelper.exe deploy/
+          windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw \
+            --no-compiler-runtime deploy/DQ9AlchemyHelper.exe
+          # The Visual C++ runtime, so it runs on PCs that don't have it installed.
+          cp "$(cygpath -u "$VCToolsRedistDir")"/x64/Microsoft.VC*.CRT/*.dll deploy/
+          ls deploy
+
+      - name: Build the installer
+        shell: bash
+        run: |
+          choco install innosetup -y --no-progress > /dev/null
+          version=$(sed -nE 's/^project\(DQ9AlchemyHelper VERSION ([0-9.]+) .*/\1/p' CMakeLists.txt)
+          mkdir -p dist
+          "/c/Program Files (x86)/Inno Setup 6/ISCC.exe" -Q "-DAppVersion=$version" "-DSourceDir=$(cygpath -w "$PWD/deploy")" packaging/windows/dq9.iss
+          (cd deploy && 7z a -tzip ../dist/DQ9-Alchemy-Helper-Windows-portable.zip . > /dev/null)
+          ls dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: dist/*
+
+  # ------------------------------------------------------------------------- Android: APKs
+  android:
+    name: Android APK (${{ matrix.abi }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        abi: [arm64_v8a, x86_64]   # arm64 for phones; x86_64 only for the emulator test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y ninja-build
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install the Android NDK
+        run: |
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "ndk;${NDK_VERSION}" "platforms;android-34" "build-tools;34.0.0" > /dev/null
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/${NDK_VERSION}" >> "$GITHUB_ENV"
+
+      # Qt for Android needs a desktop Qt of the same version for its build tools.
+      - name: Install Qt (desktop host tools)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          cache: true
+          set-env: false
+
+      - name: Install Qt (Android)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: all_os   # Qt 6.7+ publishes the Android kits under all_os
+          target: android
+          arch: android_${{ matrix.abi }}
+          cache: true
+
+      - name: Build APK
+        run: |
+          "$QT_ROOT_DIR/bin/qt-cmake" -S . -B build-android -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DQT_HOST_PATH="$RUNNER_WORKSPACE/Qt/${QT_VERSION}/gcc_64" \
+            -DANDROID_SDK_ROOT="$ANDROID_SDK_ROOT" \
+            -DANDROID_NDK_ROOT="$ANDROID_NDK_ROOT" \
+            -DDQ9_BUILD_TESTS=OFF
+          cmake --build build-android --target apk
+
+      # Sign with your own key when the repo has one (Settings > Secrets > Actions:
+      # ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS), so updates install
+      # over the previous version. Without it a throwaway key is used: fine for trying it out, but
+      # each build then has to be uninstalled before the next one installs.
+      - name: Sign APK
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          unsigned=$(find build-android -name "*-unsigned.apk" | head -n1)
+          if [ -z "$unsigned" ]; then unsigned=$(find build-android -name "*.apk" | head -n1); fi
+          echo "Built: $unsigned"
+          tools="$ANDROID_SDK_ROOT/build-tools/34.0.0"
+          if [ -n "${KEYSTORE_B64:-}" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > release.jks
+            pass="$KEYSTORE_PASS"; alias="$KEY_ALIAS"
+          else
+            pass=throwaway; alias=dq9
+            keytool -genkeypair -keystore release.jks -storepass "$pass" -keypass "$pass" -alias "$alias" \
+              -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=DQ9 Alchemy Helper" > /dev/null
+          fi
+          mkdir -p dist
+          "$tools/zipalign" -f -p 4 "$unsigned" aligned.apk
+          "$tools/apksigner" sign --ks release.jks --ks-pass "pass:$pass" --ks-key-alias "$alias" \
+            --out dist/DQ9-Alchemy-Helper.apk aligned.apk
+          "$tools/apksigner" verify dist/DQ9-Alchemy-Helper.apk
+          rm -f release.jks
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-${{ matrix.abi }}
+          path: dist/DQ9-Alchemy-Helper.apk
+
+  # ------------------------------------------------------------------------- Android: emulator
+  # Runs the x86_64 build on an emulator, taps around, and reports logs and screenshots as
+  # annotations. It doesn't block a release; it's there to show how the app behaves on a device.
+  emulator:
+    name: Android emulator smoke test
+    runs-on: ubuntu-latest
+    needs: android
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: android-x86_64
+          path: apk
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run on the emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          script: bash .github/scripts/emulator-smoke.sh apk/DQ9-Alchemy-Helper.apk
+
+      - name: Report
+        if: always()
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 .github/scripts/report-smoke.py
+
+  # ------------------------------------------------------------------------- release
+  publish:
+    name: Attach to release
+    runs-on: ubuntu-latest
+    needs: [test, windows, android]
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          files=(artifacts/windows/DQ9-Alchemy-Helper-Setup.exe
+                 artifacts/windows/DQ9-Alchemy-Helper-Windows-portable.zip
+                 artifacts/android-arm64_v8a/DQ9-Alchemy-Helper.apk)
+          code_version=$(sed -nE 's/^project\(DQ9AlchemyHelper VERSION ([0-9.]+) .*/\1/p' CMakeLists.txt)
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            tag="$GITHUB_REF_NAME"; version="${tag#v}"
+            [ "$version" = "$code_version" ] || { echo "Tag $tag doesn't match VERSION $code_version in CMakeLists.txt"; exit 1; }
+          else
+            # A branch push: only attach to a release that already exists for this version.
+            tag="v$code_version"; version="$code_version"
+            gh release view "$tag" > /dev/null 2>&1 || { echo "No release $tag yet; the files are in this run's Artifacts."; exit 0; }
+          fi
+          awk -v v="$version" '/^## /{if(found)exit; found=($2==v)} found && !/^## /' CHANGELOG.md > notes.md
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release upload "$tag" "${files[@]}" --clobber
+            if [ -s notes.md ]; then gh release edit "$tag" --notes-file notes.md; fi
+          else
+            [ -s notes.md ] || { echo "CHANGELOG.md has no '## $version' section"; exit 1; }
+            gh release create "$tag" "${files[@]}" --title "DQ9 Alchemy Helper $version" --notes-file notes.md
+          fi
+          echo "Attached to release $tag: ${files[*]}"

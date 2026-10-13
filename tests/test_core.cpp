@@ -11,6 +11,7 @@
 
 #include <QCoreApplication>
 #include <QFile>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -840,9 +841,74 @@ static void testRobotsAndText()
     CHECK_EQ(esc("<a href='x'>&\""), QStringLiteral("&lt;a href=&#x27;x&#x27;&gt;&amp;&quot;"));
 }
 
+// --live: run the real loaders against the live sites (CI uses this to catch page changes and
+// network/TLS problems the offline fixtures can't). Prints one line per source; exits non-zero if
+// the enemy list, which the app can't work without, fails.
+static int runLive()
+{
+    QTemporaryDir dir;
+    Store st(dir.path());
+    int failures = 0;
+    auto step = [&](const char *name, const std::function<QString()> &fn, bool required) {
+        try {
+            std::printf("LIVE %-14s ok   %s\n", name, qPrintable(fn()));
+        } catch (const std::exception &e) {
+            std::printf("LIVE %-14s FAIL %s\n", name, e.what());
+            if (required)
+                ++failures;
+        }
+        std::fflush(stdout);
+    };
+    QList<EnemyPtr> enemies;
+    step("enemies", [&] {
+        enemies = st.loadEnemies();
+        int drops = 0;
+        for (const auto &e : enemies)
+            drops += int(e->drops.size());
+        if (enemies.size() < 100)
+            throw ParseError(QStringLiteral("only %1 enemies parsed").arg(enemies.size()));
+        return QStringLiteral("%1 enemies, %2 drops; first: %3").arg(enemies.size()).arg(drops).arg(enemies.first()->name);
+    }, true);
+    step("weapons", [&] {
+        const auto w = st.loadWeapons();
+        return QStringLiteral("%1 weapons; first: %2").arg(w.size()).arg(w.isEmpty() ? QString() : w.first()->name);
+    }, false);
+    step("icons", [&] { return QStringLiteral("%1 icons").arg(st.loadSpriteIndex().size()); }, false);
+    step("woodus", [&] {
+        try {
+            st.loadRecipes();
+            return QStringLiteral("fetched (unexpected: robots.txt should block it)");
+        } catch (const RobotsDisallowed &) {
+            return QStringLiteral("blocked by robots.txt, as expected");
+        }
+    }, false);
+    if (!enemies.isEmpty()) {
+        step("locations", [&] {
+            const QStringList l = st.locations(*enemies.first());
+            return QStringLiteral("%1: %2").arg(enemies.first()->name, l.join(QStringLiteral("; ")));
+        }, false);
+    }
+    step("item page", [&] {
+        const auto d = st.itemDetails(QStringLiteral("Silver platter"));
+        return d ? QStringLiteral("%1 fields; found: %2").arg(d->fields.size()).arg(detailsFound(d).join(QStringLiteral("; ")))
+                 : QStringLiteral("no page");
+    }, false);
+    step("icon download", [&] {
+        const QString f = st.fetchSprite(QStringLiteral("Medicinal herb"));
+        return f.isEmpty() ? QStringLiteral("no icon") : QStringLiteral("%1 bytes").arg(QFileInfo(f).size());
+    }, false);
+    Registry reg(enemies, st.loadSheetRecipes(), st.shopItems(), st.weapons);
+    step("registry", [&] {
+        return QStringLiteral("%1 items, %2 recipes, %3 categories").arg(reg.keys().size()).arg(reg.recipeCount()).arg(reg.categories().size());
+    }, true);
+    return failures ? 1 : 0;
+}
+
 int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
+    if (app.arguments().contains(QStringLiteral("--live")))
+        return runLive();
     g_tmp = std::make_unique<QTemporaryDir>();
     const std::pair<const char *, std::function<void()>> tests[] = {
         {"basics", testBasics}, {"sheet", testSheet}, {"merge_and_nesting", testMergeAndNesting},

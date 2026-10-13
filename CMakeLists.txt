@@ -20,6 +20,13 @@ target_include_directories(gumbo PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/
 set_target_properties(gumbo PROPERTIES C_STANDARD 99 POSITION_INDEPENDENT_CODE ON)
 if(CMAKE_C_COMPILER_ID MATCHES "Clang|GNU")
     target_compile_options(gumbo PRIVATE -w)
+elseif(MSVC)
+    target_include_directories(gumbo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/gumbo/msvc)
+    target_compile_options(gumbo PRIVATE /W0 /utf-8)
+    target_compile_definitions(gumbo PRIVATE _CRT_SECURE_NO_WARNINGS)
+endif()
+if(MSVC)
+    add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/utf-8>)   # the sources are UTF-8
 endif()
 
 # --------------------------------------------------------------------------- core (no widgets)
@@ -45,7 +52,7 @@ target_compile_definitions(dq9core PUBLIC APP_VERSION="${PROJECT_VERSION}")
 qt_add_resources(dq9core "bundled_data"
     PREFIX "/data"
     BASE data
-    FILES data/sheet_recipes.json data/shops_bundled.json
+    FILES data/sheet_recipes.json data/shops_bundled.json data/icon.png
 )
 
 # --------------------------------------------------------------------------- app
@@ -58,6 +65,9 @@ qt_add_executable(dq9alchemy
     src/app/mainwindow.h src/app/mainwindow.cpp
 )
 target_link_libraries(dq9alchemy PRIVATE dq9core Qt6::Widgets)
+if(WIN32)
+    target_sources(dq9alchemy PRIVATE packaging/windows/app.rc)   # exe icon
+endif()
 set_target_properties(dq9alchemy PROPERTIES
     OUTPUT_NAME "DQ9AlchemyHelper"
     WIN32_EXECUTABLE ON

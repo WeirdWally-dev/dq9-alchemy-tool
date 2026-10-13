@@ -3,6 +3,11 @@
 #include "core/text.h"
 #include "core/wikitext.h"
 
+#include <QDebug>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(lcLoad, "dq9.load")
+
 using namespace dq9;
 
 // --------------------------------------------------------------------------- first load
@@ -17,14 +22,18 @@ void LoadWorker::run()
     try {
         emit status(tr("Loading enemy list..."));
         enemies = m_store.loadEnemies(m_force);
+        qCInfo(lcLoad) << "enemies:" << enemies.size() << "cache:" << m_store.dir();
     } catch (const std::exception &e) {
+        qCWarning(lcLoad) << "enemy list failed:" << errorText(e);
         emit failed(tr("Couldn't load the enemy list:\n%1").arg(errorText(e)));
         return;
     }
     try {
         emit status(tr("Loading weapon list..."));
         m_store.loadWeapons(m_force);
-    } catch (const std::exception &) {
+        qCInfo(lcLoad) << "weapons:" << m_store.weapons.size();
+    } catch (const std::exception &e) {
+        qCWarning(lcLoad) << "weapon list failed:" << errorText(e);
         // the weapon list adds detail; the app works without it
     }
     QList<Recipe> woodus;
@@ -42,8 +51,9 @@ void LoadWorker::run()
     const QList<Recipe> sheet = m_store.loadSheetRecipes();
     try {
         emit status(tr("Loading item icons..."));
-        m_store.loadSpriteIndex(m_force);
-    } catch (const std::exception &) {
+        qCInfo(lcLoad) << "icons:" << m_store.loadSpriteIndex(m_force).size();
+    } catch (const std::exception &e) {
+        qCWarning(lcLoad) << "icon index failed:" << errorText(e);
         // icons are optional
     }
     m_store.registerSprites(weaponSprites(m_store.weapons));
@@ -51,6 +61,7 @@ void LoadWorker::run()
         note.clear();   // woodus.com is optional once the spreadsheet (or a saved copy) is there
     emit status(tr("Matching items across sources..."));
     auto reg = std::make_shared<const Registry>(enemies, woodus + sheet, m_store.shopItems(), m_store.weapons);
+    qCInfo(lcLoad) << "ready:" << enemies.size() << "enemies," << reg->recipeCount() << "recipes, note:" << note;
     emit ready(reg, note);
 }
 
@@ -135,7 +146,8 @@ void LocWorker::process(const QString &url)
                 QMutexLocker lock(&m_lock);
                 m_empty.insert(url);
             }
-        } catch (const std::exception &) {
+        } catch (const std::exception &e) {
+            qCWarning(lcLoad) << "locations failed:" << url << errorText(e);
             QMutexLocker lock(&m_lock);
             m_errors.insert(url);
         }
@@ -181,7 +193,8 @@ void DetailWorker::process(const QString &name)
 {
     try {
         m_store.itemDetails(name);
-    } catch (const std::exception &) {   // offline, blocked, etc.: just show nothing
+    } catch (const std::exception &e) {   // offline, blocked, etc.: just show nothing
+        qCWarning(lcLoad) << "item details failed:" << name << errorText(e);
         QMutexLocker lock(&m_lock);
         m_failed.insert(dkey(name));
     }

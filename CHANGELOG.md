@@ -2,7 +2,7 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
-## Unreleased
+## 1.2.0 - 2026-10-13
 
 - **Bookmarks.** Star items with **☆ Bookmark** (Ctrl+D) and get back to them from **★ Bookmarks** (Ctrl+B), at the top of the Equipment type list. Right-click to remove or reorder. Saved between runs.
 - Changing the equipment type or the filter keeps the selected item open when it's still in the list.

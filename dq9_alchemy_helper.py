@@ -5,7 +5,8 @@ DQ9 Alchemy Helper - pick an equipment type, pick an item, see how to get it.
     python -m pip install PyQt5 requests beautifulsoup4 openpyxl
     python dq9_alchemy_helper.py
 
-First launch downloads the enemy list (one request) and caches it in ~/.dq9_helper/.
+First launch downloads the enemy list and the weapon list (one request each) and caches them in
+~/.dq9_helper/.
 Monster locations and item details (price, description, effects) are looked up on demand
 (one polite request each, cached forever).
 """
@@ -13,13 +14,13 @@ import queue
 import sys
 import threading
 
-from PyQt5.QtCore import QRectF, QThread, QTimer, Qt, pyqtSignal
-from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QPainter, QPainterPath, QPalette, QPen, QPixmap
+from PyQt5.QtCore import QRectF, QSize, QThread, QTimer, Qt, pyqtSignal
+from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QIcon, QPainter, QPainterPath, QPalette, QPen, QPixmap
 from PyQt5.QtWidgets import (
     QApplication, QComboBox, QDialog, QFileDialog, QGraphicsPathItem, QGraphicsPixmapItem, QGraphicsRectItem, QGraphicsScene,
-    QGraphicsSimpleTextItem, QGraphicsView, QHBoxLayout, QLabel, QLineEdit, QListWidget,
-    QListWidgetItem, QMainWindow, QMessageBox, QPushButton, QSpinBox, QSplitter,
-    QTextBrowser, QVBoxLayout, QWidget,
+    QGraphicsSimpleTextItem, QGraphicsView, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QListWidget,
+    QListWidgetItem, QMainWindow, QMessageBox, QPushButton, QSpinBox, QSplitter, QStackedWidget,
+    QTextBrowser, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget,
 )
 
 import dq9_data as data
@@ -48,10 +49,12 @@ ROBOTS_MSG = (
 COLORS = {
     "item": ("#3b6ea8", "#8fbcf2"), "craft": ("#2b4666", "#5b8fd0"), "base": ("#2c4a30", "#6aa84f"),
     "recipe": ("#3d3558", "#9a88d6"), "monster": ("#6b2d2d", "#e06666"), "shop": ("#5c4a14", "#e0b030"),
+    "found": ("#1f5a55", "#4fc1b5"),
     "more": ("#33353b", "#7b7f88"), "unknown": ("#33353b", "#7b7f88"),
 }
 LEGEND = [("item", "this item"), ("craft", "made by alchemy"), ("base", "base ingredient"),
-          ("monster", "monster drop"), ("shop", "sold in shops"), ("unknown", "no known source")]
+          ("monster", "monster drop"), ("shop", "sold in shops"), ("found", "quest / chest / other"),
+          ("unknown", "no known source")]
 
 
 SPRITE_PX = 34   # icons are drawn at most this big inside a bubble
@@ -229,6 +232,168 @@ class TreeView(QGraphicsView):
         self.scale(factor, factor)
 
 
+class MaterialListPanel(QWidget):
+    """The tree flattened into one shopping list: everything to gather or buy, added up across
+    the whole recipe chain, plus what gets crafted along the way. Each craftable row has a tick box:
+    ticked = break it down into its ingredients, unticked = list the item itself and ignore its
+    recipe. Choices are per item, remembered between runs."""
+    BREAKDOWN_TIP = ("Ticked: break this down into its ingredients (they're added to the totals).\n"
+                     "Unticked: list the item itself (you have it, buy it or farm it) and ignore its recipe.")
+
+    def __init__(self, store, on_open, sprite_fn, on_change):
+        super().__init__()
+        self.store, self.on_open, self.sprite_fn, self.on_change = store, on_open, sprite_fn, on_change
+        self.choices = store.load_list_choices()
+        self.rows_by_sprite = {}   # sprite key -> list items showing that icon
+        self.last = None
+        self._filling = False
+
+        self.count = QSpinBox()
+        self.count.setRange(1, 99)
+        self.count.setToolTip("How many of the chosen item to make")
+        self.count.valueChanged.connect(lambda _v: self.on_change())
+        self.recipe = QComboBox()
+        self.recipe.setToolTip("The chosen item has more than one recipe")
+        self.recipe.currentIndexChanged.connect(lambda _i: None if self._filling else self.on_change())
+        self.recipe_label = QLabel("Recipe:")
+        self.reset_btn = QPushButton("Reset choices")
+        self.reset_btn.setToolTip("Forget every break-down / keep-whole choice")
+        self.reset_btn.clicked.connect(self.reset)
+        self.copy_btn = QPushButton("Copy list")
+        self.copy_btn.clicked.connect(self.copy)
+        self.title = QLabel()
+        self.title.setTextFormat(Qt.RichText)
+
+        self.tree = QTreeWidget()
+        self.tree.setColumnCount(3)
+        self.tree.setHeaderLabels(["Qty", "Item", "Where to get it"])
+        self.tree.setRootIsDecorated(False)
+        self.tree.setUniformRowHeights(True)
+        self.tree.setIconSize(QSize(24, 24))
+        self.tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.tree.header().setStretchLastSection(True)
+        self.tree.itemChanged.connect(self.item_changed)
+        self.tree.itemDoubleClicked.connect(self.item_opened)
+        self.notes = QLabel()
+        self.notes.setWordWrap(True)
+        self.notes.setStyleSheet(f"color:{MUTED}")
+
+        top = QHBoxLayout()
+        top.addWidget(self.title, 1)
+        top.addWidget(QLabel("Make:"))
+        top.addWidget(self.count)
+        top.addWidget(self.recipe_label)
+        top.addWidget(self.recipe)
+        top.addWidget(self.reset_btn)
+        top.addWidget(self.copy_btn)
+        lay = QVBoxLayout(self)
+        lay.setContentsMargins(0, 0, 0, 0)
+        lay.addLayout(top)
+        lay.addWidget(self.tree, 1)
+        lay.addWidget(self.notes)
+
+    def set_item(self, info):
+        """A new item was chosen: offer its recipes, start from 1."""
+        self._filling = True
+        self.recipe.clear()
+        for n, r in enumerate(info.recipes if info else [], 1):
+            names = ", ".join(nm for nm, _ in r.ingredients)
+            self.recipe.addItem(f"{n}: {names}"[:70], n - 1)
+        self.recipe.setVisible(self.recipe.count() > 1)
+        self.recipe_label.setVisible(self.recipe.count() > 1)
+        self._filling = False
+
+    def message(self, text):
+        self.tree.clear()
+        self.rows_by_sprite = {}
+        self.title.setText(data.esc(text))
+        self.notes.setText("")
+        self.last = None
+
+    def show_list(self, ml):
+        self.last = ml
+        self._filling = True
+        self.tree.clear()
+        self.rows_by_sprite = {}
+        self.title.setText(f"<b>To make {ml.count} &times; {data.esc(ml.target)}</b>")
+        bold = QFont()
+        bold.setBold(True)
+
+        def group(text):
+            g = QTreeWidgetItem([text, "", ""])
+            g.setFirstColumnSpanned(True)
+            g.setFont(0, bold)
+            g.setFlags(Qt.ItemIsEnabled)
+            self.tree.addTopLevelItem(g)
+            g.setExpanded(True)
+            return g
+
+        mats = group(f"Gather / buy  ({len(ml.materials)} items)")
+        for r in ml.materials:
+            self._row(mats, r, r.how)
+        if ml.crafted:
+            done = group("Craft along the way, in this order")
+            for r in ml.crafted:
+                self._row(done, r, r.how)
+            final = QTreeWidgetItem(done, [str(ml.count), ml.target, "the item you chose"])
+            final.setFlags(Qt.ItemIsEnabled)
+        self.notes.setText("  ".join(ml.notes) + ("  " if ml.notes else "") +
+                           "Tick a craftable item to break it down, untick it to list it whole. "
+                           "Double-click a row for details.")
+        self._filling = False
+
+    def _row(self, parent, r, how):
+        it = QTreeWidgetItem(parent, [str(r.qty), r.name, how])
+        it.setData(0, Qt.UserRole, r.key)
+        it.setData(1, Qt.UserRole, r.name)
+        it.setTextAlignment(0, Qt.AlignRight | Qt.AlignVCenter)
+        flags = Qt.ItemIsEnabled | Qt.ItemIsSelectable
+        if r.craftable and not r.loop:
+            flags |= Qt.ItemIsUserCheckable
+            it.setCheckState(1, Qt.Checked if r.expanded else Qt.Unchecked)
+            it.setToolTip(1, self.BREAKDOWN_TIP)
+        elif r.loop:
+            it.setToolTip(1, "Its recipe needs an item further up the list, so it can't be broken down here.")
+        it.setFlags(flags)
+        it.setToolTip(2, how)
+        has, px = self.sprite_fn(r.name)
+        if has:
+            self.rows_by_sprite.setdefault(data.skey(r.name), []).append(it)
+            if px is not None and not px.isNull():
+                it.setIcon(1, QIcon(px))
+
+    def set_sprite(self, name, px):
+        self._filling = True   # an icon change also fires itemChanged; it's not a tick
+        try:
+            for it in self.rows_by_sprite.get(data.skey(name), []):
+                it.setIcon(1, QIcon(px))
+        finally:
+            self._filling = False
+
+    def item_changed(self, it, column):
+        key = it.data(0, Qt.UserRole)
+        if self._filling or column != 1 or not key or not (it.flags() & Qt.ItemIsUserCheckable):
+            return
+        self.choices[key] = it.checkState(1) == Qt.Checked
+        self.store.save_list_choices(self.choices)
+        QTimer.singleShot(0, self.on_change)   # rebuild after Qt finishes this click
+
+    def item_opened(self, it, _column):
+        name = it.data(1, Qt.UserRole)
+        if name:
+            self.on_open(tree.Node("base", name, key=it.data(0, Qt.UserRole)))
+
+    def reset(self):
+        self.choices.clear()
+        self.store.save_list_choices(self.choices)
+        self.on_change()
+
+    def copy(self):
+        if self.last:
+            QApplication.clipboard().setText(tree.material_list_text(self.last))
+
+
 class InfoDialog(QDialog):
     """The full write-up for one bubble. `render` returns (html, monsters_to_look_up)."""
 
@@ -269,6 +434,11 @@ class LoadWorker(QThread):
         except Exception as e:  # noqa: BLE001 - surface anything to the user
             self.failed.emit(f"Couldn't load the enemy list:\n{e}")
             return
+        try:
+            self.status.emit("Loading weapon list...")
+            self.store.load_weapons(self.force)
+        except Exception:  # noqa: BLE001 - the weapon list adds detail; the app works without it
+            pass
         woodus, note = [], ""
         try:
             self.status.emit("Loading alchemy recipes...")
@@ -283,10 +453,12 @@ class LoadWorker(QThread):
             self.store.load_sprite_index(self.force)
         except Exception:  # noqa: BLE001 - icons are optional
             pass
+        self.store.register_sprites(data.weapon_sprites(self.store.weapons))
         if note == "robots" and (woodus or sheet):
             note = ""   # woodus.com is optional once the spreadsheet (or a saved copy) is there
         self.status.emit("Matching items across sources...")
-        self.ready.emit(data.Registry(enemies, woodus + sheet, self.store.shop_items()), note)
+        self.ready.emit(data.Registry(enemies, woodus + sheet, self.store.shop_items(),
+                                      self.store.weapons), note)
 
 
 class LocWorker(QThread):
@@ -447,8 +619,13 @@ class MainWindow(QMainWindow):
         self.loc.done.connect(lambda _url: self.rerender_timer.start())
         self.loc.start()
         self.details = DetailWorker(self.store)
-        self.details.done.connect(lambda _n: self.rerender_timer.start())
+        self.details.done.connect(self.details_ready)
         self.details.start()
+        self.found_wait = set()   # items the tree is waiting on an item page for
+        self.redraw_timer = QTimer(self)   # batches item-page results into one tree redraw
+        self.redraw_timer.setSingleShot(True)
+        self.redraw_timer.setInterval(250)
+        self.redraw_timer.timeout.connect(self.draw)
         self.sprites = SpriteWorker(self.store)
         self.sprites.done.connect(self.sprite_ready)
         self.sprites.start()
@@ -497,20 +674,33 @@ class MainWindow(QMainWindow):
         self.prefer.currentIndexChanged.connect(self.draw)
         self.fit_btn = QPushButton("Fit to window")
         self.fit_btn.clicked.connect(self.view.fit)
+        self.mode = QComboBox()
+        self.mode.addItem("Recipe tree", "tree")
+        self.mode.addItem("Material list", "list")
+        self.mode.setToolTip("Tree: how everything fits together.\n"
+                             "Material list: the total of everything you need to gather or buy.")
+        self.mode.currentIndexChanged.connect(self.mode_changed)
+        self.matlist = MaterialListPanel(self.store, self.open_info, self.get_sprite, self.draw)
+        self.stack = QStackedWidget()
+        self.stack.addWidget(self.view)
+        self.stack.addWidget(self.matlist)
         legend = QLabel("  ".join(
             f"<span style='background:{COLORS[k][0]}; border:1px solid {COLORS[k][1]}'>&nbsp;&nbsp;&nbsp;</span> {t}"
             for k, t in LEGEND) + "  &nbsp;|&nbsp; wheel = zoom, drag = move, double-click a bubble for details")
         legend.setTextFormat(Qt.RichText)
+        self.legend = legend
         right = QWidget()
         rlay = QVBoxLayout(right)
         rlay.setContentsMargins(0, 0, 0, 0)
         top = QHBoxLayout()
         top.addWidget(legend, 1)
+        top.addWidget(QLabel("View:"))
+        top.addWidget(self.mode)
         top.addWidget(QLabel("Show:"))
         top.addWidget(self.prefer)
         top.addWidget(self.fit_btn)
         rlay.addLayout(top)
-        rlay.addWidget(self.view, 1)
+        rlay.addWidget(self.stack, 1)
 
         split = QSplitter(Qt.Horizontal)
         split.addWidget(self.items)
@@ -543,6 +733,7 @@ class MainWindow(QMainWindow):
         self.refresh_btn.setEnabled(True)
         self.statusBar().showMessage("Load failed")
         self.view.message("Couldn't load data:\n" + msg)
+        self.matlist.message("Couldn't load data.")
 
     def on_ready(self, registry, note):
         self.refresh_btn.setEnabled(True)
@@ -599,7 +790,7 @@ class MainWindow(QMainWindow):
         """Re-merge every recipe source we have (no network) after an import."""
         if self.registry:
             self.set_registry(data.Registry(self.registry.enemies, self.store.cached_recipes(),
-                                          self.store.shop_items()))
+                                            self.store.shop_items(), self.store.weapons))
 
     # ------------------------------------------------------------------ list + detail
     def fill_items(self, *_):
@@ -607,16 +798,19 @@ class MainWindow(QMainWindow):
         self.items.clear()
         if self.registry:
             for info in self.registry.items_in(self.category.currentText(), self.filter.text()):
-                tags = [t for t, ok in (("alchemy", info.recipes), ("drop", info.droppers)) if ok]
+                tags = [t for t, ok in (("alchemy", info.recipes), ("drop", info.droppers),
+                                        ("found", info.found)) if ok]
                 it = QListWidgetItem(info.name + (f"   ({', '.join(tags)})" if tags else ""))
                 it.setData(Qt.UserRole, info.key)
                 self.items.addItem(it)
         self.items.blockSignals(False)
         self.current = None
         self.view.message("Select an item on the left.")
+        self.matlist.message("Select an item on the left.")
 
     def select_item(self, cur, _prev):
         self.current = self.registry.items.get(cur.data(Qt.UserRole)) if cur and self.registry else None
+        self.matlist.set_item(self.current)
         self.draw()
 
     def get_sprite(self, name):
@@ -642,13 +836,44 @@ class MainWindow(QMainWindow):
         px = self.pixmaps.setdefault(key, QPixmap(str(path)))
         for b in self.view.sprite_bubbles.get(key, []):
             b.set_sprite(px)
+        self.matlist.set_sprite(name, px)
+
+    def found_for(self, name):
+        """Where-to-find lines from an item's wiki page. Starts the look-up if it isn't cached;
+        the tree is redrawn when it arrives."""
+        state, det = self.details.state(name)
+        if state == "loading":
+            self.found_wait.add(data.dkey(name))
+            return []
+        return data.details_found(det)
+
+    def details_ready(self, name):
+        self.rerender_timer.start()
+        key = data.dkey(name)
+        if key in self.found_wait:
+            self.found_wait.discard(key)
+            self.redraw_timer.start()
 
     def draw(self, *_):
         if not (self.registry and self.current):
             return
+        self.found_wait.clear()
+        if self.mode.currentData() == "list":
+            ml = tree.material_list(self.registry, self.current, self.store.shops(), self.prefer.currentData(),
+                                    self.matlist.choices, self.matlist.count.value(),
+                                    self.matlist.recipe.currentData() or 0, self.found_for)
+            self.matlist.show_list(ml)
+            return
         root = tree.build_tree(self.registry, self.current, self.per_n.value(), self.store.shops(),
-                               self.prefer.currentData())
+                               self.prefer.currentData(), self.found_for)
         self.view.show_tree(root)
+
+    def mode_changed(self, *_):
+        is_list = self.mode.currentData() == "list"
+        self.stack.setCurrentWidget(self.matlist if is_list else self.view)
+        self.fit_btn.setVisible(not is_list)
+        self.legend.setVisible(not is_list)
+        self.draw()
 
     # ------------------------------------------------------------------ double-click windows
     def open_info(self, node):

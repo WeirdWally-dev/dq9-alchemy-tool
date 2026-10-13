@@ -44,6 +44,465 @@ RECIPE_HTML = """<table><tr><th>Item</th><th>Type</th><th>Ingredients</th><th>Po
 <tr><td>Slime crown</td><td>Helmet</td><td>Slimedrop x4 + Mythril ore</td><td></td></tr></table>"""
 
 
+# Rows shaped like the wiki source of "List of weapons in Dragon Quest IX", quirks included.
+WEAPON_WIKITEXT = """{{DQ9}}
+{| border="1" cellpadding="1" class="wikitable sortable"
+!style="background:#9d0000; color: gold;"| Category
+!style="background:#9d0000; color: gold;"| Image
+!style="background:#9d0000; color: gold;"| Name
+!style="background:#9d0000; color: gold;"| Attack
+!style="background:#9d0000; color: gold;"| Equip
+!style="background:#9d0000; color: gold;"| Buy / Sell
+!style="background:#9d0000; color: gold;"| Recipes
+!style="background:#9d0000; color: gold;"| Area
+!style="background:#9d0000; color: gold;"| Drop
+!style="background:#9d0000; color: gold;"| Notes
+|-
+| {{Axe}}
+| [[Image:IronAxe.png|100px]]
+| [[Iron axe]]
+| 30
+| GL, RA
+| 1800, 900
+| N/A
+| [[Porth Llaffan]]
+|
+|
+|-
+| {{Axe}}
+| [[Image:Steel axe 9 artwork.png|100px]]
+| [[Steel axe]]
+| 47
+| GL, RA
+| N/A, 2100
+| Iron axe x 1, [[Iron ore]] x 1, [[Lava lump]] x 1
+| N/A
+|
+|
+|-
+| {{Axe}}
+| [[File:Kaiser axe IX artwork.png|100px]]
+| [[Kaiser axe]]
+| 110
+| GL, RA
+| N/A, 15000
+| [[King axe x 1, [[Slime crown]] x 1, [[Monarchic mark]] x 1
+| N/A
+|
+|
+|-
+| {{Axe}}
+| [[File:Pro's axe 9 art.png|100px]]
+| [[Pro's axe]]
+| 87
+| GL, RA
+| N/A, 9900
+| N/A
+| Quest #79 reward
+| [[Trauminator]] (R)
+| 20% bonus damage to [[Nature family|plants]].
+|-
+| {{Axe}}
+| [[File:Galaxy axe IX artwork.png|100px]]
+| [[Galaxy axe]]
+| 178
+| GL, RA
+| N/A, 36000
+| 20% chance to alchemize when crafting a Maxi axe.
+|
+|
+| Removes target's [[Tension]].
+|-
+| {{Boomerang}}
+| [[File:Boomerang ix artwork.png|100px]]
+| {{Boomerang W}}
+| 9
+| WA, RA
+| 420, 210
+| N/A
+| [[Stornway]], [[Coffinwell]]
+|
+|
+|-
+| Boomerang
+| [[File:Reinforced boomerang IX artwork.png|100px]]
+| [[Reinforced boomerang]]
+| 15
+| WA, RA
+| N/A, 500
+| {{Boomerang W}} x 1, [[Iron nail]]s x3
+| N/A
+|
+|
+|-
+| Bow
+| [[File:Nopic.png|center|100px]]
+| [[Longbow]]
+| 40
+| RA, AR, SA
+| N/A, 1175
+| Short bow x 1, Laundry pole x 1
+| N/A
+|
+|
+|-
+| Claws
+| [[File:Sacred claws artwork.png|100px]]
+| [[Sacred claws]]
+| 40
+| MA
+| N/A, 2000
+| N/A
+| N/A
+| [[Scarewolf]] (R), Claws (N)
+|
+|-
+| Knife
+| [[File:Falcon Knife Earrings.png|100px]]
+| [[Falcon knife earrings]]
+| 25
+| TH
+| 7000,
+| Falcon knife x 1, Agility ring x 1
+| N/A
+|
+|
+|-
+| Knife
+| [[File:DQIX Dread Dagger Artwork.png|100px]]
+| [[Dread dagger]]
+| 66
+| WA, TH
+| N/A, 3000
+| Batterfly knife x 1, Disturbin turban x 1, [[Butterfly wing]] x
+| N/A
+|
+|
+|-
+| Knife
+| [[File:DQIX Sword Breaker Artwork.png|100px]]
+| [[Sword breaker]]
+| 52
+| WA, TH
+| 15500, 7750|
+| N/A
+| [[Upover]]
+|
+|
+|-
+| Staff
+| [[File:Pillar of strength IX artwork.png|100px]]
+| [[Pillar of strength]]
+| 50
+| 3400, 1700
+| MA, PA
+| N/A
+| [[Gleeba]]
+|
+|
+|-
+| Hammer
+| [[File:Starsmasher IX artwork.png|100px]]
+| [[Starsmasher]]
+| 140
+| WA, AR
+| N/A, 40000
+| Earthsplitter x 1, Agate of evolution x 3, Yellow orb x 3 (Alchemiracle)
+|
+|
+|
+|-
+| Hammer
+| [[File:Moonmasher IX artwork.png|100px]]
+| [[Moonmasher]]
+| 120
+| WA, AR
+| N/A, 30000
+|
+|
+|
+|
+|-
+| Sword
+| [[File:Copper sword IX artwork.png|100px]]
+| [[Copper sword]]
+| 12
+| WA, TH
+| 150g, 15g, [[Angel Falls]], [[Stornway]]
+| N/A
+|
+|
+|
+|-
+| Sword
+| [[File:Warrior's sword IX artwork.png|100px]]
+| [[Warrior's sword]]
+| 32
+| WA
+| Quest 363 reward, 3700g
+| N/A
+| N/A
+|
+|
+|-
+| Sword
+| [[File:Miracle sword IX artwork.png|100px]]
+| [[Miracle sword]]
+| 83
+| WA, PL
+| 32 Mini Medals, 9250
+| N/A
+| N/A
+|
+|
+|-
+| Wand
+| [[File:Sceptre of Gitt IX artwork.png|100px]]
+| [[Scepter of Gitt]]
+| 50
+| PR, MG, SA
+| N/A, N/A
+| N/A
+| N/A
+| King Godwyn (1)
+| Casts Bounce when used in battle.
+|}
+{{DQIX}}"""
+
+
+def test_weapons():
+    import threading, tempfile, pathlib
+    import dq9_tree as t
+    ws = d.parse_weapon_wikitext(WEAPON_WIKITEXT)
+    w = {x.name: x for x in ws}
+    assert len(ws) == 19, [x.name for x in ws]
+    iron = w["Iron axe"]
+    assert (iron.category, iron.attack, iron.buy, iron.sell) == ("Axes", "30", 1800, 900)
+    assert iron.towns == ["Porth Llaffan"] and not iron.found and not iron.recipe
+    assert iron.equip_names == ["Gladiator", "Ranger"]
+    assert iron.sprite_url == "https://dragon-quest.org/w/images/b/b4/IronAxe.png", iron.sprite_url
+    steel = w["Steel axe"]
+    assert steel.recipe == [("Iron axe", 1), ("Iron ore", 1), ("Lava lump", 1)] and not steel.towns
+    assert steel.buy is None and steel.sell == 2100 and not steel.found    # N/A area adds nothing
+    assert w["Kaiser axe"].recipe == [("King axe", 1), ("Slime crown", 1), ("Monarchic mark", 1)]
+    pro = w["Pro's axe"]
+    assert pro.found == ["Quest #79 reward"] and pro.drops == [("Trauminator", "R")]
+    assert pro.notes == "20% bonus damage to plants."
+    galaxy = w["Galaxy axe"]
+    assert not galaxy.recipe and "alchemize" in galaxy.recipe_note and not galaxy.found
+    boom = w["Boomerang"]                                  # {{Boomerang W}} name template
+    assert boom.category == "Boomerangs" and boom.towns == ["Stornway", "Coffinwell"]
+    assert w["Reinforced boomerang"].recipe == [("Boomerang", 1), ("Iron nail", 3)]
+    longbow = w["Longbow"]                                 # Nopic placeholder -> real artwork
+    assert longbow.image == "Long bow IX artwork.png"
+    assert longbow.sprite_url == "https://dragon-quest.org/w/images/d/d1/Long_bow_IX_artwork.png"
+    assert w["Sacred claws"].drops == [("Scarewolf", "R"), ("Claws", "N")]
+    assert w["Falcon knife earrings"].sell == 7000 and w["Falcon knife earrings"].buy is None
+    dread = w["Dread dagger"]
+    assert dread.recipe[-1] == ("Butterfly wing", 1) and "quantity" in dread.recipe_note
+    assert (w["Sword breaker"].buy, w["Sword breaker"].sell) == (15500, 7750)
+    pillar = w["Pillar of strength"]                       # Equip and Buy / Sell swapped on the page
+    assert (pillar.buy, pillar.sell, pillar.equip) == (3400, 1700, ["MA", "PA"]) and pillar.category == "Staves"
+    star = w["Starsmasher"]
+    assert len(star.recipe) == 3 and star.recipe_note == "Alchemiracle" and star.category == "Hammers"
+    moon = w["Moonmasher"]
+    assert not moon.recipe and not moon.found and not moon.towns
+    copper = w["Copper sword"]
+    assert (copper.buy, copper.sell, copper.towns) == (150, 15, ["Angel Falls", "Stornway"])
+    ws_ = w["Warrior's sword"]
+    assert ws_.buy is None and ws_.sell == 3700 and ws_.price_note == "Quest 363 reward"
+    assert w["Miracle sword"].price_note == "32 Mini Medals" and w["Miracle sword"].sell == 9250
+    gitt = w["Scepter of Gitt"]
+    assert gitt.category == "Wands" and gitt.buy is gitt.sell is None and gitt.drops == [("King Godwyn", "1")]
+    try:
+        d.parse_weapon_wikitext("{|\n! A !! B\n|-\n| x || y\n|}")
+        raise SystemExit("expected ParseError")
+    except d.ParseError:
+        pass
+
+    # merged into the registry
+    scarewolf = d.Enemy(9, "Scarewolf", "u", "", "", [d.Drop("Fur hood", "Head", 1, 64)])
+    trauminator = d.Enemy(10, "Trauminator", "u", "", "", [d.Drop("Pro's axe", "Axe", 1, 128)])
+    sheet = [d.Recipe("Dread dagger", "Knives", [("Batterfly knife", 1), ("Disturbin turban", 1),
+                                                 ("Butterfly wing", 2)], {}, "spreadsheet"),
+             d.Recipe("Uber war hammer", "Hammers", [("War hammer", 1)], {}, "spreadsheet")]
+    reg = d.Registry([scarewolf, trauminator], sheet, {}, ws)
+    pro_i = reg.resolve("Pro's axe")
+    assert pro_i.weapon is pro and pro_i.category == "Axes"
+    assert [e.name for e, _ in pro_i.droppers] == ["Trauminator"]        # already on the enemy list
+    assert pro_i.found == ["Quest #79 reward"]
+    sac = reg.resolve("Sacred claws")
+    assert [e.name for e, _ in sac.droppers] == ["Scarewolf"] and sac.droppers[0][1].odds_text == "rare drop"
+    assert sac.found == ["Dropped by Claws (common drop)"]               # no such enemy on the list
+    assert reg.resolve("Galaxy axe").found[0].startswith("20% chance to alchemize")
+    dd = reg.resolve("Dread dagger")
+    assert len(dd.recipes) == 1 and dd.recipes[0].ingredients[-1] == ("Butterfly wing", 2)   # sheet wins
+    steel_i = reg.resolve("Steel axe")
+    assert steel_i.recipes[0].source == "weapon list" and steel_i.category == "Axes"
+    assert reg.resolve("Starsmasher").recipes[0].extra == {"Note": "Alchemiracle"}
+    assert reg.resolve("Moonmasher").category == "Hammers" and not reg.resolve("Moonmasher").found
+    assert reg.resolve("Über war hammer") is reg.resolve("Uber war hammer")   # accents folded
+    assert "Longbow" in [i.name for i in reg.items_in("Bows")]
+
+    # shops: weapon-list towns join the bundled shop list without doubling a town
+    st = d.Store.__new__(d.Store)
+    st.dir = pathlib.Path(tempfile.mkdtemp())
+    st._loc_lock = threading.Lock()
+    st.weapons = ws
+    shops = st.shops()
+    assert shops["ironaxe"] == ["Porth Llaffan (Weapon/Armour Shop)"], shops["ironaxe"]   # bundled; not doubled
+    assert shops["swordbreaker"] == ["Upover (Weapon Shops)"] or "Upover" in shops["swordbreaker"][0]
+    assert shops["coppersword"] == ["Angel Falls (Item Shop)", "Stornway (Weapon Shops)"], shops["coppersword"]
+    assert "steelaxe" not in shops and "warriorsword" not in shops
+
+    # tree: the N/A row shows its recipe, the quest reward shows as a "found" leaf
+    root = t.build_tree(reg, steel_i, 3, shops)
+    assert [c.label for c in root.children] == ["Iron axe", "Iron ore", "Lava lump"]
+    assert root.children[0].children[0].kind == "shop"
+    root = t.build_tree(reg, reg.resolve("Pro's axe"), 3, shops)
+    assert [c.kind for c in root.children] == ["monster", "found"] and root.children[1].sub == "Quest #79 reward"
+    root = t.build_tree(reg, reg.resolve("Galaxy axe"), 3, shops)
+    assert [c.kind for c in root.children] == ["found"]
+    assert t.build_tree(reg, reg.resolve("Moonmasher"), 3, shops).sub.endswith("no known source")
+    html, _ = d.render_item_html(reg, pro_i, 5, lambda e: ("ok", []), shops)
+    assert "Gladiator, Ranger" in html and "9,900 G" in html and "Quest #79 reward" in html
+    assert "N/A" not in html and "Buy price" not in html
+
+    # sprites: weapon pictures join the icon index; the ingredient page's icons keep priority
+    st.sprite_index = {"iron axe": "icon-url"}
+    st.register_sprites(d.weapon_sprites(ws))
+    assert st.sprite_index["iron axe"] == "icon-url"
+    assert st.has_sprite("Longbow") and st.has_sprite("Pro’s axe")
+    assert st.sprite_index["longbow"].endswith("/d/d1/Long_bow_IX_artwork.png")
+
+    # loading: cached wiki source is reused; the API answer is unwrapped
+    class FakeHttp:
+        calls = []
+
+        def get(self, url):
+            self.calls.append(url)
+            import json
+            return json.dumps({"parse": {"title": "x", "wikitext": WEAPON_WIKITEXT}})
+    st.http = FakeHttp()
+    assert len(st.load_weapons()) == 19 and len(FakeHttp.calls) == 1 and "api.php" in FakeHttp.calls[0]
+    assert len(st.load_weapons()) == 19 and len(FakeHttp.calls) == 1          # from the cache
+
+
+# Shaped like dqnine.wikidot.com/silver-platter: bold labels, bulleted "Where to find".
+SILVER_PLATTER_HTML = """<div id="page-content"><p>A salver made of silver that makes a stopgap shield.</p>
+<p><strong>Classification:</strong> <a href="/shields">Shield</a><br/><strong>Defence:</strong> 6</p>
+<p><strong>Rarity:</strong> 1/5<br/><strong>Buy price:</strong> Cannot Buy<br/><strong>Sell price:</strong> 100 G</p>
+<p><strong>Where to find:</strong></p><ul><li><a href="/the-bad-cave">The Bad Cave</a>, The Plumbed Depths</li>
+<li>Rank 2 (H) blue chest in grotto (2%)</li><li>Rank 4 overworld blue chest outside grotto (5%)</li></ul>
+<p><strong>Reward for:</strong> 028 Desert Foxes (repeat)</p>
+<p><strong>Alchemises:</strong></p><ul><li>Gold platter</li></ul></div>"""
+
+
+def test_unsourced_items():
+    import dq9_tree as t
+    det = d.parse_item_page(SILVER_PLATTER_HTML, "Silver platter")
+    found = d.details_found(det)
+    assert found == ["The Bad Cave, The Plumbed Depths", "Rank 2 (H) blue chest in grotto (2%)",
+                     "Rank 4 overworld blue chest outside grotto (5%)",
+                     "Quest reward: 028 Desert Foxes (repeat)"], found
+    assert d.details_found({"fields": [["Where to find", "N/A"], ["Sell price", "5 G"]]}) == []
+    assert d.details_found(None) == []
+
+    reg = d.Registry([], [d.Recipe("Gold platter", "Shields", [("Gold bracer", 1), ("Silver platter", 1)]),
+                          d.Recipe("Gold bracer", "Accessories", [("Gold bar", 1)])], {"Gold bar": ""})
+    shops = {"goldbar": ["Somewhere (Item Shop)"]}
+    asked = []
+
+    def found_fn(name):
+        asked.append(name)
+        return found if name == "Silver platter" else []
+    root = t.build_tree(reg, reg.resolve("Gold platter"), 3, shops, "alchemy", found_fn)
+    silver = root.children[1]
+    assert silver.label == "Silver platter" and silver.kind == "base", (silver.kind, silver.sub)
+    assert silver.children[0].kind == "found" and silver.children[0].label == "Found (4 ways)"
+    assert "Gold bracer" not in asked and "Gold bar" not in asked     # already sourced: no page look-up
+    assert asked.count("Silver platter") == 1 and "Gold platter" in asked
+    # without the page (offline / still loading) it stays "no known source"
+    root = t.build_tree(reg, reg.resolve("Gold platter"), 3, shops, "alchemy", lambda n: [])
+    assert root.children[1].kind == "unknown"
+
+    # detail popups use the same page facts
+    pages = {"silver platter": det}
+    detail_fn = lambda n: ("ok", pages[d.dkey(n)]) if d.dkey(n) in pages else ("loading", None)   # noqa: E731
+    html, _ = d.render_item_html(reg, reg.resolve("Gold platter"), 5, lambda e: ("ok", []), shops, detail_fn)
+    assert "Rank 2 (H) blue chest" in html and "Looking up" not in html.split("Silver platter")[-1]
+    html, _ = d.render_item_html(reg, reg.resolve("Gold platter"), 5, lambda e: ("ok", []), shops,
+                                 lambda n: ("loading", None))
+    assert "Looking up where to find it" in html
+
+    # a plural spelling in one source finds the other source's item
+    herb = d.Enemy(1, "Hammerhood", "u", "", "", [d.Drop("Iron nail", "Item", 1, 8)])
+    reg = d.Registry([herb], [d.Recipe("Spiked boomerang", "Boomerangs", [("Iron nails", 3)])], {})
+    assert reg.resolve("Iron nails") is reg.resolve("Iron nail") and reg.resolve("Iron nails").droppers
+    assert reg.resolve("Spiked boomerangs") is reg.resolve("Spiked boomerang")
+
+
+def test_material_list():
+    import dq9_tree as t
+    R = d.Recipe
+    slime = d.Enemy(1, "Slime", "u", "", "", [d.Drop("Slimedrop", "Item", 1, 8), d.Drop("Sword 3", "Sword", 1, 64)])
+    reg = d.Registry([slime], [
+        R("Sword 1", "Swords", [("Sword 2", 1), ("Slimedrop", 5)]),
+        R("Sword 2", "Swords", [("Slimedrop", 4)]),
+        R("Sword 1", "Swords", [("Sword 3", 2), ("Iron ore", 1)]),     # a second recipe
+        R("Sword 3", "Swords", [("Sword 2", 1), ("Iron ore", 2)]),
+        R("Loop A", "Swords", [("Loop B", 1)]), R("Loop B", "Swords", [("Loop A", 1), ("Slimedrop", 1)]),
+    ], {"Iron ore": ""})
+    shops = {"ironore": ["Zere (Item Shop)", "Stornway (Item Shop)"]}
+    s1, s2 = reg.resolve("Sword 1"), reg.resolve("Sword 2")
+
+    # the example: Sword 1 = Sword 2 + 5 slimedrops, Sword 2 = 4 slimedrops -> 9 slimedrops in all
+    ml = t.material_list(reg, s1, shops)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Slimedrop", 9)], ml.materials
+    assert [(r.name, r.qty, r.expanded) for r in ml.crafted] == [("Sword 2", 1, True)]
+    assert ml.materials[0].how == "Drop: Slime 1/8 (12.50%)"
+    # keep Sword 2 whole: it is listed itself and its recipe is ignored
+    ml = t.material_list(reg, s1, shops, breakdown={s2.key: False})
+    assert [(r.name, r.qty, r.craftable, r.expanded) for r in ml.materials] == \
+        [("Sword 2", 1, True, False), ("Slimedrop", 5, False, False)], ml.materials
+    assert ml.crafted == []
+    # how many to make multiplies everything
+    ml = t.material_list(reg, s1, shops, count=3)
+    assert ml.materials[0].qty == 27 and ml.crafted[0].qty == 3
+    # second recipe: Sword 3 is also dropped, so "prefer drops" keeps it whole by default
+    ml = t.material_list(reg, s1, shops, recipe_index=1)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Slimedrop", 8), ("Iron ore", 5)], ml.materials
+    assert [(r.name, r.qty) for r in ml.crafted] == [("Sword 2", 2), ("Sword 3", 2)]   # made in this order
+    ml = t.material_list(reg, s1, shops, prefer="drops", recipe_index=1)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Sword 3", 2), ("Iron ore", 1)]
+    sw3 = reg.resolve("Sword 3").key
+    ml = t.material_list(reg, s1, shops, prefer="drops", recipe_index=1, breakdown={sw3: True})
+    assert ("Iron ore", 5) in [(r.name, r.qty) for r in ml.materials]       # a tick beats the default
+    assert "Buy: Zere (Item Shop) (+1 more)" in [r.how for r in ml.materials if r.name == "Iron ore"][0]
+    # a recipe that loops back stops there instead of recursing
+    ml = t.material_list(reg, reg.resolve("Loop A"), shops)
+    loop = [r for r in ml.materials if r.name == "Loop A"][0]
+    assert loop.loop and loop.qty == 1 and ml.notes
+    # nothing to break down
+    ml = t.material_list(reg, reg.resolve("Slimedrop"), shops)
+    assert [(r.name, r.qty) for r in ml.materials] == [("Slimedrop", 1)] and ml.notes
+    # unknown ingredient, filled in from its item page
+    reg2 = d.Registry([], [R("Gold platter", "Shields", [("Silver platter", 2)])], {})
+    ml = t.material_list(reg2, reg2.resolve("Gold platter"), {}, found_fn=lambda n: ["The Bad Cave"])
+    assert ml.materials[0].how == "Found: The Bad Cave"
+    text = t.material_list_text(t.material_list(reg, s1, shops))
+    assert "9 \u00d7 Slimedrop" in text and "1 \u00d7 Sword 1" in text
+
+    # choices are remembered on disk
+    import tempfile, pathlib, threading
+    st = d.Store.__new__(d.Store)
+    st.dir = pathlib.Path(tempfile.mkdtemp())
+    st._loc_lock = threading.Lock()
+    assert st.load_list_choices() == {}
+    st.save_list_choices({s2.key: False})
+    assert st.load_list_choices() == {s2.key: False}
+
+
 def test_shops():
     import json, threading, tempfile, pathlib
     st = d.Store.__new__(d.Store)
@@ -252,6 +711,9 @@ def main():
     test_tree()
     test_prefer()
     test_sprites()
+    test_weapons()
+    test_unsourced_items()
+    test_material_list()
     print("all parser tests passed")
 
 

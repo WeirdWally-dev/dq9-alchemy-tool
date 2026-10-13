@@ -15,9 +15,9 @@ import sys
 import threading
 
 from PyQt5.QtCore import QRectF, QSize, QThread, QTimer, Qt, pyqtSignal
-from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QIcon, QPainter, QPainterPath, QPalette, QPen, QPixmap
+from PyQt5.QtGui import QBrush, QColor, QFont, QFontMetrics, QIcon, QKeySequence, QPainter, QPainterPath, QPalette, QPen, QPixmap
 from PyQt5.QtWidgets import (
-    QApplication, QComboBox, QDialog, QFileDialog, QGraphicsPathItem, QGraphicsPixmapItem, QGraphicsRectItem, QGraphicsScene,
+    QApplication, QComboBox, QDialog, QMenu, QShortcut, QFileDialog, QGraphicsPathItem, QGraphicsPixmapItem, QGraphicsRectItem, QGraphicsScene,
     QGraphicsSimpleTextItem, QGraphicsView, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QListWidget,
     QListWidgetItem, QMainWindow, QMessageBox, QPushButton, QSpinBox, QSplitter, QStackedWidget,
     QTextBrowser, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget,
@@ -630,6 +630,7 @@ class MainWindow(QMainWindow):
         self.sprites.done.connect(self.sprite_ready)
         self.sprites.start()
         self.pixmaps = {}
+        self.bookmarks = self.store.load_bookmarks()
 
         self._build_ui()
         self.start_load(False)
@@ -666,6 +667,27 @@ class MainWindow(QMainWindow):
 
         self.items = QListWidget()
         self.items.currentItemChanged.connect(self.select_item)
+        self.items.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.items.customContextMenuRequested.connect(self.items_menu)
+        self.bookmark_btn = QPushButton("\u2606 Bookmark")
+        self.bookmark_btn.setCheckable(True)
+        self.bookmark_btn.setEnabled(False)
+        self.bookmark_btn.setToolTip("Add the selected item to your bookmarks (Ctrl+D).\n"
+                                     "Pick \u2605 Bookmarks in the Equipment type list to see them all.")
+        self.bookmark_btn.clicked.connect(self.toggle_current_bookmark)
+        QShortcut(QKeySequence("Ctrl+D"), self, activated=self.toggle_current_bookmark)
+        self.marks_btn = QPushButton("\u2605 Bookmarks")
+        self.marks_btn.setToolTip("Show your bookmarked items (Ctrl+B)")
+        self.marks_btn.clicked.connect(self.show_bookmarks)
+        QShortcut(QKeySequence("Ctrl+B"), self, activated=self.show_bookmarks)
+        left = QWidget()
+        llay = QVBoxLayout(left)
+        llay.setContentsMargins(0, 0, 0, 0)
+        brow = QHBoxLayout()
+        brow.addWidget(self.bookmark_btn, 1)
+        brow.addWidget(self.marks_btn, 1)
+        llay.addLayout(brow)
+        llay.addWidget(self.items, 1)
         self.view = TreeView(self.open_info, self.get_sprite)
         self.prefer = QComboBox()
         self.prefer.addItem("Alchemy recipe", "alchemy")
@@ -703,7 +725,7 @@ class MainWindow(QMainWindow):
         rlay.addWidget(self.stack, 1)
 
         split = QSplitter(Qt.Horizontal)
-        split.addWidget(self.items)
+        split.addWidget(left)
         split.addWidget(right)
         split.setStretchFactor(0, 1)
         split.setStretchFactor(1, 3)
@@ -754,9 +776,14 @@ class MainWindow(QMainWindow):
         keep = self.category.currentText()
         self.category.blockSignals(True)
         self.category.clear()
+        self.category.addItem(data.BOOKMARKS_CAT)
         self.category.addItems(registry.categories())
+        if data.refresh_bookmark_keys(registry, self.bookmarks):
+            self.store.save_bookmarks(self.bookmarks)
         idx = self.category.findText(keep)
-        self.category.setCurrentIndex(max(idx, 0))
+        if idx < 0:   # first load: open on the bookmarks if there are any
+            idx = 0 if self.bookmarks else 1
+        self.category.setCurrentIndex(min(idx, self.category.count() - 1))
         self.category.blockSignals(False)
         self.fill_items()
 
@@ -794,22 +821,104 @@ class MainWindow(QMainWindow):
 
     # ------------------------------------------------------------------ list + detail
     def fill_items(self, *_):
+        """Refill the item list. The selected item stays selected (and drawn) if it is still listed."""
+        keep = self.current.key if self.current else None
         self.items.blockSignals(True)
         self.items.clear()
+        reselect = None
         if self.registry:
-            for info in self.registry.items_in(self.category.currentText(), self.filter.text()):
+            marked = self.category.currentText() == data.BOOKMARKS_CAT
+            text = self.filter.text().strip().lower()
+            if marked:
+                rows = [(m, info) for m, info in data.bookmark_items(self.registry, self.bookmarks)
+                        if text in (info.name if info else m.get("name", "")).lower()]
+            else:
+                rows = [(None, info) for info in self.registry.items_in(self.category.currentText(), text)]
+            for m, info in rows:
+                if info is None:   # bookmarked, but no data source has it any more
+                    it = QListWidgetItem(f"\u2605 {m.get('name', '?')}   (not found in the current data)")
+                    it.setFlags(Qt.NoItemFlags)
+                    it.setData(Qt.UserRole + 1, m.get("key"))
+                    self.items.addItem(it)
+                    continue
                 tags = [t for t, ok in (("alchemy", info.recipes), ("drop", info.droppers),
                                         ("found", info.found)) if ok]
-                it = QListWidgetItem(info.name + (f"   ({', '.join(tags)})" if tags else ""))
+                if marked:
+                    tags.insert(0, info.category)
+                star = "\u2605 " if data.is_bookmarked(self.bookmarks, info) else ""
+                it = QListWidgetItem(star + info.name + (f"   ({', '.join(tags)})" if tags else ""))
                 it.setData(Qt.UserRole, info.key)
                 self.items.addItem(it)
+                if info.key == keep:
+                    reselect = it
+            if marked and not rows:
+                hint = QListWidgetItem("No bookmarks yet. Select an item and press \u2606 Bookmark (Ctrl+D)."
+                                       if not self.bookmarks else "No bookmarks match the filter.")
+                hint.setFlags(Qt.NoItemFlags)
+                self.items.addItem(hint)
+        if reselect is not None:
+            self.items.setCurrentItem(reselect)
         self.items.blockSignals(False)
-        self.current = None
-        self.view.message("Select an item on the left.")
-        self.matlist.message("Select an item on the left.")
+        if reselect is None:
+            self.current = None
+            self.view.message("Select an item on the left.")
+            self.matlist.message("Select an item on the left.")
+        self.update_bookmark_btn()
+
+    # ------------------------------------------------------------------ bookmarks
+    def update_bookmark_btn(self):
+        on = data.is_bookmarked(self.bookmarks, self.current)
+        self.bookmark_btn.setEnabled(self.current is not None)
+        self.bookmark_btn.setChecked(on)
+        self.bookmark_btn.setText("\u2605 Bookmarked" if on else "\u2606 Bookmark")
+
+    def toggle_bookmark(self, info):
+        on = data.toggle_bookmark(self.bookmarks, info)
+        self.store.save_bookmarks(self.bookmarks)
+        self.statusBar().showMessage(f"{'Bookmarked' if on else 'Removed bookmark:'} {info.name}", 4000)
+        self.fill_items()   # updates the stars (and the list itself when showing bookmarks)
+
+    def toggle_current_bookmark(self, *_):
+        if self.current is not None:
+            self.toggle_bookmark(self.current)
+        else:
+            self.update_bookmark_btn()
+
+    def show_bookmarks(self, *_):
+        self.filter.clear()
+        self.category.setCurrentIndex(max(self.category.findText(data.BOOKMARKS_CAT), 0))
+
+    def items_menu(self, pos):
+        it = self.items.itemAt(pos)
+        if it is None or not self.registry:
+            return
+        menu = QMenu(self)
+        info = self.registry.items.get(it.data(Qt.UserRole))
+        if info is None:   # a bookmark whose item is gone
+            key = it.data(Qt.UserRole + 1)
+            if key is None:
+                return
+            def forget():
+                self.bookmarks[:] = [m for m in self.bookmarks if m.get("key") != key]
+                self.store.save_bookmarks(self.bookmarks)
+                self.fill_items()
+            menu.addAction("Remove bookmark", forget)
+        else:
+            on = data.is_bookmarked(self.bookmarks, info)
+            menu.addAction("Remove bookmark" if on else "Add bookmark", lambda: self.toggle_bookmark(info))
+            if on and self.category.currentText() == data.BOOKMARKS_CAT and not self.filter.text().strip():
+                def move(step):
+                    data.move_bookmark(self.bookmarks, info, step)
+                    self.store.save_bookmarks(self.bookmarks)
+                    self.fill_items()
+                menu.addSeparator()
+                menu.addAction("Move up", lambda: move(-1))
+                menu.addAction("Move down", lambda: move(1))
+        menu.exec_(self.items.viewport().mapToGlobal(pos))
 
     def select_item(self, cur, _prev):
         self.current = self.registry.items.get(cur.data(Qt.UserRole)) if cur and self.registry else None
+        self.update_bookmark_btn()
         self.matlist.set_item(self.current)
         self.draw()
 

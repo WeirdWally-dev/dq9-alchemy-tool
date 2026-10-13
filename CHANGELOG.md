@@ -2,6 +2,11 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
+## 1.2.0 - 2026-10-13
+
+- **Bookmarks.** Star items with **☆ Bookmark** (Ctrl+D) and get back to them from **★ Bookmarks** (Ctrl+B), at the top of the Equipment type list. Right-click to remove or reorder. Saved between runs.
+- Changing the equipment type or the filter keeps the selected item open when it's still in the list.
+
 ## 1.1.0 - 2026-10-13
 
 - **Weapon list.** Every weapon on the Dragon Quest Wiki's weapon list now shows its picture, attack, vocations, buy and sell price and notes. Quest rewards, chests, bonus-alchemy chances and boss drops appear as teal **Found** bubbles; cells the wiki marks N/A are left out. Longbow gets its real picture (the list page shows a placeholder).

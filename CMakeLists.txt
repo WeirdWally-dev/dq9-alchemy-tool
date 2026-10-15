@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 # The app's version. Release builds take it from the release tag (CI passes -DDQ9_VERSION=1.4.0 for
 # tag v1.4.0), so this default only matters for builds that aren't releases.
-set(DQ9_VERSION "1.3.3" CACHE STRING "App version (major.minor.patch)")
+set(DQ9_VERSION "1.4.0" CACHE STRING "App version (major.minor.patch)")
 project(DQ9AlchemyHelper VERSION ${DQ9_VERSION} LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)

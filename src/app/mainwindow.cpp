@@ -51,6 +51,12 @@ public:
 
 constexpr int ROLE_KEY = Qt::UserRole;
 constexpr int ROLE_MARK_KEY = Qt::UserRole + 1;
+constexpr int ROLE_GLOSS = Qt::UserRole + 2;   // glossary id: the row opens the used-in page
+
+// List modes that sit above the equipment types in the type list.
+const QString SEARCH_CAT = QStringLiteral("\U0001F50D Search all items");
+const QString GLOSSARY_CAT = QStringLiteral("\U0001F4D6 Glossary: what it's used in");
+constexpr int SPECIAL_CATS = 3;   // bookmarks, search, glossary
 
 const char *ROBOTS_MSG = QT_TRANSLATE_NOOP(
     "MainWindow",
@@ -109,10 +115,14 @@ MainWindow::MainWindow(bool wide)
     m_browsePage = buildBrowsePage();
     m_itemPage = buildItemPage();
     m_infoPage = buildInfoPage();
+    m_usedPage = buildUsedInPage();
     if (m_wide) {   // desktop: list on the left, tree on the right, details in their own windows
         auto *split = new QSplitter(Qt::Horizontal);
         split->addWidget(m_browsePage);
-        split->addWidget(m_itemPage);
+        m_rightStack = new QStackedWidget;
+        m_rightStack->addWidget(m_itemPage);
+        m_rightStack->addWidget(m_usedPage);
+        split->addWidget(m_rightStack);
         split->setStretchFactor(0, 1);
         split->setStretchFactor(1, 3);
         split->setSizes({300, 850});
@@ -126,6 +136,7 @@ MainWindow::MainWindow(bool wide)
         m_pages->addWidget(m_browsePage);
         m_pages->addWidget(m_itemPage);
         m_pages->addWidget(m_infoPage);
+        m_pages->addWidget(m_usedPage);
         setCentralWidget(m_pages);
     }
     qApp->installEventFilter(this);
@@ -135,6 +146,8 @@ MainWindow::MainWindow(bool wide)
             toggleBookmark(*m_current);
     });
     new QShortcut(QKeySequence(QStringLiteral("Ctrl+B")), this, [this] { showBookmarks(); });
+    new QShortcut(QKeySequence(QStringLiteral("Ctrl+F")), this, [this] { showMode(SEARCH_CAT); });
+    new QShortcut(QKeySequence(QStringLiteral("Ctrl+G")), this, [this] { showMode(GLOSSARY_CAT); });
 
     startLoad(false);
 }
@@ -183,6 +196,9 @@ QWidget *MainWindow::buildBrowsePage()
     connect(menuBtn, &QToolButton::clicked, this, [this, menuBtn, about] {
         showMenu(tr("Menu"),
                  {{QStringLiteral("\u2605 ") + tr("Bookmarks"), [this] { showBookmarks(); }},
+                  {QStringLiteral("\U0001F50D ") + tr("Search all items"), [this] { showMode(SEARCH_CAT); }},
+                  {QStringLiteral("\U0001F4D6 ") + tr("Glossary: what it's used in"), [this] { showMode(GLOSSARY_CAT); }},
+                  {QString(), nullptr},
                   {tr("Refresh data"), [this] { startLoad(true); }},
                   {tr("Import spreadsheet..."), [this] { importSheet(); }},
                   {tr("Import woodus page..."), [this] { importRecipes(); }},
@@ -345,6 +361,54 @@ QWidget *MainWindow::buildInfoPage()
     return page;
 }
 
+QWidget *MainWindow::buildUsedInPage()
+{
+    auto *page = new QWidget;
+    m_usedBack = toolButton(QStringLiteral("\u2039"), tr("Back"));
+    connect(m_usedBack, &QToolButton::clicked, this, &MainWindow::usedInBack);
+    m_usedTitle = new QLabel;
+    m_usedTrailLabel = new QLabel;
+    m_usedTrailLabel->setObjectName(QStringLiteral("muted"));
+    m_usedTrailLabel->setWordWrap(true);
+    m_usedSummary = new QLabel;
+    m_usedSummary->setWordWrap(true);
+    m_usedHow = new QPushButton;
+    m_usedHow->setMinimumHeight(m_wide ? 0 : 44);
+    m_usedHow->setToolTip(tr("Open its recipe tree: how to craft, farm or buy it"));
+    connect(m_usedHow, &QPushButton::clicked, this, [this] {
+        if (!m_registry || m_usedTrail.isEmpty())
+            return;
+        if (const ItemPtr info = m_registry->glossaryEntry(m_usedTrail.last()).item)
+            openItem(info);
+    });
+    m_usedList = new QListWidget;
+    m_usedList->setWordWrap(true);
+    m_usedList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_usedList->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_usedList->setToolTip(tr("Tap an item to see what IT is used in"));
+    enableKineticScroll(m_usedList);
+    auto tapped = [this](QListWidgetItem *it) {
+        if (it && !it->data(ROLE_GLOSS).isNull())
+            openUsedIn(it->data(ROLE_GLOSS).toString(), false);
+    };
+    connect(m_usedList, &QListWidget::itemClicked, this, tapped);
+    connect(m_usedList, &QListWidget::itemActivated, this, tapped);
+    connect(m_usedList, &QListWidget::customContextMenuRequested, this, &MainWindow::usedInMenu);
+
+    auto *body = new QVBoxLayout;
+    body->setContentsMargins(8, 6, 8, 6);
+    body->addWidget(m_usedTrailLabel);
+    body->addWidget(m_usedSummary);
+    body->addWidget(m_usedHow);
+    auto *lay = new QVBoxLayout(page);
+    lay->setContentsMargins(0, 0, 0, 0);
+    lay->setSpacing(0);
+    lay->addWidget(header(m_usedBack, m_usedTitle, {}));
+    lay->addLayout(body);
+    lay->addWidget(m_usedList, 1);
+    return page;
+}
+
 QWidget *MainWindow::buildMenuPage()
 {
     auto *page = new QWidget;
@@ -432,6 +496,11 @@ bool MainWindow::goBack()
 {
     if (m_wide || m_history.isEmpty())
         return false;
+    if (m_pages->currentWidget() == m_usedPage && m_usedTrail.size() > 1) {
+        m_usedTrail.removeLast();   // back down one level of "used in"
+        renderUsedIn();
+        return true;
+    }
     QWidget *prev = m_history.takeLast();
     if (m_pages->currentWidget() == m_infoPage)
         m_infoRender = nullptr;
@@ -519,12 +588,14 @@ void MainWindow::setRegistry(RegistryPtr registry)
     m_category->blockSignals(true);
     m_category->clear();
     m_category->addItem(BOOKMARKS_CAT);
+    m_category->addItem(SEARCH_CAT);
+    m_category->addItem(GLOSSARY_CAT);
     m_category->addItems(m_registry->categories());
     if (refreshBookmarkKeys(*m_registry, m_bookmarks))
         m_store.saveBookmarks(m_bookmarks);
     int idx = m_category->findText(keep);
     if (idx < 0)   // first load: open on the bookmarks if there are any
-        idx = m_bookmarks.isEmpty() ? 1 : 0;
+        idx = m_bookmarks.isEmpty() ? SPECIAL_CATS : 0;
     m_category->setCurrentIndex(std::min(idx, m_category->count() - 1));
     m_category->blockSignals(false);
     m_category->update();   // Android sometimes keeps showing the empty box from before the load
@@ -541,6 +612,17 @@ void MainWindow::setRegistry(RegistryPtr registry)
             m_matlist->setItem(m_current.get());
             draw();
             refreshInfo();
+        }
+    }
+    if (!m_usedTrail.isEmpty()) {   // the used-in page too: drop items the new data no longer has
+        m_usedTrail.removeIf([this](const QString &id) { return m_registry->glossaryEntry(id).name.isEmpty(); });
+        if (!m_usedTrail.isEmpty()) {
+            renderUsedIn();
+        } else if (m_wide) {
+            m_rightStack->setCurrentWidget(m_itemPage);
+        } else if (m_pages->currentWidget() == m_usedPage) {
+            m_history.clear();
+            m_pages->setCurrentWidget(m_browsePage);
         }
     }
 }
@@ -594,10 +676,44 @@ void MainWindow::fillItems()
     m_items->clear();
     if (!m_registry)
         return;
-    const bool marked = m_category->currentText() == BOOKMARKS_CAT;
+    const QString mode = m_category->currentText();
+    const bool marked = mode == BOOKMARKS_CAT;
+    const bool searching = mode == SEARCH_CAT;
     const QString text = m_filter->text().trimmed().toLower();
+    m_filter->setPlaceholderText(searching ? tr("Type an item's name...")
+                                 : mode == GLOSSARY_CAT ? tr("Filter the glossary...")
+                                                        : tr("Filter items..."));
+    auto hint = [this](const QString &msg) {
+        auto *h = new QListWidgetItem(msg);
+        h->setFlags(Qt::NoItemFlags);
+        m_items->addItem(h);
+    };
+    if (mode == GLOSSARY_CAT) {
+        const QList<GlossaryEntry> entries = m_registry->glossary(m_filter->text());
+        for (const GlossaryEntry &e : entries) {
+            const QString uses = e.uses ? tr("used in %n", nullptr, e.uses) : tr("not used in recipes");
+            const QString star = isBookmarked(m_bookmarks, e.item.get()) ? QStringLiteral("\u2605 ") : QString();
+            auto *it = new QListWidgetItem(star + e.name + QStringLiteral("   (%1 \u00b7 %2)").arg(e.category, uses));
+            it->setData(ROLE_GLOSS, e.id);
+            if (e.item)
+                it->setData(ROLE_KEY, e.item->key);
+            it->setToolTip(tr("Tap to see what %1 is used to make").arg(e.name));
+            m_items->addItem(it);
+        }
+        if (entries.isEmpty())
+            hint(tr("Nothing in the glossary matches \u201c%1\u201d.").arg(m_filter->text().trimmed()));
+        return;
+    }
+    if (searching && text.isEmpty()) {
+        hint(tr("Type part of a name to search every weapon, armour piece, accessory and item.\n\n"
+                "Tip: the \U0001F4D6 Glossary lists everything and shows what each one is used to make."));
+        return;
+    }
     QList<QPair<std::optional<Bookmark>, ItemPtr>> rows;
-    if (marked) {
+    if (searching) {
+        for (const auto &info : m_registry->search(m_filter->text()))
+            rows.append({std::nullopt, info});
+    } else if (marked) {
         for (const auto &[m, info] : bookmarkItems(*m_registry, m_bookmarks))
             if ((info ? info->name : m.name).toLower().contains(text))
                 rows.append({m, info});
@@ -614,7 +730,7 @@ void MainWindow::fillItems()
             continue;
         }
         QStringList tags;
-        if (marked)
+        if (marked || searching)
             tags << info->category;
         if (!info->recipes.isEmpty())
             tags << tr("alchemy");
@@ -629,19 +745,21 @@ void MainWindow::fillItems()
         if (m_wide && m_current && info->key == m_current->key)
             m_items->setCurrentItem(it);
     }
-    if (marked && rows.isEmpty()) {
-        auto *hint = new QListWidgetItem(m_bookmarks.isEmpty()
-                                             ? tr("No bookmarks yet. Open an item and tap ☆ to bookmark it.")
-                                             : tr("No bookmarks match the filter."));
-        hint->setFlags(Qt::NoItemFlags);
-        m_items->addItem(hint);
-    }
+    if (marked && rows.isEmpty())
+        hint(m_bookmarks.isEmpty() ? tr("No bookmarks yet. Open an item and tap ☆ to bookmark it.")
+                                   : tr("No bookmarks match the filter."));
+    if (searching && rows.isEmpty())
+        hint(tr("No item matches \u201c%1\u201d.").arg(m_filter->text().trimmed()));
 }
 
 void MainWindow::itemTapped(QListWidgetItem *it)
 {
     if (!it || !m_registry)
         return;
+    if (!it->data(ROLE_GLOSS).isNull()) {
+        openUsedIn(it->data(ROLE_GLOSS).toString(), true);
+        return;
+    }
     const QString key = it->data(ROLE_KEY).toString();
     if (key.isEmpty()) {
         if (!it->data(ROLE_MARK_KEY).isNull())
@@ -649,7 +767,7 @@ void MainWindow::itemTapped(QListWidgetItem *it)
         return;
     }
     if (const ItemPtr info = m_registry->item(key)) {
-        if (m_wide && m_current == info)
+        if (m_wide && m_current == info && m_rightStack->currentWidget() == m_itemPage)
             return;
         openItem(info);
     }
@@ -673,6 +791,8 @@ void MainWindow::itemsMenu(const QPoint &pos)
         }});
     } else {
         const bool on = isBookmarked(m_bookmarks, info.get());
+        entries.append({tr("How to get it"), [this, info] { openItem(info); }});
+        entries.append({tr("What it's used in"), [this, info] { openUsedIn(info->key, true); }});
         entries.append({on ? tr("Remove bookmark") : tr("Add bookmark"), [this, info] { toggleBookmark(*info); }});
         if (on && m_category->currentText() == BOOKMARKS_CAT && m_filter->text().trimmed().isEmpty()) {
             entries.append({QString(), nullptr});
@@ -689,6 +809,20 @@ void MainWindow::itemsMenu(const QPoint &pos)
         }
     }
     showMenu(it->text().section(QStringLiteral("   ("), 0, 0), entries, m_items->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::showMode(const QString &category)
+{
+    m_history.clear();
+    m_infoRender = nullptr;
+    if (!m_wide)
+        m_pages->setCurrentWidget(m_browsePage);
+    const int idx = m_category->findText(category);
+    if (idx >= 0)
+        m_category->setCurrentIndex(idx);
+    fillItems();
+    m_filter->setFocus();
+    m_filter->selectAll();
 }
 
 void MainWindow::showBookmarks()
@@ -710,6 +844,8 @@ void MainWindow::openItem(const ItemPtr &info)
     m_itemTitle->setToolTip(info->name);
     updateBookmarkButton();
     m_matlist->setItem(info.get());
+    if (m_wide)
+        m_rightStack->setCurrentWidget(m_itemPage);
     showPage(m_itemPage);
     draw();
 }
@@ -761,6 +897,7 @@ void MainWindow::itemPageMenu()
     }});
     if (m_current) {
         entries.append({tr("Item details"), [this] { openItemInfo(m_current->key, m_current->name); }});
+        entries.append({tr("What it's used in"), [this] { openUsedIn(m_current->key, true); }});
         if (isBookmarked(m_bookmarks, m_current.get())) {
             entries.append({QString(), nullptr});
             entries.append({tr("Move bookmark up"), [this] {
@@ -774,6 +911,96 @@ void MainWindow::itemPageMenu()
         }
     }
     showMenu(m_current ? m_current->name : tr("Menu"), entries, mapToGlobal(QPoint(std::max(0, width() - 240), 48)));
+}
+
+// --------------------------------------------------------------------------- used-in page
+void MainWindow::openUsedIn(const QString &id, bool fresh)
+{
+    if (!m_registry || id.isEmpty())
+        return;
+    if (fresh) {
+        m_usedTrail = {id};
+    } else {
+        const int at = m_usedTrail.indexOf(id);
+        if (at >= 0)
+            m_usedTrail = m_usedTrail.mid(0, at + 1);   // already on the trail: step back to it
+        else
+            m_usedTrail << id;
+    }
+    renderUsedIn();
+    if (m_wide)
+        m_rightStack->setCurrentWidget(m_usedPage);
+    else
+        showPage(m_usedPage);
+}
+
+void MainWindow::renderUsedIn()
+{
+    m_usedList->clear();
+    if (!m_registry || m_usedTrail.isEmpty())
+        return;
+    const GlossaryEntry entry = m_registry->glossaryEntry(m_usedTrail.last());
+    m_usedTitle->setText(tr("%1: used in").arg(entry.name));
+    m_usedTitle->setToolTip(entry.name);
+    m_usedBack->setVisible(!m_wide || m_usedTrail.size() > 1);
+
+    QStringList trail;
+    for (const QString &id : m_usedTrail)
+        trail << m_registry->glossaryEntry(id).name;
+    m_usedTrailLabel->setText(trail.join(QStringLiteral("  \u203a  ")));
+    m_usedTrailLabel->setVisible(m_usedTrail.size() > 1);
+
+    const QList<Use> uses = m_registry->usedInId(entry.id);
+    m_usedSummary->setText(uses.isEmpty()
+                               ? tr("%1 isn't an ingredient in any known recipe.").arg(entry.name)
+                               : tr("%1 goes straight into %n recipe(s). Tap one to see what that is used in.", nullptr,
+                                    int(uses.size()))
+                                     .arg(entry.name));
+    m_usedHow->setText(tr("How to get %1  \u203a").arg(entry.name));
+    m_usedHow->setVisible(bool(entry.item));
+
+    for (const Use &u : uses) {
+        const Recipe &r = u.product->recipes[u.recipe];
+        QStringList parts;
+        for (const Ing &ing : r.ingredients)
+            parts << QStringLiteral("%1\u00d7 %2").arg(ing.qty).arg(ing.name);
+        const int further = int(m_registry->usedInId(u.product->key).size());
+        const QString next = further ? tr("\u2192 used in %n more", nullptr, further) : tr("not used in anything else");
+        QString text = u.product->name + QStringLiteral("   (%1)").arg(u.product->category);
+        text += QStringLiteral("\n    ") + parts.join(QStringLiteral(" + "));
+        if (u.product->recipes.size() > 1)
+            text += QStringLiteral("   ") + tr("[recipe %1 of %2]").arg(u.recipe + 1).arg(u.product->recipes.size());
+        text += QStringLiteral("\n    ") + next;
+        auto *it = new QListWidgetItem(text);
+        it->setData(ROLE_GLOSS, u.product->key);
+        it->setData(ROLE_KEY, u.product->key);
+        m_usedList->addItem(it);
+    }
+    m_usedList->scrollToTop();
+}
+
+void MainWindow::usedInBack()
+{
+    if (m_usedTrail.size() > 1) {
+        m_usedTrail.removeLast();
+        renderUsedIn();
+    } else if (!m_wide) {
+        goBack();
+    }
+}
+
+void MainWindow::usedInMenu(const QPoint &pos)
+{
+    QListWidgetItem *it = m_usedList->itemAt(pos);
+    if (!it || !m_registry)
+        return;
+    const ItemPtr info = m_registry->item(it->data(ROLE_KEY).toString());
+    if (!info)
+        return;
+    showMenu(info->name,
+             {{tr("What it's used in"), [this, info] { openUsedIn(info->key, false); }},
+              {tr("How to get it"), [this, info] { openItem(info); }}},
+             m_usedList->viewport()->mapToGlobal(pos));
 }
 
 // --------------------------------------------------------------------------- info page

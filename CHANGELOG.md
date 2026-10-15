@@ -2,6 +2,12 @@
 
 Each release's notes on GitHub come from its section below. Add a new section at the top before you tag a release.
 
+## 1.4.0 - 2026-10-15
+
+- **Search all items.** New **🔍 Search all items** entry at the top of the type list (and in the ⋮ menu; Ctrl+F on Windows). Type part of a name to find any weapon, armour piece, accessory or ingredient without picking its type first. Exact and starts-with matches come first, and case, spaces, punctuation and accents don't matter.
+- **Glossary: what it's used in.** New **📖 Glossary** entry (⋮ menu, Ctrl+G on Windows) listing every item, weapon and ingredient, including ingredients that only appear inside recipes, with how many recipes each goes into. Tap one to see what it's used to make, one level at a time: Bow 1 shows Bow 2 (not Bow 3); tap Bow 2 to see Bow 3. Each entry shows the full recipe and how many things *it* is used in. A trail at the top shows the path, Back steps down a level, and **How to get…** opens the recipe tree.
+- **What it's used in** is also in an item page's ⋮ menu and in the long-press / right-click menu of the item lists.
+
 ## 1.3.3 - 2026-10-13
 
 - **Smooth zooming and panning on phones.** The recipe tree is now drawn with the GPU on Android, so pinch-zoom keeps up with your fingers and there's no more tearing.

@@ -2,6 +2,7 @@
 //   Browse  - equipment type, filter, item list, bookmarks
 //   Item    - the recipe tree or the material list for the chosen item
 //   Info    - the full write-up for a tapped bubble (an item or a monster)
+//   Used in - what an item is used to make, one level at a time (tap a result to go up a level)
 // On a phone they are one screen at a time and Back (Android's back gesture, or Esc) steps back.
 // On a desktop, Browse and Item sit side by side and each Info opens in its own window.
 #pragma once
@@ -25,6 +26,7 @@ class QLabel;
 class QLineEdit;
 class QListWidget;
 class QListWidgetItem;
+class QPushButton;
 class QSpinBox;
 class QStackedWidget;
 class QTextBrowser;
@@ -46,6 +48,7 @@ private:
     QWidget *buildBrowsePage();
     QWidget *buildItemPage();
     QWidget *buildInfoPage();
+    QWidget *buildUsedInPage();
     QWidget *header(QWidget *left, QLabel *title, QList<QWidget *> right);
     QWidget *buildMenuPage();
     // A menu: a pop-up menu on desktop, a full-screen page of big buttons on a phone (touch and
@@ -71,6 +74,7 @@ private:
     void itemTapped(QListWidgetItem *it);
     void itemsMenu(const QPoint &pos);
     void showBookmarks();
+    void showMode(const QString &category);   // switch the list to a type, search or the glossary
 
     // item page
     void openItem(const dq9::ItemPtr &info);
@@ -79,6 +83,12 @@ private:
     void updateBookmarkButton();
     void toggleBookmark(const dq9::ItemInfo &info);
     void itemPageMenu();
+
+    // used-in page
+    void openUsedIn(const QString &id, bool fresh);   // fresh: start a new trail; else go one level up
+    void renderUsedIn();
+    void usedInBack();
+    void usedInMenu(const QPoint &pos);
 
     // info page
     void openNode(const dq9::NodePtr &node);
@@ -109,7 +119,8 @@ private:
 
     bool m_wide;
     QStackedWidget *m_pages = nullptr;   // phone layout only
-    QWidget *m_browsePage, *m_itemPage, *m_infoPage;
+    QWidget *m_browsePage, *m_itemPage, *m_infoPage, *m_usedPage;
+    QStackedWidget *m_rightStack = nullptr;   // desktop layout only: item page or used-in page
     QWidget *m_menuPage = nullptr;
     QLabel *m_menuTitle = nullptr;
     QWidget *m_menuButtons = nullptr;
@@ -132,6 +143,15 @@ private:
     QStackedWidget *m_itemStack;
     TreeView *m_view;
     MaterialListPanel *m_matlist;
+
+    // used-in page
+    QLabel *m_usedTitle;
+    QLabel *m_usedTrailLabel;
+    QLabel *m_usedSummary;
+    QPushButton *m_usedHow;
+    QListWidget *m_usedList;
+    QToolButton *m_usedBack;
+    QStringList m_usedTrail;   // glossary ids, the item first opened at the front
 
     // info page
     QLabel *m_infoTitle;

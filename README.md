@@ -9,6 +9,8 @@ It tells you how to get any piece of equipment or item in **Dragon Quest IX: Sen
 Everything from the desktop app (version 1.2.0), laid out for a phone:
 
 - **Browse** equipment by type (swords, axes, head, torso, accessories, ingredients and more) and filter by name.
+- **Search all items.** Pick **🔍 Search all items** at the top of the type list (or Ctrl+F on Windows) and type any part of a name: weapons, armour, accessories and ingredients all at once, best matches first.
+- **Glossary: what it's used in.** **📖 Glossary** lists every item, weapon and ingredient with how many recipes it goes into. Tap one to see the items it's used to make, one level at a time: Bow 1 shows Bow 2, tap Bow 2 to see Bow 3. A trail at the top shows how you got there and Back steps down a level. **How to get…** opens the item's recipe tree. Also in an item's ⋮ menu as **What it's used in**.
 - **Recipe tree.** The full recipe as a bubble map, with nested recipes unfolded, monster drops (best rate first) and shops. Drag to move, pinch to zoom, **Fit** to see it all. Tap any bubble for its details; a yellow **+** badge means more monsters drop it.
 - **Material list.** The whole recipe chain flattened into one shopping list with totals, plus what you craft along the way, in order. Tick or untick craftable items to break them down or not. Copy the list to the clipboard.
 - **Bookmarks.** Tap ☆ on an item to star it; pick **★ Bookmarks** at the top of the type list to see them all.

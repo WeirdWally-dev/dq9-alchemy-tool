@@ -855,6 +855,52 @@ static void testBookmarks()
     CHECK(st->loadBookmarks().isEmpty());
 }
 
+static void testUsedInAndSearch()
+{
+    Registry reg({E(1, "Ore golem", "u", {D("Iron ore", "Item", 1, 8), D("Bow 1", "Bow", 1, 64)})},
+                 {R("Bow 2", "Bows", I({{"Bow 1", 1}, {"Iron ore", 2}})),
+                  R("Bow 2", "Bows", I({{"Bow 1", 2}, {"Gold bar", 1}})),   // a second recipe using Bow 1
+                  R("Bow 3", "Bows", I({{"Bow 2", 1}, {"Gold bar", 1}})),
+                  R("Iron shield", "Shields", I({{"Iron ore", 3}})),
+                  R("Odd thing", ITEMS_CAT, I({{"Odd thing", 1}, {"Oak stick", 4}}))});
+    auto names = [](const QList<Use> &uses) { return mapNames(uses, [](const Use &u) { return u.product->name; }); };
+
+    // one level only: Bow 1 makes Bow 2, not Bow 3; Bow 2 is listed once despite two recipes
+    CHECK_EQ(names(reg.usedIn("Bow 1")), (QStringList{"Bow 2"}));
+    CHECK_EQ(names(reg.usedIn("Bow 2")), (QStringList{"Bow 3"}));
+    CHECK(reg.usedIn("Bow 3").isEmpty());
+    // one ingredient in several recipes, sorted by name, with quantities
+    const QList<Use> ore = reg.usedIn("iron ore");
+    CHECK_EQ(names(ore), (QStringList{"Bow 2", "Iron shield"}));
+    CHECK(ore.size() == 2 && ore[0].qty == 2 && ore[1].qty == 3 && ore[0].recipe == 0);
+    CHECK_EQ(names(reg.usedIn("Gold bar")), (QStringList{"Bow 2", "Bow 3"}));
+    CHECK(reg.usedIn("Gold bar")[0].recipe == 1);
+    // a recipe listing its own result doesn't count; recipe-only ingredients still get an entry
+    CHECK(reg.usedIn("Odd thing").isEmpty());
+    const QString oak = reg.glossaryId("Oak stick");
+    CHECK_EQ(oak, QStringLiteral("?oakstick"));
+    CHECK_EQ(names(reg.usedInId(oak)), (QStringList{"Odd thing"}));
+    const GlossaryEntry oakEntry = reg.glossaryEntry(oak);
+    CHECK(!oakEntry.item && oakEntry.name == "Oak stick" && oakEntry.category == ITEMS_CAT && oakEntry.uses == 1);
+    CHECK(reg.glossaryId("Nothing at all").isEmpty() && reg.glossaryEntry("?nothing").name.isEmpty());
+    CHECK_EQ(reg.glossaryEntry(reg.resolve("Iron ore")->key).uses, 2);
+
+    // glossary: everything, alphabetical, filterable
+    const auto gloss = reg.glossary();
+    CHECK_EQ(mapNames(gloss, [](const GlossaryEntry &e) { return e.name; }),
+             (QStringList{"Bow 1", "Bow 2", "Bow 3", "Gold bar", "Iron ore", "Iron shield", "Oak stick", "Odd thing"}));
+    CHECK_EQ(mapNames(reg.glossary("bow"), [](const GlossaryEntry &e) { return e.name; }), (QStringList{"Bow 1", "Bow 2", "Bow 3"}));
+
+    // search: every category, best matches first, forgiving about case and spacing
+    auto found = [&](const QString &t) { return mapNames(reg.search(t), [](const ItemPtr &i) { return i->name; }); };
+    CHECK_EQ(found("IRON"), (QStringList{"Iron ore", "Iron shield"}));
+    CHECK_EQ(found("ironore"), (QStringList{"Iron ore"}));
+    CHECK_EQ(found("bow 2"), (QStringList{"Bow 2"}));
+    CHECK_EQ(found("o").first(), QStringLiteral("Odd thing"));   // starts with, before "Iron ore" etc.
+    CHECK_EQ(found("ore"), (QStringList{"Iron ore"}));
+    CHECK(found("zzz").isEmpty());
+}
+
 static void testRobotsAndText()
 {
     const Robots woodus = Robots::parse("User-agent: *\nDisallow: /den/games/dq9ds/alchemy_recipes.php\n");
@@ -958,7 +1004,7 @@ int main(int argc, char **argv)
         {"exact_names", testExactNames}, {"shops", testShops}, {"item_pages", testItemPages},
         {"tree", testTree}, {"prefer", testPrefer}, {"sprites", testSprites}, {"weapons", testWeapons},
         {"unsourced_items", testUnsourcedItems}, {"material_list", testMaterialList},
-        {"bookmarks", testBookmarks}, {"robots_and_text", testRobotsAndText},
+        {"bookmarks", testBookmarks}, {"used_in_and_search", testUsedInAndSearch}, {"robots_and_text", testRobotsAndText},
     };
     for (const auto &[name, fn] : tests) {
         const int before = g_failures;

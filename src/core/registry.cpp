@@ -61,6 +61,139 @@ Registry::Registry(QList<EnemyPtr> enemies, QList<Recipe> recipes, QList<QPair<Q
 {
     build();
     m_built = true;   // lookups may now fall back to a plural/singular spelling
+    buildUsedIn();
+}
+
+QString Registry::glossaryId(const QString &name) const
+{
+    if (const ItemPtr info = resolve(name))
+        return info->key;
+    const QString id = QStringLiteral("?") + norm(name);
+    return m_loose.contains(id) ? id : QString();
+}
+
+void Registry::buildUsedIn()
+{
+    // Reverse of the recipe lists: ingredient -> the items made from it directly.
+    for (const auto &key : m_order) {
+        const ItemPtr product = m_items.value(key);
+        for (int r = 0; r < product->recipes.size(); ++r) {
+            for (const Ing &ing : product->recipes[r].ingredients) {
+                QString id;
+                if (const ItemPtr info = resolve(ing.name)) {
+                    if (info == product)
+                        continue;   // a recipe that lists its own result
+                    id = info->key;
+                } else {
+                    const QString n = norm(ing.name);
+                    if (n.isEmpty())
+                        continue;
+                    id = QStringLiteral("?") + n;
+                    if (!m_loose.contains(id))
+                        m_loose.insert(id, ing.name);
+                }
+                QList<Use> &uses = m_usedIn[id];
+                const bool listed = std::any_of(uses.begin(), uses.end(), [&](const Use &u) { return u.product == product; });
+                if (!listed)
+                    uses.append({product, r, ing.qty});
+            }
+        }
+    }
+    for (auto it = m_usedIn.begin(); it != m_usedIn.end(); ++it)
+        std::stable_sort(it->begin(), it->end(), [](const Use &a, const Use &b) {
+            return sortKey(a.product->name).toLower() < sortKey(b.product->name).toLower();
+        });
+}
+
+QList<Use> Registry::usedIn(const QString &name) const
+{
+    const QString id = glossaryId(name);
+    return id.isEmpty() ? QList<Use>() : m_usedIn.value(id);
+}
+
+GlossaryEntry Registry::glossaryEntry(const QString &id) const
+{
+    GlossaryEntry e;
+    e.id = id;
+    if (const ItemPtr info = m_items.value(id)) {
+        e.item = info;
+        e.name = info->name;
+        e.category = info->category;
+    } else if (m_loose.contains(id)) {
+        e.name = m_loose.value(id);
+        e.category = ITEMS_CAT;
+    } else {
+        return {};
+    }
+    e.uses = int(m_usedIn.value(id).size());
+    return e;
+}
+
+namespace {
+
+// 0 exact, 1 starts with, 2 a word starts with, 3 contains, -1 no match. `n` is norm(text).
+int matchRank(const QString &name, const QString &n)
+{
+    if (n.isEmpty())
+        return 3;
+    const QString nn = norm(name);
+    if (nn == n)
+        return 0;
+    if (nn.startsWith(n))
+        return 1;
+    if (!nn.contains(n))
+        return -1;
+    // A word starts with it: the name from any word onwards ("ore" in "Iron ore", "scale sh" in
+    // "Dragon scale shield").
+    const QString folded = foldAccents(name);
+    for (int i = 1; i < folded.size(); ++i) {
+        const bool wordStart = folded[i].isLetterOrNumber() && !folded[i - 1].isLetterOrNumber();
+        if (wordStart && norm(folded.mid(i)).startsWith(n))
+            return 2;
+    }
+    return 3;
+}
+
+bool byName(const QString &a, const QString &b)
+{
+    return sortKey(a).toLower() < sortKey(b).toLower();
+}
+
+} // namespace
+
+QList<ItemPtr> Registry::search(const QString &text) const
+{
+    const QString n = norm(text);
+    QList<QPair<int, ItemPtr>> hits;
+    for (const auto &k : m_order) {
+        const ItemPtr &i = m_items[k];
+        const int rank = matchRank(i->name, n);
+        if (rank >= 0)
+            hits.append({rank, i});
+    }
+    std::stable_sort(hits.begin(), hits.end(), [](const auto &a, const auto &b) {
+        if (a.first != b.first)
+            return a.first < b.first;
+        return byName(a.second->name, b.second->name);
+    });
+    QList<ItemPtr> out;
+    for (const auto &h : hits)
+        out << h.second;
+    return out;
+}
+
+QList<GlossaryEntry> Registry::glossary(const QString &text) const
+{
+    const QString n = norm(text);
+    QList<GlossaryEntry> out;
+    for (const auto &k : m_order)
+        if (matchRank(m_items[k]->name, n) >= 0)
+            out << glossaryEntry(k);
+    for (auto it = m_loose.begin(); it != m_loose.end(); ++it)
+        if (matchRank(it.value(), n) >= 0)
+            out << glossaryEntry(it.key());
+    std::stable_sort(out.begin(), out.end(), [](const GlossaryEntry &a, const GlossaryEntry &b) { return byName(a.name, b.name); });
+    return out;
 }
 
 int Registry::recipeCount() const
